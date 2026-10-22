@@ -17,8 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ⚠️ تم إزالة أكواد الإعلانات من هنا — يتم تحميلها الآن ديناميكياً فقط للزوار -->
-    <!-- انظر دالة loadAds() في الأسفل -->
+    <!-- ⚠️ أكواد الإعلانات يتم تحميلها ديناميكياً فقط للزوار — انظر دالة loadAds() -->
 
     <style>
         :root {
@@ -148,7 +147,6 @@
             direction: rtl;
         }
         
-        /* الشريط الجانبي */
         .admin-sidebar {
             width: 260px;
             background: #1e1e2d;
@@ -212,7 +210,6 @@
             transform: rotate(180deg);
         }
         
-        /* القوائم الفرعية */
         .admin-submenu {
             display: none;
             background: #1a1a27;
@@ -239,7 +236,6 @@
             color: #3699ff;
         }
 
-        /* المحتوى الرئيسي */
         .admin-main {
             flex: 1;
             display: flex;
@@ -247,7 +243,6 @@
             overflow: hidden;
         }
         
-        /* الشريط العلوي */
         .admin-topbar {
             background: #1e1e2d;
             color: #fff;
@@ -269,7 +264,6 @@
             font-size: 0.85rem;
         }
         
-        /* مساحة النموذج */
         .admin-content {
             padding: 30px;
             overflow-y: auto;
@@ -283,7 +277,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.03);
         }
 
-        /* تنسيق النموذج الأفقي */
         .form-row {
             display: flex;
             margin-bottom: 20px;
@@ -340,7 +333,6 @@
             resize: vertical;
         }
 
-        /* أزرار الحفظ والإلغاء */
         .form-actions {
             display: flex;
             gap: 10px;
@@ -515,7 +507,6 @@
     <div id="dashboardView">
         <div class="admin-layout">
             
-            <!-- الشريط الجانبي -->
             <aside class="admin-sidebar">
                 <div class="brand">admin</div>
                 <div class="nav-label">Navigation</div>
@@ -552,7 +543,6 @@
                 </div>
             </aside>
 
-            <!-- المحتوى الرئيسي -->
             <main class="admin-main">
                 <div class="admin-topbar">
                     <span id="panelTitle">إضافة وظيفة</span>
@@ -561,7 +551,6 @@
 
                 <div class="admin-content">
                     
-                    <!-- نموذج إضافة وظيفة -->
                     <div id="panel-job-add" class="admin-panel" style="display:block;">
                         <div class="admin-card">
                             <input type="hidden" id="jobEditId">
@@ -610,7 +599,6 @@
                         </div>
                     </div>
 
-                    <!-- قائمة الوظائف -->
                     <div id="panel-job-list" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <table class="admin-table" style="width:100%; border-collapse:collapse;">
@@ -626,7 +614,6 @@
                         </div>
                     </div>
 
-                    <!-- نموذج إضافة منحة -->
                     <div id="panel-sch-add" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <input type="hidden" id="schEditId">
@@ -669,7 +656,6 @@
                         </div>
                     </div>
 
-                    <!-- قائمة المنح -->
                     <div id="panel-sch-list" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <table class="admin-table" style="width:100%; border-collapse:collapse;">
@@ -685,7 +671,6 @@
                         </div>
                     </div>
 
-                    <!-- الإعدادات -->
                     <div id="panel-settings" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <div class="form-row">
@@ -745,22 +730,31 @@
         let adsLoaded = false;
 
         // ==========================================
-        // 🎯 نظام تحميل/إخفاء الإعلانات
+        // 🎯 نظام تحميل/إخفاء الإعلانات (نسخة مُصحّحة)
         // ==========================================
         function loadAds() {
             if (adsLoaded) return;
+            if (isLoggedIn) { console.log('🚫 المشرف مسجل — لن يتم تحميل الإعلانات'); return; }
             adsLoaded = true;
-            
-            // إعلان Vignette
-            const script1 = document.createElement('script');
-            script1.textContent = `(function(s){s.dataset.zone='12097416',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
-            document.head.appendChild(script1);
-            
-            // إعلان MultiTag
-            const script2 = document.createElement('script');
-            script2.textContent = `(function(s){s.dataset.zone='12097612',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
-            document.head.appendChild(script2);
-            
+
+            // ═══════════ Vignette ═══════════
+            const s1 = document.createElement('script');
+            s1.dataset.zone = '12097416';
+            s1.src = 'https://n6wxm.com/vignette.min.js';
+            s1.async = true;
+            s1.onerror = () => console.error('❌ فشل تحميل Vignette');
+            s1.onload = () => console.log('✅ Vignette loaded');
+            document.body.appendChild(s1);
+
+            // ═══════════ MultiTag ═══════════
+            const s2 = document.createElement('script');
+            s2.dataset.zone = '12097612';
+            s2.src = 'https://al5sm.com/tag.min.js';
+            s2.async = true;
+            s2.onerror = () => console.error('❌ فشل تحميل MultiTag');
+            s2.onload = () => console.log('✅ MultiTag loaded');
+            document.body.appendChild(s2);
+
             console.log('✅ تم تحميل الإعلانات للزائر العام');
         }
         
@@ -780,12 +774,10 @@
                 'div[id*="monetag"]',
                 'div[class*="monetag"]',
                 'div[id*="push-notification"]',
-                'div[class*="push-notification"]'
+                'div[class*="push-notification"]',
+                'script[data-zone]'
             ];
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
-            
-            // إزالة أكواد السكريبت
-            document.querySelectorAll('script[data-zone]').forEach(s => s.remove());
             
             console.log('🚫 تم إخفاء الإعلانات عن المشرف');
         }
