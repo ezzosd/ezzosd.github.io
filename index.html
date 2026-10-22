@@ -6,15 +6,6 @@
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
     <meta name="description" content="TeachBridge - منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
     
-    <!-- ✅ كود إعلان Vignette Banner من Monetag (يظهر تلقائياً) -->
-    <script>(function(s){s.dataset.zone='12097416',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    
-    <!-- ✅ كود الإعلان الإضافي الجديد من Monetag (MultiTag / In-Page Push) -->
-    <script>(function(s){s.dataset.zone='12097612',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-    <!-- ✅ كود إعلان Monetag الثالث -->
-    <script>(function(s){s.dataset.zone='12097620',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
     <!-- ✅ Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
@@ -25,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ⚠️ تم إزالة أكواد الإعلانات من هنا — يتم تحميلها الآن ديناميكياً فقط للزوار -->
+    <!-- انظر دالة loadAds() في الأسفل -->
 
     <style>
         :root {
@@ -351,7 +345,7 @@
             display: flex;
             gap: 10px;
             margin-top: 20px;
-            padding-right: 180px; /* لتتوازى مع الحقول */
+            padding-right: 180px;
         }
         .btn-primary-cls {
             background: #009ef7;
@@ -376,7 +370,24 @@
         }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
-        /* استجابة الجوال */
+        /* 🛡️ حماية: إخفاء أي إعلان في وضع المشرف */
+        html.admin-mode iframe[src*="monetag"],
+        html.admin-mode iframe[src*="vignette"],
+        html.admin-mode iframe[src*="n6wxm"],
+        html.admin-mode iframe[src*="al5sm"],
+        html.admin-mode iframe[src*="nap5k"],
+        html.admin-mode [id*="vignette"],
+        html.admin-mode [class*="vignette"],
+        html.admin-mode [id*="monetag"],
+        html.admin-mode [class*="monetag"],
+        html.admin-mode [id*="push-notification"],
+        html.admin-mode [class*="push-notification"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
         @media (max-width: 900px) {
             .admin-layout { flex-direction: column; }
             .admin-sidebar { width: 100%; }
@@ -509,7 +520,6 @@
                 <div class="brand">admin</div>
                 <div class="nav-label">Navigation</div>
                 <ul>
-                    <!-- قسم الوظائف -->
                     <li id="menu-jobs">
                         <a onclick="toggleMenu('jobs')">
                             <span><i class="fas fa-briefcase main-icon"></i> الوظائف</span>
@@ -520,7 +530,6 @@
                             <li><a onclick="loadPanel('job-list')">عرض الوظائف</a></li>
                         </ul>
                     </li>
-                    <!-- قسم المنح -->
                     <li id="menu-sch">
                         <a onclick="toggleMenu('sch')">
                             <span><i class="fas fa-graduation-cap main-icon"></i> المنح الدراسية</span>
@@ -531,7 +540,6 @@
                             <li><a onclick="loadPanel('sch-list')">عرض المنح</a></li>
                         </ul>
                     </li>
-                    <!-- قسم الإعدادات -->
                     <li id="menu-settings">
                         <a onclick="loadPanel('settings')">
                             <span><i class="fas fa-cog main-icon"></i> الإعدادات</span>
@@ -546,13 +554,11 @@
 
             <!-- المحتوى الرئيسي -->
             <main class="admin-main">
-                <!-- الشريط العلوي -->
                 <div class="admin-topbar">
                     <span id="panelTitle">إضافة وظيفة</span>
                     <button class="btn-top" onclick="showPublicSite()">معاينة الموقع</button>
                 </div>
 
-                <!-- مساحة العمل -->
                 <div class="admin-content">
                     
                     <!-- نموذج إضافة وظيفة -->
@@ -583,9 +589,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-label">الوصف</div>
-                                <div class="form-input">
-                                    <textarea id="jobDesc"></textarea>
-                                </div>
+                                <div class="form-input"><textarea id="jobDesc"></textarea></div>
                             </div>
                             <div class="form-row">
                                 <div class="form-label">آخر موعد</div>
@@ -707,7 +711,7 @@
         </div>
     </div>
 
-    <!-- ================= Modal تفاصيل الفرصة (للموقع العام) ================= -->
+    <!-- ================= Modal تفاصيل الفرصة ================= -->
     <div id="detailsModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; padding:20px; align-items:center; justify-content:center;">
         <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; padding:30px; position:relative;">
             <button onclick="closeModal()" style="position:absolute; top:15px; left:15px; background:#EF4444; color:#fff; border:none; width:35px; height:35px; border-radius:50%; cursor:pointer; font-size:18px;">✕</button>
@@ -738,6 +742,53 @@
         let scholarshipsData = [];
         let socialsData = { fb: "#", tw: "#", li: "#" };
         let isLoggedIn = false;
+        let adsLoaded = false;
+
+        // ==========================================
+        // 🎯 نظام تحميل/إخفاء الإعلانات
+        // ==========================================
+        function loadAds() {
+            if (adsLoaded) return;
+            adsLoaded = true;
+            
+            // إعلان Vignette
+            const script1 = document.createElement('script');
+            script1.textContent = `(function(s){s.dataset.zone='12097416',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+            document.head.appendChild(script1);
+            
+            // إعلان MultiTag
+            const script2 = document.createElement('script');
+            script2.textContent = `(function(s){s.dataset.zone='12097612',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+            document.head.appendChild(script2);
+            
+            console.log('✅ تم تحميل الإعلانات للزائر العام');
+        }
+        
+        function hideAdsForAdmin() {
+            // تفعيل وضع المشرف (CSS)
+            document.documentElement.classList.add('admin-mode');
+            
+            // إزالة أي إعلانات ظاهرة
+            const adSelectors = [
+                'iframe[src*="monetag"]',
+                'iframe[src*="vignette"]',
+                'iframe[src*="n6wxm"]',
+                'iframe[src*="al5sm"]',
+                'iframe[src*="nap5k"]',
+                'div[id*="vignette"]',
+                'div[class*="vignette"]',
+                'div[id*="monetag"]',
+                'div[class*="monetag"]',
+                'div[id*="push-notification"]',
+                'div[class*="push-notification"]'
+            ];
+            document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
+            
+            // إزالة أكواد السكريبت
+            document.querySelectorAll('script[data-zone]').forEach(s => s.remove());
+            
+            console.log('🚫 تم إخفاء الإعلانات عن المشرف');
+        }
 
         // ==========================================
         // 1. قراءة البيانات من Supabase
@@ -829,7 +880,6 @@
                 <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                 ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
             `;
-            // استخدام innerHTML هنا لدعم محرر النصوص الغني TinyMCE
             document.getElementById('modalDesc').innerHTML = item.description || 'لا يوجد وصف متاح.';
             document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
 
@@ -920,6 +970,13 @@
             document.getElementById('dashboardView').style.display = 'none';
             document.getElementById('publicSite').style.display = 'block';
             renderPublicData();
+            
+            // ✅ تحميل الإعلانات فقط إذا لم يكن المشرف مسجلاً
+            if (!isLoggedIn) {
+                document.documentElement.classList.remove('admin-mode');
+                loadAds();
+            }
+            
             window.scrollTo(0, 0);
         }
 
@@ -928,7 +985,8 @@
             document.getElementById('publicSite').style.display = 'none';
             document.getElementById('dashboardView').style.display = 'block';
             await loadAdminData();
-            loadPanel('job-add'); // Default view
+            loadPanel('job-add');
+            hideAdsForAdmin(); // ✅ إخفاء الإعلانات عن المشرف
             window.scrollTo(0, 0);
         }
 
@@ -956,6 +1014,7 @@
             }
 
             isLoggedIn = true;
+            hideAdsForAdmin(); // ✅ إخفاء الإعلانات فور تسجيل الدخول
             document.getElementById('adminPass').value = "";
             await showDashboard();
         }
@@ -965,14 +1024,14 @@
             isLoggedIn = false;
             document.getElementById('adminEmail').value = "";
             document.getElementById('adminPass').value = "";
+            adsLoaded = false; // ✅ إعادة تعيين حالة الإعلانات
+            document.documentElement.classList.remove('admin-mode');
             showPublicSite();
         }
 
         // ==========================================
-        // 4. لوحة التحكم الكلاسيكية
+        // 4. لوحة التحكم
         // ==========================================
-        
-        // تفعيل محرر النصوص TinyMCE
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof tinymce !== 'undefined') {
                 tinymce.init({
@@ -1220,9 +1279,10 @@
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 isLoggedIn = true;
+                hideAdsForAdmin();
                 showDashboard();
             } else {
-                showPublicSite();
+                showPublicSite(); // ستحمّل الإعلانات لأن isLoggedIn = false
             }
         });
     </script>
