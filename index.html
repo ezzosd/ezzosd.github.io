@@ -54,7 +54,7 @@
             position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo img { height: 60px; width: auto; object-fit: contain; }
         nav ul { display: flex; list-style: none; gap: 30px; }
         nav a { font-weight: 600; color: var(--text-main); transition: color 0.3s; }
@@ -124,7 +124,6 @@
         .footer-col ul a { color: #CBD5E1; transition: color 0.3s; }
         .footer-col ul a:hover { color: white; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.9rem; }
-        .admin-link { color: #64748B; font-size: 0.8rem; cursor: pointer; text-decoration: underline; margin-top: 10px; display: inline-block; }
 
         #dashboardView, #loginView { display: none; min-height: 100vh; background: var(--bg-color); padding: 40px 0; }
         .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
@@ -403,7 +402,7 @@
     <div id="publicSite">
         <header>
             <div class="container header-content">
-                <a href="#" class="logo" onclick="showPublicSite()">
+                <a href="#" class="logo" id="siteLogo">
                     <img src="logo.png" alt="TeachBridge Logo" style="max-width: 100%;">
                 </a>
                 <nav>
@@ -488,8 +487,6 @@
                 </div>
                 <div class="footer-bottom">
                     &copy; <span id="year"></span> TeachBridge. جميع الحقوق محفوظة.
-                    <br>
-                    <span class="admin-link" onclick="showLogin()">دخول الإدارة (Admin)</span>
                 </div>
             </div>
         </footer>
@@ -737,7 +734,7 @@
         let adsLoaded = false;
 
         // ==========================================
-        // 🎯 نظام تحميل/إخفاء الإعلانات (نسخة مُصحّحة)
+        // 🎯 نظام تحميل/إخفاء الإعلانات
         // ==========================================
         function loadAds() {
             if (adsLoaded) return;
@@ -1268,6 +1265,47 @@
         }
 
         // ==========================================
+        // 🔐 طرق الوصول السرية للوحة الإدارة
+        // ==========================================
+
+        // 1) عبر رابط URL: ?admin=1 أو #admin
+        function checkSecretUrlAccess() {
+            const url = window.location.href.toLowerCase();
+            const hash = window.location.hash.toLowerCase();
+            if (url.includes('admin=1') || url.includes('admin=true') || hash === '#admin') {
+                showLogin();
+            }
+        }
+
+        // 2) اختصار لوحة المفاتيح: Ctrl + Shift + A
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && (e.code === 'KeyA' || e.key === 'A' || e.key === 'a')) {
+                e.preventDefault();
+                showLogin();
+            }
+        });
+
+        // 3) الضغط 5 مرات على الشعار
+        let logoClicks = 0;
+        let logoTimer = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.getElementById('siteLogo');
+            if (logo) {
+                logo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logoClicks++;
+                    clearTimeout(logoTimer);
+                    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+                    
+                    if (logoClicks >= 5) {
+                        logoClicks = 0;
+                        showLogin();
+                    }
+                });
+            }
+        });
+
+        // ==========================================
         // 5. التشغيل الأولي
         // ==========================================
         document.getElementById('year').textContent = new Date().getFullYear();
@@ -1279,8 +1317,12 @@
                 showDashboard();
             } else {
                 showPublicSite();
+                checkSecretUrlAccess();
             }
         });
+
+        // مراقبة تغييرات الـ hash (لو المستخدم أضاف #admin أثناء التصفح)
+        window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
 
     <!-- ================= Service Worker (Monetag) ================= -->
