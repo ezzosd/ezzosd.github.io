@@ -14,14 +14,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ✅ تحميل الإعلانات في <head> للزوار فقط (الطريقة الرسمية) -->
     <script>
     (function() {
         if (sessionStorage.getItem('tb_admin_mode') === '1') {
             console.log('🚫 وضع المشرف — لن يتم تحميل الإعلانات');
             return;
         }
-        
         var s1 = document.createElement('script');
         s1.dataset.zone = '12097416';
         s1.src = 'https://n6wxm.com/vignette.min.js';
@@ -29,7 +27,6 @@
         s1.onload = function() { console.log('✅ Vignette loaded'); };
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
-        
         var s2 = document.createElement('script');
         s2.dataset.zone = '12097612';
         s2.src = 'https://al5sm.com/tag.min.js';
@@ -37,7 +34,6 @@
         s2.onload = function() { console.log('✅ MultiTag loaded'); };
         s2.onerror = function() { console.error('❌ فشل تحميل MultiTag'); };
         document.head.appendChild(s2);
-        
         console.log('✅ تم تحميل الإعلانات للزائر العام');
     })();
     </script>
@@ -121,6 +117,20 @@
             height: 100%;
         }
 
+        /* ✅ حاوية Adsterra Banner */
+        .adsterra-banner {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            overflow: hidden;
+        }
+        .adsterra-banner iframe {
+            border: none;
+            max-width: 100%;
+        }
+
         .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
@@ -198,18 +208,25 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
+        /* 🛡️ حماية: إخفاء أي إعلان في وضع المشرف (Monetag + Adsterra) */
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
         html.admin-mode iframe[src*="al5sm"],
         html.admin-mode iframe[src*="nap5k"],
+        html.admin-mode iframe[src*="bauval"],
+        html.admin-mode iframe[src*="highperformanceformat"],
         html.admin-mode [id*="vignette"],
         html.admin-mode [class*="vignette"],
         html.admin-mode [id*="monetag"],
         html.admin-mode [class*="monetag"],
         html.admin-mode [id*="push-notification"],
-        html.admin-mode [class*="push-notification"] {
-            display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+        html.admin-mode [class*="push-notification"],
+        html.admin-mode .adsterra-banner {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
 
         @media (max-width: 900px) {
@@ -260,6 +277,7 @@
         </section>
 
         <div class="container">
+            <!-- ✅ Smartlink 1 (12094822) -->
             <div class="ad-container">
                 <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
             </div>
@@ -269,8 +287,18 @@
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <div class="ad-container">
-                <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
+            <!-- ✅ Adsterra Banner (300x250) -->
+            <div class="adsterra-banner">
+                <script type="text/javascript">
+                  atOptions = {
+                    'key' : '76d666ac0613a26c73dcd365b306a45a',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/76d666ac0613a26c73dcd365b306a45a"></script>
             </div>
 
             <section id="scholarships" style="padding: 40px 0;">
@@ -278,10 +306,12 @@
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
+            <!-- ✅ Smartlink 2 (12090630) -->
             <div class="ad-container">
                 <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
             </div>
 
+            <!-- ✅ Smartlink 3 (asiafilm) -->
             <div class="ad-container">
                 <a href="https://asiafilm.org/4/244781d2906702bd4b98a0a37a717f29" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
             </div>
@@ -461,6 +491,7 @@
             const adSelectors = [
                 'iframe[src*="monetag"]','iframe[src*="vignette"]','iframe[src*="n6wxm"]',
                 'iframe[src*="al5sm"]','iframe[src*="nap5k"]',
+                'iframe[src*="bauval"]','iframe[src*="highperformanceformat"]',
                 'div[id*="vignette"]','div[class*="vignette"]','div[id*="monetag"]','div[class*="monetag"]',
                 'div[id*="push-notification"]','div[class*="push-notification"]','script[data-zone]'
             ];
