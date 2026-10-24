@@ -27,7 +27,7 @@
         s1.onload = function() { console.log('✅ Vignette loaded'); };
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
-        console.log('✅ تم تحميل الإعلانات للزائر العام');
+        console.log('✅ تم تحميل Vignette للزائر العام');
     })();
     </script>
 
@@ -89,39 +89,20 @@
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
 
-        .ad-container {
-            text-align: center; margin: 30px 0; padding: 20px; background-color: #f1f5f9;
-            border: 2px dashed #cbd5e1; border-radius: var(--radius); color: var(--text-muted);
-            min-height: 120px; display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.3s, background-color 0.3s, transform 0.2s;
-        }
-        .ad-container:hover {
-            border-color: var(--primary-light);
-            background-color: #e0f2fe;
-            transform: translateY(-2px);
-        }
-        .ad-container a {
-            color: var(--primary-light);
-            font-weight: 700;
-            text-decoration: underline;
-            font-size: 1rem;
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ✅ حاوية Adsterra Banner */
-        .adsterra-banner {
+        /* ✅ حاويات Adsterra (iframe معزول) */
+        .adsterra-slot {
             margin: 30px auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 250px;
             overflow: hidden;
+            width: 100%;
         }
-        .adsterra-banner iframe {
+        .adsterra-slot iframe {
             border: none;
             max-width: 100%;
+            display: block;
+            margin: 0 auto;
         }
 
         .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
@@ -201,6 +182,9 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
+        /* 🛡️ إخفاء كل الإعلانات عن المشرف */
+        html.admin-mode .adsterra-slot,
+        html.admin-mode .adsterra-slot iframe,
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
@@ -213,12 +197,18 @@
         html.admin-mode [id*="monetag"],
         html.admin-mode [class*="monetag"],
         html.admin-mode [id*="push-notification"],
-        html.admin-mode [class*="push-notification"],
-        html.admin-mode .adsterra-banner {
+        html.admin-mode [class*="push-notification"] {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
+        }
+
+        /* 📱 إخفاء البانرات العريضة والطويلة على الموبايل */
+        @media (max-width: 768px) {
+            .adsterra-slot[data-desktop-only="true"] {
+                display: none !important;
+            }
         }
 
         @media (max-width: 900px) {
@@ -269,44 +259,41 @@
         </section>
 
         <div class="container">
-            <!-- ✅ Smartlink 1 (12094822) -->
-            <div class="ad-container">
-                <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
-            </div>
+            <!-- ✅ Banner 1: 728x90 Leaderboard (كمبيوتر فقط) -->
+            <div class="adsterra-slot" 
+                 data-key="29decc85e71a2464f203afba5d5c2b63" 
+                 data-width="728" 
+                 data-height="90"
+                 data-desktop-only="true"></div>
 
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ Adsterra Banner (300x250) -->
-            <div class="adsterra-banner">
-                <script type="text/javascript">
-                  atOptions = {
-                    'key' : '76d666ac0613a26c73dcd365b306a45a',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://bauval.org/22/76d666ac0613a26c73dcd365b306a45a"></script>
-            </div>
+            <!-- ✅ Banner 2: 300x250 Rectangle -->
+            <div class="adsterra-slot" 
+                 data-key="76d666ac0613a26c73dcd365b306a45a" 
+                 data-width="300" 
+                 data-height="250"></div>
 
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ Smartlink 2 (12090630) -->
-            <div class="ad-container">
-                <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
-            </div>
+            <!-- ✅ Banner 3: 320x50 Mobile Banner -->
+            <div class="adsterra-slot" 
+                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" 
+                 data-width="320" 
+                 data-height="50"></div>
 
-            <!-- ✅ Smartlink 3 (asiafilm) -->
-            <div class="ad-container">
-                <a href="https://asiafilm.org/4/244781d2906702bd4b98a0a37a717f29" target="_blank" rel="noopener">اضغط هنا لعرض إعلان مميز ↗</a>
-            </div>
+            <!-- ✅ Banner 4: 160x600 Skyscraper (كمبيوتر فقط) -->
+            <div class="adsterra-slot" 
+                 data-key="4bd24e2f9951fdd56ea226081200c7eb" 
+                 data-width="160" 
+                 data-height="600"
+                 data-desktop-only="true"></div>
         </div>
 
         <footer>
@@ -478,6 +465,39 @@
         let socialsData = { fb: "#", tw: "#", li: "#" };
         let isLoggedIn = false;
 
+        // ✅ تحميل بانرات Adsterra داخل iframe معزول (لتجنب تعارض atOptions)
+        function loadAdsterraBanners() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
+                return;
+            }
+            document.querySelectorAll('.adsterra-slot[data-key]').forEach(function(slot) {
+                var key = slot.getAttribute('data-key');
+                var width = parseInt(slot.getAttribute('data-width'), 10);
+                var height = parseInt(slot.getAttribute('data-height'), 10);
+                if (!key || !width || !height) return;
+                
+                slot.style.minHeight = height + 'px';
+                
+                var iframe = document.createElement('iframe');
+                iframe.style.cssText = 'border:none;max-width:100%;display:block;margin:0 auto;';
+                iframe.width = width;
+                iframe.height = height;
+                iframe.scrolling = 'no';
+                iframe.frameBorder = '0';
+                iframe.setAttribute('allowtransparency', 'true');
+                
+                var innerHTML = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;background:transparent;}</style></head><body>' +
+                    '<script>atOptions={key:"' + key + '",format:"iframe",height:' + height + ',width:' + width + ',params:{}};<\/script>' +
+                    '<script src="https://bauval.org/22/' + key + '"><\/script>' +
+                    '</body></html>';
+                
+                iframe.srcdoc = innerHTML;
+                slot.appendChild(iframe);
+                console.log('✅ Adsterra banner loaded: ' + key + ' (' + width + 'x' + height + ')');
+            });
+        }
+
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
             const adSelectors = [
@@ -488,6 +508,7 @@
                 'div[id*="push-notification"]','div[class*="push-notification"]','script[data-zone]'
             ];
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
+            document.querySelectorAll('.adsterra-slot iframe').forEach(el => el.remove());
             console.log('🚫 تم إخفاء الإعلانات عن المشرف');
         }
 
@@ -644,7 +665,6 @@
             document.getElementById('adminPass').value = "";
             sessionStorage.removeItem('tb_admin_mode');
             document.documentElement.classList.remove('admin-mode');
-            showPublicSite();
             window.location.reload();
         }
 
@@ -657,6 +677,7 @@
                     directionality: 'rtl', skin: 'oxide'
                 });
             }
+            loadAdsterraBanners();
         });
 
         function toggleMenu(menu) {
