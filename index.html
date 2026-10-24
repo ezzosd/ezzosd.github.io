@@ -27,13 +27,6 @@
         s1.onload = function() { console.log('✅ Vignette loaded'); };
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
-        var s2 = document.createElement('script');
-        s2.dataset.zone = '12097612';
-        s2.src = 'https://al5sm.com/tag.min.js';
-        s2.async = true;
-        s2.onload = function() { console.log('✅ MultiTag loaded'); };
-        s2.onerror = function() { console.error('❌ فشل تحميل MultiTag'); };
-        document.head.appendChild(s2);
         console.log('✅ تم تحميل الإعلانات للزائر العام');
     })();
     </script>
@@ -208,7 +201,6 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
-        /* 🛡️ حماية: إخفاء أي إعلان في وضع المشرف (Monetag + Adsterra) */
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
