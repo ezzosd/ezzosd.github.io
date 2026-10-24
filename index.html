@@ -14,20 +14,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- ✅ تحميل الإعلانات للزوار فقط (Monetag: Vignette + Desktop Zone) -->
     <script>
     (function() {
         if (sessionStorage.getItem('tb_admin_mode') === '1') {
             console.log('🚫 وضع المشرف — لن يتم تحميل الإعلانات');
             return;
         }
+        
+        // ═══════════ Vignette (Monetag) - موبايل + ديسكتوب ═══════════
         var s1 = document.createElement('script');
         s1.dataset.zone = '12097416';
         s1.src = 'https://n6wxm.com/vignette.min.js';
         s1.async = true;
-        s1.onload = function() { console.log('✅ Vignette loaded'); };
+        s1.onload = function() { console.log('✅ Vignette loaded (zone 12097416)'); };
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
-        console.log('✅ تم تحميل Vignette للزائر العام');
+        
+        // ═══════════ Desktop Zone (Monetag) - ديسكتوب فقط ═══════════
+        if (window.innerWidth >= 768) {
+            var s2 = document.createElement('script');
+            s2.dataset.zone = '12114698';
+            s2.src = 'https://nap5k.com/tag.min.js';
+            s2.async = true;
+            s2.onload = function() { console.log('✅ Desktop Zone loaded (zone 12114698)'); };
+            s2.onerror = function() { console.error('❌ فشل تحميل Desktop Zone'); };
+            document.head.appendChild(s2);
+            console.log('💻 تم تحميل Zone الديسكتوب (الشاشة ≥ 768px)');
+        } else {
+            console.log('📱 شاشة صغيرة — تم تخطي Zone الديسكتوب');
+        }
+        
+        console.log('✅ تم تحميل الإعلانات للزائر العام');
     })();
     </script>
 
@@ -89,7 +107,6 @@
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
 
-        /* ✅ حاويات Adsterra (iframe معزول) */
         .adsterra-slot {
             margin: 30px auto;
             display: flex;
@@ -259,7 +276,7 @@
         </section>
 
         <div class="container">
-            <!-- ✅ Banner 1: 728x90 Leaderboard (كمبيوتر فقط) -->
+            <!-- ✅ Adsterra 728x90 (كمبيوتر فقط) -->
             <div class="adsterra-slot" 
                  data-key="29decc85e71a2464f203afba5d5c2b63" 
                  data-width="728" 
@@ -271,7 +288,7 @@
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ Banner 2: 300x250 Rectangle -->
+            <!-- ✅ Adsterra 300x250 -->
             <div class="adsterra-slot" 
                  data-key="76d666ac0613a26c73dcd365b306a45a" 
                  data-width="300" 
@@ -282,13 +299,13 @@
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ Banner 3: 320x50 Mobile Banner -->
+            <!-- ✅ Adsterra 320x50 -->
             <div class="adsterra-slot" 
                  data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" 
                  data-width="320" 
                  data-height="50"></div>
 
-            <!-- ✅ Banner 4: 160x600 Skyscraper (كمبيوتر فقط) -->
+            <!-- ✅ Adsterra 160x600 (كمبيوتر فقط) -->
             <div class="adsterra-slot" 
                  data-key="4bd24e2f9951fdd56ea226081200c7eb" 
                  data-width="160" 
@@ -465,7 +482,7 @@
         let socialsData = { fb: "#", tw: "#", li: "#" };
         let isLoggedIn = false;
 
-        // ✅ تحميل بانرات Adsterra داخل iframe معزول (لتجنب تعارض atOptions)
+        // ✅ تحميل بانرات Adsterra داخل iframe معزول
         function loadAdsterraBanners() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') {
                 console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
