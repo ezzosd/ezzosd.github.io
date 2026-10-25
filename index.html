@@ -145,6 +145,39 @@
         #tgAdBtn:active { transform: translateY(0); }
         html.admin-mode #tgAdBtn { display: none !important; }
 
+        /* ✅ روابط التواصل الاجتماعي */
+        .social-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .social-list li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            color: #CBD5E1;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .social-list li a:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .social-list li a i { font-size: 1rem; }
+        .social-list li a .fa-facebook { color: #1877F2; }
+        .social-list li a .fa-linkedin { color: #0A66C2; }
+        .social-list li a .fa-whatsapp { color: #25D366; }
+        .social-list li a .fa-telegram { color: #0088cc; }
+        .social-list li a .fa-instagram { color: #E4405F; }
+        .social-list li a .fa-robot { color: #10B981; }
+
         .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
@@ -357,10 +390,13 @@
                     </div>
                     <div class="footer-col">
                         <h4>تواصل معنا</h4>
-                        <ul id="socialLinksFooter">
-                            <li><a href="#" id="link-fb"><i class="fab fa-facebook"></i> فيسبوك</a></li>
-                            <li><a href="#" id="link-tw"><i class="fab fa-twitter"></i> تويتر</a></li>
-                            <li><a href="#" id="link-li"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
+                        <ul id="socialLinksFooter" class="social-list">
+                            <li><a href="#" id="link-fb" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a></li>
+                            <li><a href="#" id="link-li" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
+                            <li><a href="#" id="link-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتساب</a></li>
+                            <li><a href="#" id="link-tg" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> تيليجرام</a></li>
+                            <li><a href="#" id="link-bot" target="_blank" rel="noopener"><i class="fas fa-robot"></i> البوت</a></li>
+                            <li><a href="#" id="link-ig" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> إنستجرام</a></li>
                         </ul>
                     </div>
                 </div>
@@ -476,9 +512,12 @@
 
                     <div id="panel-settings" class="admin-panel" style="display:none;">
                         <div class="admin-card">
-                            <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr"></div></div>
-                            <div class="form-row"><div class="form-label">رابط تويتر</div><div class="form-input"><input type="text" id="socTw" dir="ltr"></div></div>
-                            <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr"></div></div>
+                            <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr" placeholder="https://facebook.com/YourPage"></div></div>
+                            <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr" placeholder="https://linkedin.com/in/YourProfile"></div></div>
+                            <div class="form-row"><div class="form-label">رابط واتساب</div><div class="form-input"><input type="text" id="socWa" dir="ltr" placeholder="https://wa.me/201234567890"></div></div>
+                            <div class="form-row"><div class="form-label">رابط تيليجرام</div><div class="form-input"><input type="text" id="socTg" dir="ltr" placeholder="https://t.me/YourChannel"></div></div>
+                            <div class="form-row"><div class="form-label">رابط البوت</div><div class="form-input"><input type="text" id="socBot" dir="ltr" placeholder="https://t.me/YourBot_bot"></div></div>
+                            <div class="form-row"><div class="form-label">رابط إنستجرام</div><div class="form-input"><input type="text" id="socIg" dir="ltr" placeholder="https://instagram.com/YourAccount"></div></div>
                             <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
                         </div>
                     </div>
@@ -512,7 +551,7 @@
 
         let jobsData = [];
         let scholarshipsData = [];
-        let socialsData = { fb: "#", tw: "#", li: "#" };
+        let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
 
         // ═══════════════════════════════════════════════════════════════
@@ -635,8 +674,11 @@
             const map = {};
             (data || []).forEach(row => map[row.key] = row.value);
             socialsData.fb = map.fb || "#";
-            socialsData.tw = map.tw || "#";
             socialsData.li = map.li || "#";
+            socialsData.wa = map.wa || "#";
+            socialsData.tg = map.tg || "#";
+            socialsData.bot = map.bot || "#";
+            socialsData.ig = map.ig || "#";
         }
 
         function createCard(item, isJob) {
@@ -713,8 +755,11 @@
             if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق بحثك.</p>";
             if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق بحثك.</p>";
             document.getElementById('link-fb').href = socialsData.fb || "#";
-            document.getElementById('link-tw').href = socialsData.tw || "#";
             document.getElementById('link-li').href = socialsData.li || "#";
+            document.getElementById('link-wa').href = socialsData.wa || "#";
+            document.getElementById('link-tg').href = socialsData.tg || "#";
+            document.getElementById('link-bot').href = socialsData.bot || "#";
+            document.getElementById('link-ig').href = socialsData.ig || "#";
             bindCardEvents();
         }
 
@@ -810,8 +855,11 @@
             scholarshipsData = await loadScholarships();
             await loadSocials();
             document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-            document.getElementById('socTw').value = socialsData.tw !== "#" ? socialsData.tw : "";
             document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
+            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
+            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
+            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
+            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
             renderJobList(); renderSchList();
         }
 
@@ -933,11 +981,21 @@
 
         async function saveSocials() {
             const fb = document.getElementById('socFb').value.trim() || "#";
-            const tw = document.getElementById('socTw').value.trim() || "#";
             const li = document.getElementById('socLi').value.trim() || "#";
-            const { error } = await supabaseClient.from('settings').upsert([{key:'fb',value:fb},{key:'tw',value:tw},{key:'li',value:li}], { onConflict: 'key' });
+            const wa = document.getElementById('socWa').value.trim() || "#";
+            const tg = document.getElementById('socTg').value.trim() || "#";
+            const bot = document.getElementById('socBot').value.trim() || "#";
+            const ig = document.getElementById('socIg').value.trim() || "#";
+            const { error } = await supabaseClient.from('settings').upsert([
+                {key:'fb',value:fb},
+                {key:'li',value:li},
+                {key:'wa',value:wa},
+                {key:'tg',value:tg},
+                {key:'bot',value:bot},
+                {key:'ig',value:ig}
+            ], { onConflict: 'key' });
             if (error) { alert("خطأ: " + error.message); return; }
-            socialsData = { fb, tw, li };
+            socialsData = { fb, li, wa, tg, bot, ig };
             alert("تم حفظ روابط التواصل بنجاح!");
         }
 
