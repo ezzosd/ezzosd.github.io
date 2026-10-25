@@ -1,10 +1,8 @@
 User-agent: *
 Allow: /
 
-# منع فهرسة لوحة التحكم (لأنها محمية بتسجيل دخول)
 Disallow: /*admin*
-Disallow: /loginView
-Disallow: /dashboardView
+Disallow: /*loginView*
+Disallow: /*dashboardView*
 
-# خريطة الموقع
 Sitemap: https://ezzosd.github.io/sitemap.xml
