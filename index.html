@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ✅ Monetag Telegram Mini App SDK -->
+    <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
+    
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
     <meta name="description" content="TeachBridge - منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -17,7 +21,7 @@
     <script>
     (function() {
         if (sessionStorage.getItem('tb_admin_mode') === '1') {
-            console.log('🚫 وضع المشرف — لن يتم تحميل الإعلانات');
+            console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
             return;
         }
         var s1 = document.createElement('script');
@@ -27,7 +31,7 @@
         s1.onload = function() { console.log('✅ Vignette loaded (zone 12097416)'); };
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
-        
+
         if (window.innerWidth >= 768) {
             var s2 = document.createElement('script');
             s2.dataset.zone = '12114698';
@@ -40,14 +44,13 @@
         } else {
             console.log('📱 شاشة صغيرة — تم تخطي Zone الديسكتوب');
         }
-        console.log('✅ تم تحميل الإعلانات للزائر العام');
     })();
     </script>
 
     <style>
         :root {
-            --primary-dark: #0A2540; 
-            --primary-light: #0070F3; 
+            --primary-dark: #0A2540;
+            --primary-light: #0070F3;
             --bg-color: #F8FAFC;
             --card-bg: #FFFFFF;
             --text-main: #1E293B;
@@ -61,15 +64,15 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            font-family: 'Cairo', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            overflow-x: hidden; 
+
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        
+
         a { text-decoration: none; color: inherit; }
         .container { width: min(1200px, 92%); margin-inline: auto; }
 
@@ -117,6 +120,31 @@
             margin: 0 auto;
         }
 
+        /* ✅ زر مشاهدة إعلان تيليجرام (يظهر فقط داخل تيليجرام) */
+        #tgAdBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
+        #tgAdBtn:active { transform: translateY(0); }
+        html.admin-mode #tgAdBtn { display: none !important; }
+
         .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
@@ -148,7 +176,7 @@
         .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
         .login-box h2 { color: var(--primary-dark); margin-bottom: 20px; }
         .login-box input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; }
-        
+
         .btn-save { background: var(--success); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; font-family: inherit; transition: 0.3s; }
         .btn-save:hover { background: #059669; }
         .btn-save:disabled { background: #94A3B8; cursor: not-allowed; }
@@ -167,7 +195,7 @@
         .admin-sidebar ul li a i.main-icon { margin-left: 10px; width: 20px; text-align: center; }
         .admin-sidebar ul li a i.arrow { font-size: 0.7rem; transition: transform 0.3s; }
         .admin-sidebar ul li.active > a i.arrow { transform: rotate(180deg); }
-        
+
         .admin-submenu { display: none; background: #1a1a27; padding-right: 20px; }
         .admin-submenu.open { display: block; }
         .admin-submenu li a { padding: 10px 20px 10px 30px; font-size: 0.85rem; border-right: 2px solid #3699ff; position: relative; }
@@ -196,6 +224,7 @@
 
         html.admin-mode .adsterra-slot,
         html.admin-mode .adsterra-slot iframe,
+        html.admin-mode #tgAdBtn,
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
@@ -228,7 +257,7 @@
             .form-label { width: 100%; margin-bottom: 5px; padding-top: 0; }
             .form-actions { padding-right: 0; }
         }
-        
+
         @media (max-width: 768px) {
             .header-content { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
             nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
@@ -269,17 +298,15 @@
         </section>
 
         <div class="container">
-            <!-- ✅ Adsterra 728x90 (كمبيوتر فقط) -->
-            <div class="adsterra-slot" 
-                 data-key="29decc85e71a2464f203afba5d5c2b63" 
-                 data-width="728" 
+            <div class="adsterra-slot"
+                 data-key="29decc85e71a2464f203afba5d5c2b63"
+                 data-width="728"
                  data-height="90"
                  data-desktop-only="true"></div>
 
-            <!-- ✨ جديد: Adsterra 320x50 (بعد الـ Hero - موبايل + ديسكتوب) -->
-            <div class="adsterra-slot" 
-                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" 
-                 data-width="320" 
+            <div class="adsterra-slot"
+                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f"
+                 data-width="320"
                  data-height="50"></div>
 
             <section id="jobs" style="padding: 40px 0;">
@@ -287,10 +314,9 @@
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ Adsterra 300x250 -->
-            <div class="adsterra-slot" 
-                 data-key="76d666ac0613a26c73dcd365b306a45a" 
-                 data-width="300" 
+            <div class="adsterra-slot"
+                 data-key="76d666ac0613a26c73dcd365b306a45a"
+                 data-width="300"
                  data-height="250"></div>
 
             <section id="scholarships" style="padding: 40px 0;">
@@ -298,22 +324,19 @@
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✨ جديد: Adsterra 300x250 (أسفل المنح - موبايل + ديسكتوب) -->
-            <div class="adsterra-slot" 
-                 data-key="76d666ac0613a26c73dcd365b306a45a" 
-                 data-width="300" 
+            <div class="adsterra-slot"
+                 data-key="76d666ac0613a26c73dcd365b306a45a"
+                 data-width="300"
                  data-height="250"></div>
 
-            <!-- ✅ Adsterra 320x50 -->
-            <div class="adsterra-slot" 
-                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" 
-                 data-width="320" 
+            <div class="adsterra-slot"
+                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f"
+                 data-width="320"
                  data-height="50"></div>
 
-            <!-- ✅ Adsterra 160x600 (كمبيوتر فقط) -->
-            <div class="adsterra-slot" 
-                 data-key="4bd24e2f9951fdd56ea226081200c7eb" 
-                 data-width="160" 
+            <div class="adsterra-slot"
+                 data-key="4bd24e2f9951fdd56ea226081200c7eb"
+                 data-width="160"
                  data-height="600"
                  data-desktop-only="true"></div>
         </div>
@@ -477,6 +500,11 @@
         </div>
     </div>
 
+    <!-- ✅ زر مشاهدة إعلان تيليجرام (يظهر فقط داخل تيليجرام) -->
+    <button id="tgAdBtn" onclick="watchTgAd()">
+        🎬 شاهد إعلانًا وادعم الموقع
+    </button>
+
     <script>
         const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dHB1d3F5YmR6aGpiaXdydmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU3MjYsImV4cCI6MjEwODE2MTcyNn0.tePW-I7gioA6O-0SSu0nohl7vUBS8N1vIq-F9R3HLcw";
@@ -487,6 +515,59 @@
         let socialsData = { fb: "#", tw: "#", li: "#" };
         let isLoggedIn = false;
 
+        // ═══════════════════════════════════════════════════════════════
+        // 🎬 إعلانات Telegram Mini App
+        // ═══════════════════════════════════════════════════════════════
+        function watchTgAd() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم عرض الإعلان');
+                return;
+            }
+            if (typeof show_12120918 !== 'function') {
+                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
+                return;
+            }
+            show_12120918().then(() => {
+                console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
+            }).catch(err => {
+                console.error('❌ خطأ في عرض الإعلان:', err);
+            });
+        }
+
+        function updateTgAdButton() {
+            const btn = document.getElementById('tgAdBtn');
+            if (!btn) return;
+            const inTg = !!(window.Telegram && window.Telegram.WebApp);
+            btn.style.display = inTg ? 'flex' : 'none';
+            if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
+        }
+
+        function initTgInAppAds() {
+            const inTg = !!(window.Telegram && window.Telegram.WebApp);
+            if (!inTg) return;
+            if (typeof show_12120918 !== 'function') return;
+            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+            try {
+                show_12120918({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 1,
+                        capping: 0.5,
+                        interval: 60,
+                        timeout: 15,
+                        everyPage: false
+                    }
+                });
+                console.log('✅ In-App Interstitial مُهيأ');
+            } catch (e) {
+                console.error('In-App Interstitial error:', e);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // Adsterra Banners
+        // ═══════════════════════════════════════════════════════════════
         function loadAdsterraBanners() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') {
                 console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
@@ -498,9 +579,9 @@
                 var width = parseInt(slot.getAttribute('data-width'), 10);
                 var height = parseInt(slot.getAttribute('data-height'), 10);
                 if (!key || !width || !height) return;
-                
+
                 slot.style.minHeight = height + 'px';
-                
+
                 var iframe = document.createElement('iframe');
                 iframe.style.cssText = 'border:none;max-width:100%;display:block;margin:0 auto;';
                 iframe.width = width;
@@ -508,12 +589,12 @@
                 iframe.scrolling = 'no';
                 iframe.frameBorder = '0';
                 iframe.setAttribute('allowtransparency', 'true');
-                
+
                 var innerHTML = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;background:transparent;}</style></head><body>' +
                     '<script>atOptions={key:"' + key + '",format:"iframe",height:' + height + ',width:' + width + ',params:{}};<\/script>' +
                     '<script src="https://bauval.org/22/' + key + '"><\/script>' +
                     '</body></html>';
-                
+
                 iframe.srcdoc = innerHTML;
                 slot.appendChild(iframe);
                 console.log('✅ Adsterra banner loaded: ' + key + ' (' + width + 'x' + height + ')');
@@ -531,6 +612,8 @@
             ];
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
             document.querySelectorAll('.adsterra-slot iframe').forEach(el => el.remove());
+            const tgBtn = document.getElementById('tgAdBtn');
+            if (tgBtn) tgBtn.style.display = 'none';
             console.log('🚫 تم إخفاء الإعلانات عن المشرف');
         }
 
@@ -886,6 +969,13 @@
         });
 
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // تهيئة زر الإعلان والإعلانات التلقائية داخل تيليجرام
+        window.addEventListener('load', function() {
+            updateTgAdButton();
+            setTimeout(updateTgAdButton, 1500);
+            setTimeout(initTgInAppAds, 2500);
+        });
 
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
