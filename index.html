@@ -24,6 +24,8 @@
             console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
             return;
         }
+
+        // ✅ Vignette (12097416) — يعمل
         var s1 = document.createElement('script');
         s1.dataset.zone = '12097416';
         s1.src = 'https://n6wxm.com/vignette.min.js';
@@ -32,18 +34,8 @@
         s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
         document.head.appendChild(s1);
 
-        if (window.innerWidth >= 768) {
-            var s2 = document.createElement('script');
-            s2.dataset.zone = '12114698';
-            s2.src = 'https://nap5k.com/tag.min.js';
-            s2.async = true;
-            s2.onload = function() { console.log('✅ Desktop Zone loaded (zone 12114698)'); };
-            s2.onerror = function() { console.error('❌ فشل تحميل Desktop Zone'); };
-            document.head.appendChild(s2);
-            console.log('💻 تم تحميل Zone الديسكتوب');
-        } else {
-            console.log('📱 شاشة صغيرة — تم تخطي Zone الديسكتوب');
-        }
+        // ❌ Desktop Zone (12114698) — تم إيقافه
+        console.log('⏸️ Desktop Zone (12114698) معطّل يدويًا');
     })();
     </script>
 
