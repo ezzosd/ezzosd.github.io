@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <!-- ===== Google Search Console Verification (خاص بموقع الوظائف) ===== -->
+    <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
+
+    <!-- ===== SEO ===== -->
+    <meta name="description" content="TeachBridge — منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
+    <meta name="keywords" content="وظائف تعليمية, وظائف معلمين, منح دراسية, منح للمعلمين, TeachBridge, teaching jobs, scholarships">
+    <meta name="author" content="TeachBridge">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://ezzosd.github.io/">
+
+    <!-- ===== Favicon ===== -->
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="shortcut icon" href="/logo.png">
+
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:site_name" content="TeachBridge">
+    <meta property="og:title" content="TeachBridge | وظائف ومنح للمعلمين حول العالم">
+    <meta property="og:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
+    <meta property="og:url" content="https://ezzosd.github.io/">
+    <meta property="og:image" content="https://ezzosd.github.io/logo.png">
+
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TeachBridge | وظائف ومنح للمعلمين حول العالم">
+    <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
+    <meta name="twitter:image" content="https://ezzosd.github.io/logo.png">
+
     <!-- ✅ Monetag Telegram Mini App SDK -->
     <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
-    
+
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
-    <meta name="description" content="TeachBridge - منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
@@ -120,7 +149,6 @@
             margin: 0 auto;
         }
 
-        /* ✅ زر مشاهدة إعلان تيليجرام (يظهر فقط داخل تيليجرام) */
         #tgAdBtn {
             display: none;
             position: fixed;
@@ -145,7 +173,6 @@
         #tgAdBtn:active { transform: translateY(0); }
         html.admin-mode #tgAdBtn { display: none !important; }
 
-        /* ✅ روابط التواصل الاجتماعي */
         .social-list {
             display: flex;
             flex-wrap: wrap;
@@ -539,7 +566,6 @@
         </div>
     </div>
 
-    <!-- ✅ زر مشاهدة إعلان تيليجرام (يظهر فقط داخل تيليجرام) -->
     <button id="tgAdBtn" onclick="watchTgAd()">
         🎬 شاهد إعلانًا وادعم الموقع
     </button>
@@ -554,9 +580,6 @@
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
 
-        // ═══════════════════════════════════════════════════════════════
-        // 🎬 إعلانات Telegram Mini App
-        // ═══════════════════════════════════════════════════════════════
         function watchTgAd() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') {
                 console.log('🚫 وضع المشرف — لن يتم عرض الإعلان');
@@ -604,9 +627,6 @@
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // Adsterra Banners
-        // ═══════════════════════════════════════════════════════════════
         function loadAdsterraBanners() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') {
                 console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
@@ -1028,7 +1048,6 @@
 
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // تهيئة زر الإعلان والإعلانات التلقائية داخل تيليجرام
         window.addEventListener('load', function() {
             updateTgAdButton();
             setTimeout(updateTgAdButton, 1500);
