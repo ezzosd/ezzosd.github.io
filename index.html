@@ -40,6 +40,66 @@
     <!-- ===== ✅ Monetag Telegram Mini App SDK ===== -->
     <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
 
+    <!-- ===== ✅ Monetag — كل الأكواد (6 Zones) ===== -->
+    <script>
+    (function() {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') {
+            console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
+            return;
+        }
+
+        // 1) Vignette — Zone 12097416 (أصلي)
+        var s1 = document.createElement('script');
+        s1.dataset.zone = '12097416';
+        s1.src = 'https://n6wxm.com/vignette.min.js';
+        s1.async = true;
+        s1.onload = function() { console.log('✅ Vignette 12097416 loaded'); };
+        s1.onerror = function() { console.error('❌ Vignette 12097416 failed'); };
+        document.head.appendChild(s1);
+
+        // 2) Tag Desktop — Zone 12114698 (أصلي)
+        if (window.innerWidth >= 768) {
+            var s2 = document.createElement('script');
+            s2.dataset.zone = '12114698';
+            s2.src = 'https://nap5k.com/tag.min.js';
+            s2.async = true;
+            s2.onload = function() { console.log('✅ Tag 12114698 loaded'); };
+            s2.onerror = function() { console.error('❌ Tag 12114698 failed'); };
+            document.head.appendChild(s2);
+        }
+
+        // 3) Tag — Zone 12132620 (جديد)
+        var s3 = document.createElement('script');
+        s3.dataset.zone = '12132620';
+        s3.src = 'https://nap5k.com/tag.min.js';
+        s3.async = true;
+        s3.onload = function() { console.log('✅ Tag 12132620 loaded'); };
+        s3.onerror = function() { console.error('❌ Tag 12132620 failed'); };
+        document.head.appendChild(s3);
+
+        // 4) Tag — Zone 302452 (جديد)
+        var s4 = document.createElement('script');
+        s4.dataset.zone = '302452';
+        s4.src = 'https://quge5.com/88/tag.min.js';
+        s4.async = true;
+        s4.setAttribute('data-cfasync', 'false');
+        s4.onload = function() { console.log('✅ Tag 302452 loaded'); };
+        s4.onerror = function() { console.error('❌ Tag 302452 failed'); };
+        document.head.appendChild(s4);
+
+        // 5) Vignette — Zone 12132627 (جديد)
+        var s5 = document.createElement('script');
+        s5.dataset.zone = '12132627';
+        s5.src = 'https://n6wxm.com/vignette.min.js';
+        s5.async = true;
+        s5.onload = function() { console.log('✅ Vignette 12132627 loaded'); };
+        s5.onerror = function() { console.error('❌ Vignette 12132627 failed'); };
+        document.head.appendChild(s5);
+
+        console.log('📦 تم تحميل 5 إعلانات Monetag + SDK تيليجرام');
+    })();
+    </script>
+
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -49,35 +109,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-    (function() {
-        if (sessionStorage.getItem('tb_admin_mode') === '1') {
-            console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
-            return;
-        }
-        var s1 = document.createElement('script');
-        s1.dataset.zone = '12097416';
-        s1.src = 'https://n6wxm.com/vignette.min.js';
-        s1.async = true;
-        s1.onload = function() { console.log('✅ Vignette loaded (zone 12097416)'); };
-        s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
-        document.head.appendChild(s1);
-
-        if (window.innerWidth >= 768) {
-            var s2 = document.createElement('script');
-            s2.dataset.zone = '12114698';
-            s2.src = 'https://nap5k.com/tag.min.js';
-            s2.async = true;
-            s2.onload = function() { console.log('✅ Desktop Zone loaded (zone 12114698)'); };
-            s2.onerror = function() { console.error('❌ فشل تحميل Desktop Zone'); };
-            document.head.appendChild(s2);
-            console.log('💻 تم تحميل Zone الديسكتوب');
-        } else {
-            console.log('📱 شاشة صغيرة — تم تخطي Zone الديسكتوب');
-        }
-    })();
-    </script>
 
     <style>
         :root {
@@ -136,21 +167,6 @@
         .search-box input { flex: 1; padding: 15px 20px; border: none; outline: none; font-size: 1rem; border-radius: 50px; min-width: 200px; font-family: inherit; }
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
-
-        .adsterra-slot {
-            margin: 30px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            width: 100%;
-        }
-        .adsterra-slot iframe {
-            border: none;
-            max-width: 100%;
-            display: block;
-            margin: 0 auto;
-        }
 
         #tgAdBtn {
             display: none;
@@ -285,32 +301,26 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
-        html.admin-mode .adsterra-slot,
-        html.admin-mode .adsterra-slot iframe,
+        /* ===== إخفاء كل الإعلانات في وضع الأدمن ===== */
         html.admin-mode #tgAdBtn,
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
         html.admin-mode iframe[src*="al5sm"],
         html.admin-mode iframe[src*="nap5k"],
-        html.admin-mode iframe[src*="bauval"],
-        html.admin-mode iframe[src*="highperformanceformat"],
+        html.admin-mode iframe[src*="quge5"],
         html.admin-mode [id*="vignette"],
         html.admin-mode [class*="vignette"],
         html.admin-mode [id*="monetag"],
         html.admin-mode [class*="monetag"],
+        html.admin-mode [id*="quge5"],
+        html.admin-mode [class*="quge5"],
         html.admin-mode [id*="push-notification"],
         html.admin-mode [class*="push-notification"] {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
-        }
-
-        @media (max-width: 768px) {
-            .adsterra-slot[data-desktop-only="true"] {
-                display: none !important;
-            }
         }
 
         @media (max-width: 900px) {
@@ -361,24 +371,15 @@
         </section>
 
         <div class="container">
-            <div class="adsterra-slot" data-key="29decc85e71a2464f203afba5d5c2b63" data-width="728" data-height="90" data-desktop-only="true"></div>
-            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
-
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
-
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
-
-            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
-            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
-            <div class="adsterra-slot" data-key="4bd24e2f9951fdd56ea226081200c7eb" data-width="160" data-height="600" data-desktop-only="true"></div>
         </div>
 
         <footer>
@@ -584,9 +585,6 @@
             if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // ✅ إعلانات تلقائية — معدّلة للظهور الفوري
-        // ═══════════════════════════════════════════════════════════════
         function initTgInAppAds() {
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
@@ -600,10 +598,10 @@
                 show_12120918({
                     type: 'inApp',
                     inAppSettings: {
-                        frequency: 3,      // ✅ 3 مرات كحد أقصى
-                        capping: 0.5,      // ✅ خلال نص ساعة
-                        interval: 15,      // ✅ كل 15 ثانية (بدل 60)
-                        timeout: 1,        // ✅ ثانية واحدة قبل أول إعلان (بدل 15)
+                        frequency: 3,
+                        capping: 0.5,
+                        interval: 15,
+                        timeout: 1,
                         everyPage: false
                     }
                 });
@@ -613,50 +611,18 @@
             }
         }
 
-        function loadAdsterraBanners() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
-                return;
-            }
-            document.querySelectorAll('.adsterra-slot[data-key]').forEach(function(slot) {
-                if (slot.querySelector('iframe')) return;
-                var key = slot.getAttribute('data-key');
-                var width = parseInt(slot.getAttribute('data-width'), 10);
-                var height = parseInt(slot.getAttribute('data-height'), 10);
-                if (!key || !width || !height) return;
-
-                slot.style.minHeight = height + 'px';
-
-                var iframe = document.createElement('iframe');
-                iframe.style.cssText = 'border:none;max-width:100%;display:block;margin:0 auto;';
-                iframe.width = width;
-                iframe.height = height;
-                iframe.scrolling = 'no';
-                iframe.frameBorder = '0';
-                iframe.setAttribute('allowtransparency', 'true');
-
-                var innerHTML = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;background:transparent;}</style></head><body>' +
-                    '<script>atOptions={key:"' + key + '",format:"iframe",height:' + height + ',width:' + width + ',params:{}};<\/script>' +
-                    '<script src="https://bauval.org/22/' + key + '"><\/script>' +
-                    '</body></html>';
-
-                iframe.srcdoc = innerHTML;
-                slot.appendChild(iframe);
-                console.log('✅ Adsterra banner loaded: ' + key + ' (' + width + 'x' + height + ')');
-            });
-        }
-
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
             const adSelectors = [
                 'iframe[src*="monetag"]','iframe[src*="vignette"]','iframe[src*="n6wxm"]',
-                'iframe[src*="al5sm"]','iframe[src*="nap5k"]',
-                'iframe[src*="bauval"]','iframe[src*="highperformanceformat"]',
+                'iframe[src*="al5sm"]','iframe[src*="nap5k"]','iframe[src*="quge5"]',
                 'div[id*="vignette"]','div[class*="vignette"]','div[id*="monetag"]','div[class*="monetag"]',
-                'div[id*="push-notification"]','div[class*="push-notification"]','script[data-zone]'
+                'div[id*="quge5"]','div[class*="quge5"]',
+                'div[id*="push-notification"]','div[class*="push-notification"]',
+                'script[data-zone="12097416"]','script[data-zone="12114698"]',
+                'script[data-zone="12132620"]','script[data-zone="302452"]','script[data-zone="12132627"]'
             ];
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
-            document.querySelectorAll('.adsterra-slot iframe').forEach(el => el.remove());
             const tgBtn = document.getElementById('tgAdBtn');
             if (tgBtn) tgBtn.style.display = 'none';
             console.log('🚫 تم إخفاء الإعلانات عن المشرف');
@@ -833,7 +799,6 @@
                     directionality: 'rtl', skin: 'oxide'
                 });
             }
-            loadAdsterraBanners();
         });
 
         function toggleMenu(menu) {
@@ -1035,7 +1000,6 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         window.addEventListener('load', function() {
-            // ✅ تهيئة Telegram WebApp
             if (window.Telegram && window.Telegram.WebApp) {
                 const tg = window.Telegram.WebApp;
                 try {
@@ -1052,10 +1016,8 @@
 
             updateTgAdButton();
 
-            // ✅ تسريع ظهور الإعلان التلقائي
             setTimeout(updateTgAdButton, 800);
-            setTimeout(initTgInAppAds, 500);   // ← بدل 2500
-            // محاولة ثانية لو SDK ما كانش جاهز
+            setTimeout(initTgInAppAds, 500);
             setTimeout(initTgInAppAds, 2000);
         });
 
