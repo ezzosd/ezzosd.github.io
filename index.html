@@ -1,216 +1,1087 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>موقع وظائف | Jobs</title>
-  <meta name="description" content="موقع وظائف لعرض أحدث الوظائف الشاغرة وفرص العمل." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728671533248107"
-       crossorigin="anonymous"></script>
+    <!-- ===== ✅ Telegram Web App SDK (لازم يكون الأول) ===== -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <style>
-    :root {
-      --main: #0f766e;
-      --bg: #f8fafc;
-      --text: #0f172a;
-      --muted: #64748b;
-      --card: #ffffff;
-      --border: #e2e8f0;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Tahoma, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
-    }
-    header {
-      background: var(--main);
-      color: white;
-      padding: 18px 20px;
-    }
-    header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    header h1 { margin: 0; font-size: 22px; }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-inline-start: 15px;
-      font-size: 14px;
-    }
-    .container {
-      width: min(1100px, 92%);
-      margin: auto;
-    }
-    main { padding: 30px 0; }
-    .hero {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 25px;
-      margin-bottom: 25px;
-    }
-    .hero h2 { margin-top: 0; color: var(--main); }
-    .search {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-    .search input {
-      flex: 1;
-      min-width: 220px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-family: inherit;
-    }
-    .search button {
-      padding: 12px 22px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--main);
-      color: white;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: bold;
-    }
-    .jobs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-    .job-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-    }
-    .job-card h3 { margin: 0 0 8px; font-size: 18px; }
-    .job-card p { margin: 5px 0; color: var(--muted); font-size: 14px; }
-    .job-card a {
-      display: inline-block;
-      margin-top: 12px;
-      color: var(--main);
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .ad-box {
-      margin: 25px 0;
-      text-align: center;
-      min-height: 100px;
-    }
-    footer {
-      background: #0f172a;
-      color: #cbd5e1;
-      padding: 25px 0;
-      text-align: center;
-      font-size: 14px;
-      margin-top: 40px;
-    }
-    footer a { color: #5eead4; text-decoration: none; }
-  </style>
+    <!-- ===== Google Search Console Verification ===== -->
+    <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
+
+    <!-- ===== SEO ===== -->
+    <meta name="description" content="TeachBridge — منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
+    <meta name="keywords" content="وظائف تعليمية, وظائف معلمين, منح دراسية, منح للمعلمين, TeachBridge, teaching jobs, scholarships">
+    <meta name="author" content="TeachBridge">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://ezzosd.github.io/">
+
+    <!-- ===== Favicon ===== -->
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="shortcut icon" href="/logo.png">
+
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:site_name" content="TeachBridge">
+    <meta property="og:title" content="TeachBridge | وظائف ومنح للمعلمين حول العالم">
+    <meta property="og:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
+    <meta property="og:url" content="https://ezzosd.github.io/">
+    <meta property="og:image" content="https://ezzosd.github.io/logo.png">
+
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TeachBridge | وظائف ومنح للمعلمين حول العالم">
+    <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
+    <meta name="twitter:image" content="https://ezzosd.github.io/logo.png">
+
+    <!-- ===== ✅ Monetag Telegram Mini App SDK ===== -->
+    <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
+
+    <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+    (function() {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') {
+            console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
+            return;
+        }
+        var s1 = document.createElement('script');
+        s1.dataset.zone = '12097416';
+        s1.src = 'https://n6wxm.com/vignette.min.js';
+        s1.async = true;
+        s1.onload = function() { console.log('✅ Vignette loaded (zone 12097416)'); };
+        s1.onerror = function() { console.error('❌ فشل تحميل Vignette'); };
+        document.head.appendChild(s1);
+
+        if (window.innerWidth >= 768) {
+            var s2 = document.createElement('script');
+            s2.dataset.zone = '12114698';
+            s2.src = 'https://nap5k.com/tag.min.js';
+            s2.async = true;
+            s2.onload = function() { console.log('✅ Desktop Zone loaded (zone 12114698)'); };
+            s2.onerror = function() { console.error('❌ فشل تحميل Desktop Zone'); };
+            document.head.appendChild(s2);
+            console.log('💻 تم تحميل Zone الديسكتوب');
+        } else {
+            console.log('📱 شاشة صغيرة — تم تخطي Zone الديسكتوب');
+        }
+    })();
+    </script>
+
+    <style>
+        :root {
+            --primary-dark: #0A2540;
+            --primary-light: #0070F3;
+            --bg-color: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --danger: #EF4444;
+            --success: #10B981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        .container { width: min(1200px, 92%); margin-inline: auto; }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo img { height: 60px; width: auto; object-fit: contain; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a { font-weight: 600; color: var(--text-main); transition: color 0.3s; }
+        nav a:hover, nav a.active { color: var(--primary-light); }
+        .btn-post-job {
+            background-color: var(--primary-light); color: white; padding: 10px 24px; border-radius: 50px;
+            font-weight: 700; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s;
+            display: inline-block; text-decoration: none;
+        }
+        .btn-post-job:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        .hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%); color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 900; }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; }
+        .search-box {
+            background: white; padding: 10px; border-radius: 50px; display: flex; max-width: 800px;
+            margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px;
+        }
+        .search-box input { flex: 1; padding: 15px 20px; border: none; outline: none; font-size: 1rem; border-radius: 50px; min-width: 200px; font-family: inherit; }
+        .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
+        .search-box button:hover { background-color: var(--primary-dark); }
+
+        .adsterra-slot {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+        }
+        .adsterra-slot iframe {
+            border: none;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #tgAdBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
+        #tgAdBtn:active { transform: translateY(0); }
+        html.admin-mode #tgAdBtn { display: none !important; }
+
+        .social-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .social-list li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            color: #CBD5E1;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .social-list li a:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .social-list li a i { font-size: 1rem; }
+        .social-list li a .fa-facebook { color: #1877F2; }
+        .social-list li a .fa-linkedin { color: #0A66C2; }
+        .social-list li a .fa-whatsapp { color: #25D366; }
+        .social-list li a .fa-telegram { color: #0088cc; }
+        .social-list li a .fa-instagram { color: #E4405F; }
+        .social-list li a .fa-robot { color: #10B981; }
+
+        .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .card {
+            background: var(--card-bg); border-radius: var(--radius); padding: 25px; box-shadow: var(--shadow);
+            border: 1px solid var(--border-color); transition: transform 0.3s, box-shadow 0.3s; position: relative; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
+        .card-type { position: absolute; top: 20px; left: 20px; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .type-job { background-color: #E0F2FE; color: #0284C7; }
+        .type-scholarship { background-color: #DCFCE7; color: #16A34A; }
+        .card h3 { font-size: 1.3rem; margin: 20px 0 10px; color: var(--primary-dark); }
+        .card-company { color: var(--text-muted); font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .card-details { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; font-size: 0.9rem; color: var(--text-muted); margin-top: auto; }
+        .card-details span { display: flex; align-items: center; gap: 5px; }
+        .btn-apply { display: block; text-align: center; background-color: var(--primary-dark); color: white; padding: 12px; border-radius: 8px; font-weight: 700; transition: background 0.3s; }
+        .btn-apply:hover { background-color: var(--primary-light); }
+
+        footer { background-color: var(--primary-dark); color: white; padding: 60px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { font-size: 1.2rem; margin-bottom: 20px; color: var(--primary-light); }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul a { color: #CBD5E1; transition: color 0.3s; }
+        .footer-col ul a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.9rem; }
+
+        #dashboardView, #loginView { display: none; min-height: 100vh; background: var(--bg-color); padding: 40px 0; }
+        .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+        .login-box h2 { color: var(--primary-dark); margin-bottom: 20px; }
+        .login-box input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; }
+
+        .btn-save { background: var(--success); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; font-family: inherit; transition: 0.3s; }
+        .btn-save:hover { background: #059669; }
+        .btn-save:disabled { background: #94A3B8; cursor: not-allowed; }
+        .btn-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-family: inherit; }
+
+        .loading-text { text-align: center; color: var(--text-muted); padding: 20px; }
+
+        .admin-layout { display: flex; min-height: 100vh; background: #f5f5f9; font-family: 'Cairo', sans-serif; direction: rtl; }
+        .admin-sidebar { width: 260px; background: #1e1e2d; color: #a1a5b7; flex-shrink: 0; display: flex; flex-direction: column; transition: width 0.3s; overflow-y: auto; }
+        .admin-sidebar .brand { padding: 20px; text-align: center; font-size: 1.2rem; font-weight: 700; color: #fff; border-bottom: 1px solid #2b2b40; }
+        .admin-sidebar .nav-label { padding: 15px 20px 5px; font-size: 0.75rem; text-transform: uppercase; color: #565674; font-weight: 700; }
+        .admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
+        .admin-sidebar ul li a { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; color: #a1a5b7; text-decoration: none; font-size: 0.9rem; transition: 0.2s; border-right: 3px solid transparent; cursor: pointer; }
+        .admin-sidebar ul li a:hover { background: #1b1b29; color: #fff; }
+        .admin-sidebar ul li.active > a { background: #009ef7; color: #fff; }
+        .admin-sidebar ul li a i.main-icon { margin-left: 10px; width: 20px; text-align: center; }
+        .admin-sidebar ul li a i.arrow { font-size: 0.7rem; transition: transform 0.3s; }
+        .admin-sidebar ul li.active > a i.arrow { transform: rotate(180deg); }
+
+        .admin-submenu { display: none; background: #1a1a27; padding-right: 20px; }
+        .admin-submenu.open { display: block; }
+        .admin-submenu li a { padding: 10px 20px 10px 30px; font-size: 0.85rem; border-right: 2px solid #3699ff; position: relative; }
+        .admin-submenu li a::before { content: '○'; position: absolute; right: 5px; color: #565674; font-size: 0.7rem; }
+        .admin-submenu li a:hover::before, .admin-submenu li.active a::before { color: #3699ff; }
+
+        .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .admin-topbar { background: #1e1e2d; color: #fff; padding: 15px 30px; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+        .admin-topbar .btn-top { background: #009ef7; color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
+        .admin-content { padding: 30px; overflow-y: auto; flex: 1; }
+        .admin-card { background: #fff; border: 1px solid #e4e6ef; border-radius: 6px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.03); }
+
+        .form-row { display: flex; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
+        .form-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .form-label { width: 180px; flex-shrink: 0; padding-top: 10px; font-weight: 600; color: #5e6278; font-size: 0.9rem; }
+        .form-input { flex: 1; }
+        .form-input input[type="text"], .form-input input[type="url"], .form-input input[type="date"], .form-input select { width: 100%; padding: 10px 15px; border: 1px solid #e4e6ef; border-radius: 4px; font-family: inherit; font-size: 0.9rem; background: #fff; transition: 0.2s; }
+        .form-input input:focus, .form-input select:focus { border-color: #009ef7; outline: none; }
+        .form-input textarea { width: 100%; padding: 10px 15px; border: 1px solid #e4e6ef; border-radius: 4px; font-family: inherit; min-height: 150px; resize: vertical; }
+
+        .form-actions { display: flex; gap: 10px; margin-top: 20px; padding-right: 180px; }
+        .btn-primary-cls { background: #009ef7; color: #fff; border: none; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
+        .btn-primary-cls:hover { background: #0085d1; }
+        .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
+        .btn-secondary-cls:hover { background: #e4e6ef; }
+
+        html.admin-mode .adsterra-slot,
+        html.admin-mode .adsterra-slot iframe,
+        html.admin-mode #tgAdBtn,
+        html.admin-mode iframe[src*="monetag"],
+        html.admin-mode iframe[src*="vignette"],
+        html.admin-mode iframe[src*="n6wxm"],
+        html.admin-mode iframe[src*="al5sm"],
+        html.admin-mode iframe[src*="nap5k"],
+        html.admin-mode iframe[src*="bauval"],
+        html.admin-mode iframe[src*="highperformanceformat"],
+        html.admin-mode [id*="vignette"],
+        html.admin-mode [class*="vignette"],
+        html.admin-mode [id*="monetag"],
+        html.admin-mode [class*="monetag"],
+        html.admin-mode [id*="push-notification"],
+        html.admin-mode [class*="push-notification"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .adsterra-slot[data-desktop-only="true"] {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .admin-layout { flex-direction: column; }
+            .admin-sidebar { width: 100%; }
+            .form-row { flex-direction: column; }
+            .form-label { width: 100%; margin-bottom: 5px; padding-top: 0; }
+            .form-actions { padding-right: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .hero h1 { font-size: 2rem; }
+            .search-box { flex-direction: column; border-radius: 20px; }
+            .search-box input, .search-box button { width: 100%; border-radius: 10px; }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="container">
-      <h1>موقع وظائف</h1>
-      <nav>
-        <a href="/">الرئيسية</a>
-        <a href="/jobs.html">الوظائف</a>
-        <a href="/about.html">من نحن</a>
-        <a href="/contact.html">اتصل بنا</a>
-        <a href="/privacy.html">سياسة الخصوصية</a>
-      </nav>
+    <div id="publicSite">
+        <header>
+            <div class="container header-content">
+                <a href="#" class="logo" id="siteLogo">
+                    <img src="logo.png" alt="TeachBridge Logo" style="max-width: 100%;">
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">الرئيسية</a></li>
+                        <li><a href="#jobs">الوظائف</a></li>
+                        <li><a href="#scholarships">المنح</a></li>
+                    </ul>
+                </nav>
+                <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" class="btn-post-job">أضف إعلانك</a>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="container">
+                <h1>وظائف ومنح تعليمية حول العالم</h1>
+                <p>More Learning. Brighter Futures. ابحث عن فرصتك القادمة وابدأ رحلتك التعليمية.</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، منحة، أو دولة...">
+                    <button onclick="searchData()">بحث</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="adsterra-slot" data-key="29decc85e71a2464f203afba5d5c2b63" data-width="728" data-height="90" data-desktop-only="true"></div>
+            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
+
+            <section id="jobs" style="padding: 40px 0;">
+                <h2 class="section-title">أحدث الوظائف التعليمية</h2>
+                <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
+            </section>
+
+            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
+
+            <section id="scholarships" style="padding: 40px 0;">
+                <h2 class="section-title">أحدث المنح الدراسية</h2>
+                <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
+            </section>
+
+            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
+            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
+            <div class="adsterra-slot" data-key="4bd24e2f9951fdd56ea226081200c7eb" data-width="160" data-height="600" data-desktop-only="true"></div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>TeachBridge</h4>
+                        <p style="color: #CBD5E1; line-height: 1.8;">جسرك نحو مستقبل تعليمي أفضل. نجمع لك أفضل الفرص والمنح من جميع أنحاء العالم في مكان واحد.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>روابط سريعة</h4>
+                        <ul>
+                            <li><a href="#jobs">الوظائف التعليمية</a></li>
+                            <li><a href="#scholarships">المنح الدراسية</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>تواصل معنا</h4>
+                        <ul id="socialLinksFooter" class="social-list">
+                            <li><a href="#" id="link-fb" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a></li>
+                            <li><a href="#" id="link-li" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
+                            <li><a href="#" id="link-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتساب</a></li>
+                            <li><a href="#" id="link-tg" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> تيليجرام</a></li>
+                            <li><a href="#" id="link-bot" target="_blank" rel="noopener"><i class="fas fa-robot"></i> البوت</a></li>
+                            <li><a href="#" id="link-ig" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> إنستجرام</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; <span id="year"></span> TeachBridge. جميع الحقوق محفوظة.
+                </div>
+            </div>
+        </footer>
     </div>
-  </header>
 
-  <main class="container">
-
-    <section class="hero">
-      <h2>ابحث عن وظيفة أحلامك</h2>
-      <p>أحدث الوظائف الشاغرة وفرص العمل في مختلف المجالات.</p>
-      <form class="search" action="/jobs.html" method="get">
-        <input type="text" name="q" placeholder="ابحث عن وظيفة، شركة، أو مدينة..." />
-        <button type="submit">بحث</button>
-      </form>
-    </section>
-
-    <!-- إعلان AdSense اختياري: ضع data-ad-slot الخاص بك -->
-    <!--
-    <div class="ad-box">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-9728671533248107"
-           data-ad-slot="0000000000"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div id="loginView">
+        <div class="container">
+            <div class="login-box">
+                <h2><i class="fas fa-lock"></i> دخول الإدارة</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">سجل الدخول لإدارة محتوى الموقع</p>
+                <input type="email" id="adminEmail" placeholder="البريد الإلكتروني" dir="ltr">
+                <input type="password" id="adminPass" placeholder="كلمة المرور" dir="ltr">
+                <button class="btn-save" onclick="login()" id="loginBtn">تسجيل الدخول</button>
+                <br><br>
+                <button class="btn-logout" onclick="showPublicSite()" style="background: var(--text-muted);">العودة للموقع</button>
+            </div>
+        </div>
     </div>
-    -->
 
-    <section>
-      <h2>أحدث الوظائف</h2>
-      <div class="jobs-grid">
+    <div id="dashboardView">
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="brand">admin</div>
+                <div class="nav-label">Navigation</div>
+                <ul>
+                    <li id="menu-jobs">
+                        <a onclick="toggleMenu('jobs')"><span><i class="fas fa-briefcase main-icon"></i> الوظائف</span><i class="fas fa-chevron-down arrow"></i></a>
+                        <ul class="admin-submenu" id="submenu-jobs">
+                            <li><a onclick="loadPanel('job-add')">إضافة وظيفة</a></li>
+                            <li><a onclick="loadPanel('job-list')">عرض الوظائف</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-sch">
+                        <a onclick="toggleMenu('sch')"><span><i class="fas fa-graduation-cap main-icon"></i> المنح الدراسية</span><i class="fas fa-chevron-down arrow"></i></a>
+                        <ul class="admin-submenu" id="submenu-sch">
+                            <li><a onclick="loadPanel('sch-add')">إضافة منحة</a></li>
+                            <li><a onclick="loadPanel('sch-list')">عرض المنح</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-settings"><a onclick="loadPanel('settings')"><span><i class="fas fa-cog main-icon"></i> الإعدادات</span></a></li>
+                </ul>
+                <div style="margin-top:auto; padding:20px;">
+                    <button onclick="showPublicSite()" style="width:100%; padding:10px; background:#2b2b40; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-bottom:10px; font-family:inherit;"><i class="fas fa-eye"></i> عرض الموقع</button>
+                    <button onclick="logout()" style="width:100%; padding:10px; background:#f1416c; color:#fff; border:none; border-radius:4px; cursor:pointer; font-family:inherit;"><i class="fas fa-sign-out-alt"></i> خروج</button>
+                </div>
+            </aside>
 
-        <article class="job-card">
-          <h3>مطور ويب</h3>
-          <p>شركة: شركة تقنية</p>
-          <p>المدينة: الرياض</p>
-          <p>نوع الوظيفة: دوام كامل</p>
-          <a href="/job-1.html">تفاصيل الوظيفة</a>
-        </article>
+            <main class="admin-main">
+                <div class="admin-topbar">
+                    <span id="panelTitle">إضافة وظيفة</span>
+                    <button class="btn-top" onclick="showPublicSite()">معاينة الموقع</button>
+                </div>
 
-        <article class="job-card">
-          <h3>محاسب</h3>
-          <p>شركة: مؤسسة تجارية</p>
-          <p>المدينة: جدة</p>
-          <p>نوع الوظيفة: دوام كامل</p>
-          <a href="/job-2.html">تفاصيل الوظيفة</a>
-        </article>
+                <div class="admin-content">
+                    <div id="panel-job-add" class="admin-panel" style="display:block;">
+                        <div class="admin-card">
+                            <input type="hidden" id="jobEditId">
+                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" value="مدرس رياضيات"></div></div>
+                            <div class="form-row"><div class="form-label">الجهة / الشركة</div><div class="form-input"><input type="text" id="jobCompany" value="مدارس النيل"></div></div>
+                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><select id="jobLocation"><option value="القاهرة، مصر">القاهرة، مصر</option><option value="الرياض، السعودية">الرياض، السعودية</option><option value="دبي، الإمارات">دبي، الإمارات</option></select></div></div>
+                            <div class="form-row"><div class="form-label">نوع الدوام</div><div class="form-input"><input type="text" id="jobType" value="دوام كامل"></div></div>
+                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="jobDesc"></textarea></div></div>
+                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
+                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="jobReq"></div></div>
+                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr"></div></div>
+                            <div class="form-actions">
+                                <button class="btn-primary-cls" onclick="saveJob()" id="jobSaveBtn">حفظ الوظيفة</button>
+                                <button class="btn-secondary-cls" onclick="loadPanel('job-list')">إلغاء</button>
+                            </div>
+                        </div>
+                    </div>
 
-        <article class="job-card">
-          <h3>مصمم جرافيك</h3>
-          <p>شركة: وكالة إعلانات</p>
-          <p>المدينة: القاهرة</p>
-          <p>نوع الوظيفة: عن بعد</p>
-          <a href="/job-3.html">تفاصيل الوظيفة</a>
-        </article>
+                    <div id="panel-job-list" class="admin-panel" style="display:none;">
+                        <div class="admin-card">
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
+                                <tbody id="jobListTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
 
-        <article class="job-card">
-          <h3>خدمة عملاء</h3>
-          <p>شركة: شركة اتصالات</p>
-          <p>المدينة: الدمام</p>
-          <p>نوع الوظيفة: دوام جزئي</p>
-          <a href="/job-4.html">تفاصيل الوظيفة</a>
-        </article>
+                    <div id="panel-sch-add" class="admin-panel" style="display:none;">
+                        <div class="admin-card">
+                            <input type="hidden" id="schEditId">
+                            <div class="form-row"><div class="form-label">اسم المنحة</div><div class="form-input"><input type="text" id="schTitle"></div></div>
+                            <div class="form-row"><div class="form-label">الجهة المانحة</div><div class="form-input"><input type="text" id="schCompany"></div></div>
+                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="schLocation"></div></div>
+                            <div class="form-row"><div class="form-label">نوع التمويل</div><div class="form-input"><input type="text" id="schType"></div></div>
+                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="schDesc"></textarea></div></div>
+                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="schDeadline"></div></div>
+                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="schReq"></div></div>
+                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="schLink" dir="ltr"></div></div>
+                            <div class="form-actions">
+                                <button class="btn-primary-cls" onclick="saveScholarship()" id="schSaveBtn">حفظ المنحة</button>
+                                <button class="btn-secondary-cls" onclick="loadPanel('sch-list')">إلغاء</button>
+                            </div>
+                        </div>
+                    </div>
 
-      </div>
-    </section>
+                    <div id="panel-sch-list" class="admin-panel" style="display:none;">
+                        <div class="admin-card">
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">اسم المنحة</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
+                                <tbody id="schListTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
 
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>© 2026 موقع وظائف. جميع الحقوق محفوظة.</p>
-      <p>
-        <a href="/privacy.html">سياسة الخصوصية</a> |
-        <a href="/about.html">من نحن</a> |
-        <a href="/contact.html">اتصل بنا</a>
-      </p>
+                    <div id="panel-settings" class="admin-panel" style="display:none;">
+                        <div class="admin-card">
+                            <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr" placeholder="https://facebook.com/YourPage"></div></div>
+                            <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr" placeholder="https://linkedin.com/in/YourProfile"></div></div>
+                            <div class="form-row"><div class="form-label">رابط واتساب</div><div class="form-input"><input type="text" id="socWa" dir="ltr" placeholder="https://wa.me/201234567890"></div></div>
+                            <div class="form-row"><div class="form-label">رابط تيليجرام</div><div class="form-input"><input type="text" id="socTg" dir="ltr" placeholder="https://t.me/YourChannel"></div></div>
+                            <div class="form-row"><div class="form-label">رابط البوت</div><div class="form-input"><input type="text" id="socBot" dir="ltr" placeholder="https://t.me/YourBot_bot"></div></div>
+                            <div class="form-row"><div class="form-label">رابط إنستجرام</div><div class="form-input"><input type="text" id="socIg" dir="ltr" placeholder="https://instagram.com/YourAccount"></div></div>
+                            <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-  </footer>
 
+    <div id="detailsModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; padding:20px; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; padding:30px; position:relative;">
+            <button onclick="closeModal()" style="position:absolute; top:15px; left:15px; background:#EF4444; color:#fff; border:none; width:35px; height:35px; border-radius:50%; cursor:pointer; font-size:18px;">✕</button>
+            <span id="modalBadge" style="display:inline-block; padding:5px 15px; border-radius:20px; font-size:0.8rem; font-weight:700; margin-bottom:15px;"></span>
+            <h2 id="modalTitle" style="color:#0A2540; margin-bottom:15px;"></h2>
+            <div id="modalCompany" style="color:#64748B; font-weight:600; margin-bottom:15px;"></div>
+            <div id="modalMeta" style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px; color:#64748B; font-size:0.9rem;"></div>
+            <div id="modalDesc" style="line-height:1.9; color:#1E293B; margin-bottom:20px;"></div>
+            <div id="modalRequirements" style="background:#F8FAFC; padding:15px; border-radius:8px; margin-bottom:20px; display:none;"></div>
+            <a id="modalApplyBtn" href="#" target="_blank" class="btn-apply" style="background:#10B981; display:block; text-align:center;">تقديم الآن ↗</a>
+        </div>
+    </div>
+
+    <button id="tgAdBtn" onclick="watchTgAd()">
+        🎬 شاهد إعلانًا وادعم الموقع
+    </button>
+
+    <script>
+        const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dHB1d3F5YmR6aGpiaXdydmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU3MjYsImV4cCI6MjEwODE2MTcyNn0.tePW-I7gioA6O-0SSu0nohl7vUBS8N1vIq-F9R3HLcw";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let jobsData = [];
+        let scholarshipsData = [];
+        let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
+        let isLoggedIn = false;
+
+        function watchTgAd() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم عرض الإعلان');
+                return;
+            }
+            if (typeof show_12120918 !== 'function') {
+                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
+                return;
+            }
+            show_12120918().then(() => {
+                console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
+            }).catch(err => {
+                console.error('❌ خطأ في عرض الإعلان:', err);
+            });
+        }
+
+        function updateTgAdButton() {
+            const btn = document.getElementById('tgAdBtn');
+            if (!btn) return;
+            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            btn.style.display = inTg ? 'flex' : 'none';
+            if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ✅ إعلانات تلقائية — معدّلة للظهور الفوري
+        // ═══════════════════════════════════════════════════════════════
+        function initTgInAppAds() {
+            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            if (!inTg) return;
+            if (typeof show_12120918 !== 'function') {
+                console.warn('⚠️ show_12120918 غير متاح بعد — سأحاول لاحقاً');
+                return;
+            }
+            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+            try {
+                show_12120918({
+                    type: 'inApp',
+                    inAppSettings: {
+                        frequency: 3,      // ✅ 3 مرات كحد أقصى
+                        capping: 0.5,      // ✅ خلال نص ساعة
+                        interval: 15,      // ✅ كل 15 ثانية (بدل 60)
+                        timeout: 1,        // ✅ ثانية واحدة قبل أول إعلان (بدل 15)
+                        everyPage: false
+                    }
+                });
+                console.log('✅ In-App Interstitial مُهيأ — سيظهر تلقائياً بعد ثانية');
+            } catch (e) {
+                console.error('In-App Interstitial error:', e);
+            }
+        }
+
+        function loadAdsterraBanners() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم تحميل بانرات Adsterra');
+                return;
+            }
+            document.querySelectorAll('.adsterra-slot[data-key]').forEach(function(slot) {
+                if (slot.querySelector('iframe')) return;
+                var key = slot.getAttribute('data-key');
+                var width = parseInt(slot.getAttribute('data-width'), 10);
+                var height = parseInt(slot.getAttribute('data-height'), 10);
+                if (!key || !width || !height) return;
+
+                slot.style.minHeight = height + 'px';
+
+                var iframe = document.createElement('iframe');
+                iframe.style.cssText = 'border:none;max-width:100%;display:block;margin:0 auto;';
+                iframe.width = width;
+                iframe.height = height;
+                iframe.scrolling = 'no';
+                iframe.frameBorder = '0';
+                iframe.setAttribute('allowtransparency', 'true');
+
+                var innerHTML = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100%;background:transparent;}</style></head><body>' +
+                    '<script>atOptions={key:"' + key + '",format:"iframe",height:' + height + ',width:' + width + ',params:{}};<\/script>' +
+                    '<script src="https://bauval.org/22/' + key + '"><\/script>' +
+                    '</body></html>';
+
+                iframe.srcdoc = innerHTML;
+                slot.appendChild(iframe);
+                console.log('✅ Adsterra banner loaded: ' + key + ' (' + width + 'x' + height + ')');
+            });
+        }
+
+        function hideAdsForAdmin() {
+            document.documentElement.classList.add('admin-mode');
+            const adSelectors = [
+                'iframe[src*="monetag"]','iframe[src*="vignette"]','iframe[src*="n6wxm"]',
+                'iframe[src*="al5sm"]','iframe[src*="nap5k"]',
+                'iframe[src*="bauval"]','iframe[src*="highperformanceformat"]',
+                'div[id*="vignette"]','div[class*="vignette"]','div[id*="monetag"]','div[class*="monetag"]',
+                'div[id*="push-notification"]','div[class*="push-notification"]','script[data-zone]'
+            ];
+            document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
+            document.querySelectorAll('.adsterra-slot iframe').forEach(el => el.remove());
+            const tgBtn = document.getElementById('tgAdBtn');
+            if (tgBtn) tgBtn.style.display = 'none';
+            console.log('🚫 تم إخفاء الإعلانات عن المشرف');
+        }
+
+        async function loadJobs() {
+            const { data, error } = await supabaseClient.from('jobs').select('*').order('created_at', { ascending: false });
+            if (error) { console.error('خطأ في تحميل الوظائف:', error); return []; }
+            return data || [];
+        }
+
+        async function loadScholarships() {
+            const { data, error } = await supabaseClient.from('scholarships').select('*').order('created_at', { ascending: false });
+            if (error) { console.error('خطأ في تحميل المنح:', error); return []; }
+            return data || [];
+        }
+
+        async function loadSocials() {
+            const { data, error } = await supabaseClient.from('settings').select('key, value');
+            if (error) { console.error('خطأ في تحميل الإعدادات:', error); return; }
+            const map = {};
+            (data || []).forEach(row => map[row.key] = row.value);
+            socialsData.fb = map.fb || "#";
+            socialsData.li = map.li || "#";
+            socialsData.wa = map.wa || "#";
+            socialsData.tg = map.tg || "#";
+            socialsData.bot = map.bot || "#";
+            socialsData.ig = map.ig || "#";
+        }
+
+        function createCard(item, isJob) {
+            const typeClass = isJob ? 'type-job' : 'type-scholarship';
+            const badge = isJob ? 'وظيفة' : 'منحة';
+            return `<div class="card">
+                <span class="card-type ${typeClass}">${badge}</span>
+                <h3>${escapeHtml(item.title)}</h3>
+                <div class="card-company"><i class="fas fa-building"></i> ${escapeHtml(item.company)}</div>
+                <div class="card-details">
+                    <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
+                    <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
+                </div>
+                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">تفاصيل والتقديم</a>
+            </div>`;
+        }
+
+        function escapeHtml(text) {
+            if (text === null || text === undefined) return '';
+            return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+        }
+
+        function bindCardEvents() {
+            document.querySelectorAll('.btn-apply[data-id]').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const id = this.dataset.id;
+                    const isJob = this.dataset.type === 'job';
+                    const item = isJob ? jobsData.find(j => String(j.id) === String(id)) : scholarshipsData.find(s => String(s.id) === String(id));
+                    if (item) openModal({ ...item, isJob });
+                });
+            });
+        }
+
+        function openModal(item) {
+            const badge = document.getElementById('modalBadge');
+            badge.textContent = item.isJob ? 'وظيفة' : 'منحة';
+            badge.className = 'card-type ' + (item.isJob ? 'type-job' : 'type-scholarship');
+            badge.style.position = 'static';
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-building"></i> ' + escapeHtml(item.company);
+            document.getElementById('modalMeta').innerHTML = `
+                <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
+                <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
+                ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}`;
+            document.getElementById('modalDesc').innerHTML = item.description || 'لا يوجد وصف متاح.';
+            document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
+            const reqBox = document.getElementById('modalRequirements');
+            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>المتطلبات:</strong><br>' + escapeHtml(item.requirements); }
+            else { reqBox.style.display = 'none'; }
+            const applyBtn = document.getElementById('modalApplyBtn');
+            if (item.apply_link && item.apply_link !== '#') { applyBtn.href = item.apply_link; applyBtn.style.display = 'block'; }
+            else { applyBtn.style.display = 'none'; }
+            document.getElementById('detailsModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
+        document.getElementById('detailsModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
+
+        async function renderPublicData(filterText = "") {
+            const jobsGrid = document.getElementById('jobsGrid');
+            const scholarshipsGrid = document.getElementById('scholarshipsGrid');
+            jobsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
+            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
+            jobsData = await loadJobs();
+            scholarshipsData = await loadScholarships();
+            await loadSocials();
+            jobsGrid.innerHTML = ""; scholarshipsGrid.innerHTML = "";
+            const q = filterText.toLowerCase();
+            const fJobs = jobsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
+            const fSchs = scholarshipsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
+            fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
+            fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
+            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق بحثك.</p>";
+            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق بحثك.</p>";
+            document.getElementById('link-fb').href = socialsData.fb || "#";
+            document.getElementById('link-li').href = socialsData.li || "#";
+            document.getElementById('link-wa').href = socialsData.wa || "#";
+            document.getElementById('link-tg').href = socialsData.tg || "#";
+            document.getElementById('link-bot').href = socialsData.bot || "#";
+            document.getElementById('link-ig').href = socialsData.ig || "#";
+            bindCardEvents();
+        }
+
+        function searchData() { renderPublicData(document.getElementById('searchInput').value.trim()); }
+        document.getElementById('searchInput').addEventListener('keypress', function (e) { if (e.key === 'Enter') searchData(); });
+
+        function showLogin() {
+            document.getElementById('publicSite').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('loginView').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showPublicSite() {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('publicSite').style.display = 'block';
+            renderPublicData();
+            if (!isLoggedIn) document.documentElement.classList.remove('admin-mode');
+            window.scrollTo(0, 0);
+        }
+
+        async function showDashboard() {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('publicSite').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+            await loadAdminData();
+            loadPanel('job-add');
+            hideAdsForAdmin();
+            window.scrollTo(0, 0);
+        }
+
+        async function login() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const pass = document.getElementById('adminPass').value;
+            const btn = document.getElementById('loginBtn');
+            if (!email || !pass) return alert("يرجى إدخال البريد وكلمة المرور.");
+            btn.disabled = true; btn.textContent = "جاري الدخول...";
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+            btn.disabled = false; btn.textContent = "تسجيل الدخول";
+            if (error) { alert("خطأ في تسجيل الدخول: " + error.message); return; }
+            isLoggedIn = true;
+            sessionStorage.setItem('tb_admin_mode', '1');
+            hideAdsForAdmin();
+            document.getElementById('adminPass').value = "";
+            await showDashboard();
+        }
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            isLoggedIn = false;
+            document.getElementById('adminEmail').value = "";
+            document.getElementById('adminPass').value = "";
+            sessionStorage.removeItem('tb_admin_mode');
+            document.documentElement.classList.remove('admin-mode');
+            window.location.reload();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: '#jobDesc, #schDesc', height: 250, menubar: false,
+                    plugins: 'lists link image table code',
+                    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+                    directionality: 'rtl', skin: 'oxide'
+                });
+            }
+            loadAdsterraBanners();
+        });
+
+        function toggleMenu(menu) {
+            const submenu = document.getElementById('submenu-' + menu);
+            const parentLi = document.getElementById('menu-' + menu);
+            if (submenu) { submenu.classList.toggle('open'); parentLi.classList.toggle('active'); }
+        }
+
+        function loadPanel(name) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
+            const target = document.getElementById('panel-' + name);
+            if (target) target.style.display = 'block';
+            const titles = { 'job-add':'إضافة وظيفة جديدة','job-list':'قائمة الوظائف','sch-add':'إضافة منحة جديدة','sch-list':'قائمة المنح','settings':'إعدادات الموقع' };
+            document.getElementById('panelTitle').textContent = titles[name] || 'لوحة التحكم';
+            document.querySelectorAll('.admin-sidebar ul li').forEach(li => li.classList.remove('active'));
+            if (name.startsWith('job')) document.getElementById('menu-jobs').classList.add('active');
+            if (name.startsWith('sch')) document.getElementById('menu-sch').classList.add('active');
+            if (name === 'settings') document.getElementById('menu-settings').classList.add('active');
+            if (name === 'job-list') renderJobList();
+            if (name === 'sch-list') renderSchList();
+        }
+
+        async function loadAdminData() {
+            jobsData = await loadJobs();
+            scholarshipsData = await loadScholarships();
+            await loadSocials();
+            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
+            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
+            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
+            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
+            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
+            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+            renderJobList(); renderSchList();
+        }
+
+        function renderJobList() {
+            const tbody = document.getElementById('jobListTbody');
+            tbody.innerHTML = jobsData.length === 0
+                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
+                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button onclick="editJob('${j.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteJob('${j.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+        }
+
+        function renderSchList() {
+            const tbody = document.getElementById('schListTbody');
+            tbody.innerHTML = scholarshipsData.length === 0
+                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
+                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button onclick="editSch('${s.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteSch('${s.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+        }
+
+        function editJob(id) {
+            const j = jobsData.find(x => String(x.id) === String(id));
+            if (!j) return;
+            document.getElementById('jobEditId').value = j.id;
+            document.getElementById('jobTitle').value = j.title || '';
+            document.getElementById('jobCompany').value = j.company || '';
+            document.getElementById('jobLocation').value = j.location || '';
+            document.getElementById('jobType').value = j.type || '';
+            document.getElementById('jobDeadline').value = j.deadline || '';
+            document.getElementById('jobReq').value = j.requirements || '';
+            document.getElementById('jobLink').value = j.apply_link || '';
+            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(j.description || '');
+            else document.getElementById('jobDesc').value = j.description || '';
+            loadPanel('job-add');
+            document.getElementById('panelTitle').textContent = 'تعديل الوظيفة';
+        }
+
+        function editSch(id) {
+            const s = scholarshipsData.find(x => String(x.id) === String(id));
+            if (!s) return;
+            document.getElementById('schEditId').value = s.id;
+            document.getElementById('schTitle').value = s.title || '';
+            document.getElementById('schCompany').value = s.company || '';
+            document.getElementById('schLocation').value = s.location || '';
+            document.getElementById('schType').value = s.type || '';
+            document.getElementById('schDeadline').value = s.deadline || '';
+            document.getElementById('schReq').value = s.requirements || '';
+            document.getElementById('schLink').value = s.apply_link || '';
+            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent(s.description || '');
+            else document.getElementById('schDesc').value = s.description || '';
+            loadPanel('sch-add');
+            document.getElementById('panelTitle').textContent = 'تعديل المنحة';
+        }
+
+        async function saveJob() {
+            const title = document.getElementById('jobTitle').value.trim();
+            const company = document.getElementById('jobCompany').value.trim();
+            if (!title || !company) return alert("يرجى ملء المسمى والجهة.");
+            const btn = document.getElementById('jobSaveBtn');
+            btn.disabled = true; btn.textContent = "جاري الحفظ...";
+            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
+            const data = {
+                title, company,
+                location: document.getElementById('jobLocation').value.trim(),
+                type: document.getElementById('jobType').value.trim(),
+                description: descContent,
+                deadline: document.getElementById('jobDeadline').value || null,
+                requirements: document.getElementById('jobReq').value.trim(),
+                apply_link: document.getElementById('jobLink').value.trim()
+            };
+            const id = document.getElementById('jobEditId').value;
+            const { error } = id ? await supabaseClient.from('jobs').update(data).eq('id', id) : await supabaseClient.from('jobs').insert([data]);
+            btn.disabled = false; btn.textContent = "حفظ الوظيفة";
+            if (error) return alert("خطأ: " + error.message);
+            document.getElementById('jobEditId').value = '';
+            ['jobTitle','jobCompany','jobLocation','jobType','jobDeadline','jobReq','jobLink'].forEach(f => document.getElementById(f).value = '');
+            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
+            await loadAdminData();
+            loadPanel('job-list');
+        }
+
+        async function saveScholarship() {
+            const title = document.getElementById('schTitle').value.trim();
+            const company = document.getElementById('schCompany').value.trim();
+            if (!title || !company) return alert("يرجى ملء اسم المنحة والجهة.");
+            const btn = document.getElementById('schSaveBtn');
+            btn.disabled = true; btn.textContent = "جاري الحفظ...";
+            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) ? tinymce.get('schDesc').getContent() : document.getElementById('schDesc').value;
+            const data = {
+                title, company,
+                location: document.getElementById('schLocation').value.trim(),
+                type: document.getElementById('schType').value.trim(),
+                description: descContent,
+                deadline: document.getElementById('schDeadline').value || null,
+                requirements: document.getElementById('schReq').value.trim(),
+                apply_link: document.getElementById('schLink').value.trim()
+            };
+            const id = document.getElementById('schEditId').value;
+            const { error } = id ? await supabaseClient.from('scholarships').update(data).eq('id', id) : await supabaseClient.from('scholarships').insert([data]);
+            btn.disabled = false; btn.textContent = "حفظ المنحة";
+            if (error) return alert("خطأ: " + error.message);
+            document.getElementById('schEditId').value = '';
+            ['schTitle','schCompany','schLocation','schType','schDeadline','schReq','schLink'].forEach(f => document.getElementById(f).value = '');
+            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent('');
+            await loadAdminData();
+            loadPanel('sch-list');
+        }
+
+        async function deleteJob(id) {
+            if (!confirm("هل أنت متأكد من حذف هذه الوظيفة؟")) return;
+            const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
+            if (error) { alert("خطأ في الحذف: " + error.message); return; }
+            await loadAdminData();
+        }
+
+        async function deleteSch(id) {
+            if (!confirm("هل أنت متأكد من حذف هذه المنحة؟")) return;
+            const { error } = await supabaseClient.from('scholarships').delete().eq('id', id);
+            if (error) { alert("خطأ في الحذف: " + error.message); return; }
+            await loadAdminData();
+        }
+
+        async function saveSocials() {
+            const fb = document.getElementById('socFb').value.trim() || "#";
+            const li = document.getElementById('socLi').value.trim() || "#";
+            const wa = document.getElementById('socWa').value.trim() || "#";
+            const tg = document.getElementById('socTg').value.trim() || "#";
+            const bot = document.getElementById('socBot').value.trim() || "#";
+            const ig = document.getElementById('socIg').value.trim() || "#";
+            const { error } = await supabaseClient.from('settings').upsert([
+                {key:'fb',value:fb},
+                {key:'li',value:li},
+                {key:'wa',value:wa},
+                {key:'tg',value:tg},
+                {key:'bot',value:bot},
+                {key:'ig',value:ig}
+            ], { onConflict: 'key' });
+            if (error) { alert("خطأ: " + error.message); return; }
+            socialsData = { fb, li, wa, tg, bot, ig };
+            alert("تم حفظ روابط التواصل بنجاح!");
+        }
+
+        function checkSecretUrlAccess() {
+            const url = window.location.href.toLowerCase();
+            const hash = window.location.hash.toLowerCase();
+            if (url.includes('admin=1') || url.includes('admin=true') || hash === '#admin') showLogin();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && (e.code === 'KeyA' || e.key === 'A' || e.key === 'a')) {
+                e.preventDefault(); showLogin();
+            }
+        });
+
+        let logoClicks = 0;
+        let logoTimer = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.getElementById('siteLogo');
+            if (logo) {
+                logo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logoClicks++;
+                    clearTimeout(logoTimer);
+                    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+                    if (logoClicks >= 5) { logoClicks = 0; showLogin(); }
+                });
+            }
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        window.addEventListener('load', function() {
+            // ✅ تهيئة Telegram WebApp
+            if (window.Telegram && window.Telegram.WebApp) {
+                const tg = window.Telegram.WebApp;
+                try {
+                    tg.ready();
+                    tg.expand();
+                    tg.setHeaderColor('#0A2540');
+                    console.log('✅ Telegram WebApp initialized:', tg.platform, '| initData length:', (tg.initData || '').length);
+                } catch (e) {
+                    console.warn('⚠️ Telegram WebApp init warning:', e.message);
+                }
+            } else {
+                console.log('ℹ️ ليس داخل Telegram — وضع المتصفح العادي');
+            }
+
+            updateTgAdButton();
+
+            // ✅ تسريع ظهور الإعلان التلقائي
+            setTimeout(updateTgAdButton, 800);
+            setTimeout(initTgInAppAds, 500);   // ← بدل 2500
+            // محاولة ثانية لو SDK ما كانش جاهز
+            setTimeout(initTgInAppAds, 2000);
+        });
+
+        supabaseClient.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                isLoggedIn = true;
+                sessionStorage.setItem('tb_admin_mode', '1');
+                hideAdsForAdmin();
+                showDashboard();
+            } else {
+                showPublicSite();
+                checkSecretUrlAccess();
+            }
+        });
+
+        window.addEventListener('hashchange', checkSecretUrlAccess);
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(function (reg) { console.log('✅ Service Worker مسجل بنجاح:', reg.scope); })
+                    .catch(function (err) { console.error('❌ فشل تسجيل Service Worker:', err); });
+            });
+        }
+    </script>
 </body>
 </html>
