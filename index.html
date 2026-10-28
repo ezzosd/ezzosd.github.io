@@ -7,7 +7,7 @@
     <!-- ===== ✅ Telegram Web App SDK (لازم يكون الأول) ===== -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- ===== Google Search Console Verification (خاص بموقع الوظائف) ===== -->
+    <!-- ===== Google Search Console Verification ===== -->
     <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
 
     <!-- ===== SEO ===== -->
@@ -37,7 +37,7 @@
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
     <meta name="twitter:image" content="https://ezzosd.github.io/logo.png">
 
-    <!-- ===== ✅ Monetag Telegram Mini App SDK (بعد Telegram SDK) ===== -->
+    <!-- ===== ✅ Monetag Telegram Mini App SDK ===== -->
     <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
 
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
@@ -361,47 +361,24 @@
         </section>
 
         <div class="container">
-            <div class="adsterra-slot"
-                 data-key="29decc85e71a2464f203afba5d5c2b63"
-                 data-width="728"
-                 data-height="90"
-                 data-desktop-only="true"></div>
-
-            <div class="adsterra-slot"
-                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f"
-                 data-width="320"
-                 data-height="50"></div>
+            <div class="adsterra-slot" data-key="29decc85e71a2464f203afba5d5c2b63" data-width="728" data-height="90" data-desktop-only="true"></div>
+            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
 
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <div class="adsterra-slot"
-                 data-key="76d666ac0613a26c73dcd365b306a45a"
-                 data-width="300"
-                 data-height="250"></div>
+            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
 
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <div class="adsterra-slot"
-                 data-key="76d666ac0613a26c73dcd365b306a45a"
-                 data-width="300"
-                 data-height="250"></div>
-
-            <div class="adsterra-slot"
-                 data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f"
-                 data-width="320"
-                 data-height="50"></div>
-
-            <div class="adsterra-slot"
-                 data-key="4bd24e2f9951fdd56ea226081200c7eb"
-                 data-width="160"
-                 data-height="600"
-                 data-desktop-only="true"></div>
+            <div class="adsterra-slot" data-key="76d666ac0613a26c73dcd365b306a45a" data-width="300" data-height="250"></div>
+            <div class="adsterra-slot" data-key="d5a1b4cf93a05f3861a5f579ed8a2d8f" data-width="320" data-height="50"></div>
+            <div class="adsterra-slot" data-key="4bd24e2f9951fdd56ea226081200c7eb" data-width="160" data-height="600" data-desktop-only="true"></div>
         </div>
 
         <footer>
@@ -607,24 +584,30 @@
             if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
         }
 
+        // ═══════════════════════════════════════════════════════════════
+        // ✅ إعلانات تلقائية — معدّلة للظهور الفوري
+        // ═══════════════════════════════════════════════════════════════
         function initTgInAppAds() {
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
-            if (typeof show_12120918 !== 'function') return;
+            if (typeof show_12120918 !== 'function') {
+                console.warn('⚠️ show_12120918 غير متاح بعد — سأحاول لاحقاً');
+                return;
+            }
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
 
             try {
                 show_12120918({
                     type: 'inApp',
                     inAppSettings: {
-                        frequency: 1,
-                        capping: 0.5,
-                        interval: 60,
-                        timeout: 15,
+                        frequency: 3,      // ✅ 3 مرات كحد أقصى
+                        capping: 0.5,      // ✅ خلال نص ساعة
+                        interval: 15,      // ✅ كل 15 ثانية (بدل 60)
+                        timeout: 1,        // ✅ ثانية واحدة قبل أول إعلان (بدل 15)
                         everyPage: false
                     }
                 });
-                console.log('✅ In-App Interstitial مُهيأ');
+                console.log('✅ In-App Interstitial مُهيأ — سيظهر تلقائياً بعد ثانية');
             } catch (e) {
                 console.error('In-App Interstitial error:', e);
             }
@@ -1068,8 +1051,12 @@
             }
 
             updateTgAdButton();
-            setTimeout(updateTgAdButton, 1500);
-            setTimeout(initTgInAppAds, 2500);
+
+            // ✅ تسريع ظهور الإعلان التلقائي
+            setTimeout(updateTgAdButton, 800);
+            setTimeout(initTgInAppAds, 500);   // ← بدل 2500
+            // محاولة ثانية لو SDK ما كانش جاهز
+            setTimeout(initTgInAppAds, 2000);
         });
 
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
