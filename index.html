@@ -4,25 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ===== ✅ Telegram Web App SDK (لازم يكون الأول) ===== -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-    <!-- ===== Google Search Console Verification ===== -->
     <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
 
-    <!-- ===== SEO ===== -->
     <meta name="description" content="TeachBridge — منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
     <meta name="keywords" content="وظائف تعليمية, وظائف معلمين, منح دراسية, منح للمعلمين, TeachBridge, teaching jobs, scholarships">
     <meta name="author" content="TeachBridge">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://ezzosd.github.io/">
 
-    <!-- ===== Favicon ===== -->
     <link rel="icon" type="image/png" href="/logo.png">
     <link rel="apple-touch-icon" href="/logo.png">
     <link rel="shortcut icon" href="/logo.png">
 
-    <!-- ===== Open Graph ===== -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
     <meta property="og:site_name" content="TeachBridge">
@@ -31,7 +25,6 @@
     <meta property="og:url" content="https://ezzosd.github.io/">
     <meta property="og:image" content="https://ezzosd.github.io/logo.png">
 
-    <!-- ===== Twitter Card ===== -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="TeachBridge | وظائف ومنح للمعلمين حول العالم">
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
@@ -48,7 +41,6 @@
             return;
         }
 
-        // 1) Vignette — Zone 12097416 (أصلي)
         var s1 = document.createElement('script');
         s1.dataset.zone = '12097416';
         s1.src = 'https://n6wxm.com/vignette.min.js';
@@ -57,7 +49,6 @@
         s1.onerror = function() { console.error('❌ Vignette 12097416 failed'); };
         document.head.appendChild(s1);
 
-        // 2) Tag Desktop — Zone 12114698 (أصلي)
         if (window.innerWidth >= 768) {
             var s2 = document.createElement('script');
             s2.dataset.zone = '12114698';
@@ -68,7 +59,6 @@
             document.head.appendChild(s2);
         }
 
-        // 3) Tag — Zone 12132620 (جديد)
         var s3 = document.createElement('script');
         s3.dataset.zone = '12132620';
         s3.src = 'https://nap5k.com/tag.min.js';
@@ -77,7 +67,6 @@
         s3.onerror = function() { console.error('❌ Tag 12132620 failed'); };
         document.head.appendChild(s3);
 
-        // 4) Tag — Zone 302452 (جديد)
         var s4 = document.createElement('script');
         s4.dataset.zone = '302452';
         s4.src = 'https://quge5.com/88/tag.min.js';
@@ -87,7 +76,6 @@
         s4.onerror = function() { console.error('❌ Tag 302452 failed'); };
         document.head.appendChild(s4);
 
-        // 5) Vignette — Zone 12132627 (جديد)
         var s5 = document.createElement('script');
         s5.dataset.zone = '12132627';
         s5.src = 'https://n6wxm.com/vignette.min.js';
@@ -192,6 +180,31 @@
         #tgAdBtn:active { transform: translateY(0); }
         html.admin-mode #tgAdBtn { display: none !important; }
 
+        /* ✅ زرار عائم للعروض */
+        #offersFloatBtn {
+            display: flex;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #offersFloatBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5); }
+        html.admin-mode #offersFloatBtn { display: none !important; }
+        html.admin-mode #extra-offers { display: none !important; }
+
         .social-list {
             display: flex;
             flex-wrap: wrap;
@@ -241,6 +254,9 @@
         .card-details span { display: flex; align-items: center; gap: 5px; }
         .btn-apply { display: block; text-align: center; background-color: var(--primary-dark); color: white; padding: 12px; border-radius: 8px; font-weight: 700; transition: background 0.3s; }
         .btn-apply:hover { background-color: var(--primary-light); }
+
+        /* ✅ قسم الفرص الإضافية */
+        #extra-offers .btn-apply { padding: 18px; font-size: 1.05rem; }
 
         footer { background-color: var(--primary-dark); color: white; padding: 60px 0 20px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
@@ -301,8 +317,9 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
-        /* ===== إخفاء كل الإعلانات في وضع الأدمن ===== */
         html.admin-mode #tgAdBtn,
+        html.admin-mode #offersFloatBtn,
+        html.admin-mode #extra-offers,
         html.admin-mode iframe[src*="monetag"],
         html.admin-mode iframe[src*="vignette"],
         html.admin-mode iframe[src*="n6wxm"],
@@ -337,6 +354,7 @@
             .hero h1 { font-size: 2rem; }
             .search-box { flex-direction: column; border-radius: 20px; }
             .search-box input, .search-box button { width: 100%; border-radius: 10px; }
+            #offersFloatBtn { bottom: 80px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -380,6 +398,17 @@
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
+
+            <!-- ✅ قسم الفرص الإضافية — Direct Links -->
+            <section id="extra-offers" style="padding: 20px 0 50px;">
+                <h2 class="section-title">🌟 فرص إضافية</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:15px;">
+                    <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" data-track-zone="12090630" class="btn-apply" style="background:linear-gradient(135deg,#0070F3,#0050C0);">🚀 فرصة مميزة</a>
+                    <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" data-track-zone="12130004" class="btn-apply" style="background:linear-gradient(135deg,#10B981,#059669);">✨ اكتشف المزيد</a>
+                    <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" data-track-zone="12096134" class="btn-apply" style="background:linear-gradient(135deg,#F59E0B,#D97706);">🎁 عرض خاص</a>
+                    <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" data-track-zone="12094822" class="btn-apply" style="background:linear-gradient(135deg,#EF4444,#DC2626);">🔥 تفاصيل إضافية</a>
+                </div>
+            </section>
         </div>
 
         <footer>
@@ -394,6 +423,15 @@
                         <ul>
                             <li><a href="#jobs">الوظائف التعليمية</a></li>
                             <li><a href="#scholarships">المنح الدراسية</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>🌟 فرص إضافية</h4>
+                        <ul>
+                            <li><a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" data-track-zone="12090630">🚀 فرصة مميزة</a></li>
+                            <li><a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" data-track-zone="12130004">✨ اكتشف المزيد</a></li>
+                            <li><a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" data-track-zone="12096134">🎁 عرض خاص</a></li>
+                            <li><a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" data-track-zone="12094822">🔥 تفاصيل إضافية</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -413,6 +451,9 @@
                 </div>
             </div>
         </footer>
+
+        <!-- ✅ زرار عائم يودّي لقسم الفرص -->
+        <button id="offersFloatBtn" onclick="scrollToOffers()">🌟 عروض</button>
     </div>
 
     <div id="loginView">
@@ -519,7 +560,7 @@
                     </div>
 
                     <div id="panel-settings" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
+                        <div class="admin-card" style="margin-bottom:20px;">
                             <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr" placeholder="https://facebook.com/YourPage"></div></div>
                             <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr" placeholder="https://linkedin.com/in/YourProfile"></div></div>
                             <div class="form-row"><div class="form-label">رابط واتساب</div><div class="form-input"><input type="text" id="socWa" dir="ltr" placeholder="https://wa.me/201234567890"></div></div>
@@ -527,6 +568,43 @@
                             <div class="form-row"><div class="form-label">رابط البوت</div><div class="form-input"><input type="text" id="socBot" dir="ltr" placeholder="https://t.me/YourBot_bot"></div></div>
                             <div class="form-row"><div class="form-label">رابط إنستجرام</div><div class="form-input"><input type="text" id="socIg" dir="ltr" placeholder="https://instagram.com/YourAccount"></div></div>
                             <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
+                        </div>
+
+                        <!-- ✅ إحصائيات النقرات -->
+                        <div class="admin-card">
+                            <h3 style="margin-bottom:20px; color:#0A2540;">📊 إحصائيات النقرات — فرص إضافية</h3>
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead><tr style="border-bottom:2px solid #e4e6ef;">
+                                    <th style="padding:12px; text-align:right;">الرابط</th>
+                                    <th style="padding:12px; text-align:right;">عدد النقرات</th>
+                                    <th style="padding:12px; text-align:right;">إجراء</th>
+                                </tr></thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #f0f0f0;">
+                                        <td style="padding:12px;">🚀 فرصة مميزة <small style="color:#94A3B8;">(12090630)</small></td>
+                                        <td style="padding:12px; font-weight:700; color:#0070F3;" id="stat-12090630">0</td>
+                                        <td style="padding:12px;"><button onclick="resetClickStat('12090630')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f0f0f0;">
+                                        <td style="padding:12px;">✨ اكتشف المزيد <small style="color:#94A3B8;">(12130004)</small></td>
+                                        <td style="padding:12px; font-weight:700; color:#10B981;" id="stat-12130004">0</td>
+                                        <td style="padding:12px;"><button onclick="resetClickStat('12130004')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f0f0f0;">
+                                        <td style="padding:12px;">🎁 عرض خاص <small style="color:#94A3B8;">(12096134)</small></td>
+                                        <td style="padding:12px; font-weight:700; color:#F59E0B;" id="stat-12096134">0</td>
+                                        <td style="padding:12px;"><button onclick="resetClickStat('12096134')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f0f0f0;">
+                                        <td style="padding:12px;">🔥 تفاصيل إضافية <small style="color:#94A3B8;">(12094822)</small></td>
+                                        <td style="padding:12px; font-weight:700; color:#EF4444;" id="stat-12094822">0</td>
+                                        <td style="padding:12px;"><button onclick="resetClickStat('12094822')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="margin-top:15px; font-size:0.85rem; color:#64748B;">
+                                ⚠️ الإحصائيات محفوظة محليًا في المتصفح (localStorage) — كل جهاز له أرقامه المنفصلة.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -561,11 +639,47 @@
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
 
+        // ✅ دوال تتبع النقرات
+        function trackExtraClick(zoneId) {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+            const key = 'tb_click_' + zoneId;
+            const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+            localStorage.setItem(key, count);
+            console.log('📊 Click tracked: zone ' + zoneId + ' → ' + count + ' total');
+        }
+
+        function updateClickStats() {
+            const zones = ['12090630', '12130004', '12096134', '12094822'];
+            zones.forEach(z => {
+                const el = document.getElementById('stat-' + z);
+                if (el) el.textContent = localStorage.getItem('tb_click_' + z) || '0';
+            });
+        }
+
+        function resetClickStat(zoneId) {
+            if (!confirm('هل تريد تصفير عداد النقرات لهذا الرابط؟')) return;
+            localStorage.removeItem('tb_click_' + zoneId);
+            updateClickStats();
+        }
+
+        // ✅ ربط أحداث النقر
+        function bindExtraOfferTracking() {
+            document.querySelectorAll('[data-track-zone]').forEach(el => {
+                if (el.dataset.tracked === '1') return;
+                el.dataset.tracked = '1';
+                el.addEventListener('click', function() {
+                    trackExtraClick(this.dataset.trackZone);
+                });
+            });
+        }
+
+        function scrollToOffers() {
+            const el = document.getElementById('extra-offers');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         function watchTgAd() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم عرض الإعلان');
-                return;
-            }
+            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
             if (typeof show_12120918 !== 'function') {
                 alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
                 return;
@@ -582,30 +696,19 @@
             if (!btn) return;
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             btn.style.display = inTg ? 'flex' : 'none';
-            if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
         }
 
         function initTgInAppAds() {
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
-            if (typeof show_12120918 !== 'function') {
-                console.warn('⚠️ show_12120918 غير متاح بعد — سأحاول لاحقاً');
-                return;
-            }
+            if (typeof show_12120918 !== 'function') return;
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
 
             try {
                 show_12120918({
                     type: 'inApp',
-                    inAppSettings: {
-                        frequency: 3,
-                        capping: 0.5,
-                        interval: 15,
-                        timeout: 1,
-                        everyPage: false
-                    }
+                    inAppSettings: { frequency: 3, capping: 0.5, interval: 15, timeout: 1, everyPage: false }
                 });
-                console.log('✅ In-App Interstitial مُهيأ — سيظهر تلقائياً بعد ثانية');
             } catch (e) {
                 console.error('In-App Interstitial error:', e);
             }
@@ -625,7 +728,8 @@
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
             const tgBtn = document.getElementById('tgAdBtn');
             if (tgBtn) tgBtn.style.display = 'none';
-            console.log('🚫 تم إخفاء الإعلانات عن المشرف');
+            const offerBtn = document.getElementById('offersFloatBtn');
+            if (offerBtn) offerBtn.style.display = 'none';
         }
 
         async function loadJobs() {
@@ -733,6 +837,7 @@
             document.getElementById('link-bot').href = socialsData.bot || "#";
             document.getElementById('link-ig').href = socialsData.ig || "#";
             bindCardEvents();
+            bindExtraOfferTracking();
         }
 
         function searchData() { renderPublicData(document.getElementById('searchInput').value.trim()); }
@@ -750,6 +855,7 @@
             document.getElementById('dashboardView').style.display = 'none';
             document.getElementById('publicSite').style.display = 'block';
             renderPublicData();
+            bindExtraOfferTracking();
             if (!isLoggedIn) document.documentElement.classList.remove('admin-mode');
             window.scrollTo(0, 0);
         }
@@ -799,6 +905,7 @@
                     directionality: 'rtl', skin: 'oxide'
                 });
             }
+            bindExtraOfferTracking();
         });
 
         function toggleMenu(menu) {
@@ -816,7 +923,10 @@
             document.querySelectorAll('.admin-sidebar ul li').forEach(li => li.classList.remove('active'));
             if (name.startsWith('job')) document.getElementById('menu-jobs').classList.add('active');
             if (name.startsWith('sch')) document.getElementById('menu-sch').classList.add('active');
-            if (name === 'settings') document.getElementById('menu-settings').classList.add('active');
+            if (name === 'settings') {
+                document.getElementById('menu-settings').classList.add('active');
+                updateClickStats();
+            }
             if (name === 'job-list') renderJobList();
             if (name === 'sch-list') renderSchList();
         }
@@ -832,6 +942,7 @@
             document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
             document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
             renderJobList(); renderSchList();
+            updateClickStats();
         }
 
         function renderJobList() {
@@ -1006,16 +1117,9 @@
                     tg.ready();
                     tg.expand();
                     tg.setHeaderColor('#0A2540');
-                    console.log('✅ Telegram WebApp initialized:', tg.platform, '| initData length:', (tg.initData || '').length);
-                } catch (e) {
-                    console.warn('⚠️ Telegram WebApp init warning:', e.message);
-                }
-            } else {
-                console.log('ℹ️ ليس داخل Telegram — وضع المتصفح العادي');
+                } catch (e) {}
             }
-
             updateTgAdButton();
-
             setTimeout(updateTgAdButton, 800);
             setTimeout(initTgInAppAds, 500);
             setTimeout(initTgInAppAds, 2000);
@@ -1040,8 +1144,8 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(function (reg) { console.log('✅ Service Worker مسجل بنجاح:', reg.scope); })
-                    .catch(function (err) { console.error('❌ فشل تسجيل Service Worker:', err); });
+                    .then(function (reg) { console.log('✅ Service Worker مسجل:', reg.scope); })
+                    .catch(function (err) { console.error('❌ فشل SW:', err); });
             });
         }
     </script>
