@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- ===== ✅ Telegram Web App SDK (لازم يكون الأول) ===== -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <!-- ===== Google Search Console Verification (خاص بموقع الوظائف) ===== -->
     <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
 
@@ -34,7 +37,7 @@
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
     <meta name="twitter:image" content="https://ezzosd.github.io/logo.png">
 
-    <!-- ✅ Monetag Telegram Mini App SDK -->
+    <!-- ===== ✅ Monetag Telegram Mini App SDK (بعد Telegram SDK) ===== -->
     <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
 
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
@@ -599,13 +602,13 @@
         function updateTgAdButton() {
             const btn = document.getElementById('tgAdBtn');
             if (!btn) return;
-            const inTg = !!(window.Telegram && window.Telegram.WebApp);
+            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             btn.style.display = inTg ? 'flex' : 'none';
             if (inTg) console.log('📱 تيليجرام مكتشف — زر الإعلان مفعّل');
         }
 
         function initTgInAppAds() {
-            const inTg = !!(window.Telegram && window.Telegram.WebApp);
+            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
             if (typeof show_12120918 !== 'function') return;
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
@@ -1049,6 +1052,21 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         window.addEventListener('load', function() {
+            // ✅ تهيئة Telegram WebApp
+            if (window.Telegram && window.Telegram.WebApp) {
+                const tg = window.Telegram.WebApp;
+                try {
+                    tg.ready();
+                    tg.expand();
+                    tg.setHeaderColor('#0A2540');
+                    console.log('✅ Telegram WebApp initialized:', tg.platform, '| initData length:', (tg.initData || '').length);
+                } catch (e) {
+                    console.warn('⚠️ Telegram WebApp init warning:', e.message);
+                }
+            } else {
+                console.log('ℹ️ ليس داخل Telegram — وضع المتصفح العادي');
+            }
+
             updateTgAdButton();
             setTimeout(updateTgAdButton, 1500);
             setTimeout(initTgInAppAds, 2500);
