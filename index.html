@@ -698,6 +698,12 @@
             btn.style.display = inTg ? 'flex' : 'none';
         }
 
+        // ✅ In-App Interstitial (الإعداد الجديد)
+        // frequency: 2   → إعلانان كحد أقصى
+        // capping: 0.1   → خلال 6 دقائق
+        // interval: 30   → 30 ثانية بين كل إعلان
+        // timeout: 5     → انتظار 5 ثوانٍ قبل أول إعلان
+        // everyPage: false → الجلسة تُحفظ عند التنقل
         function initTgInAppAds() {
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
@@ -707,7 +713,13 @@
             try {
                 show_12120918({
                     type: 'inApp',
-                    inAppSettings: { frequency: 3, capping: 0.5, interval: 15, timeout: 1, everyPage: false }
+                    inAppSettings: {
+                        frequency: 2,
+                        capping: 0.1,
+                        interval: 30,
+                        timeout: 5,
+                        everyPage: false
+                    }
                 });
             } catch (e) {
                 console.error('In-App Interstitial error:', e);
