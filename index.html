@@ -178,7 +178,24 @@
         }
         #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
         #tgAdBtn:active { transform: translateY(0); }
-        html.admin-mode #tgAdBtn { display: none !important; }
+        html.admin-mode #tgAdBtn {
+            display: none !important;
+        }
+
+        /* ✅ إخفاء Gabster في وضع المشرف */
+        html.admin-mode iframe[src*="gabster"],
+        html.admin-mode [id*="gabster"],
+        html.admin-mode [class*="gabster"],
+        html.admin-mode [data-gabster-widget],
+        html.admin-mode #gabster-widget-container,
+        html.admin-mode #gabster-chat-button {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
 
         /* ✅ زرار عائم للعروض */
         #offersFloatBtn {
@@ -738,6 +755,13 @@
                 'script[data-zone="12132620"]','script[data-zone="302452"]','script[data-zone="12132627"]'
             ];
             document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
+
+            // ✅ إزالة Gabster من وضع المشرف
+            document.querySelectorAll(
+                'iframe[src*="gabster"], [id*="gabster"], [class*="gabster"], [data-gabster-widget]'
+            ).forEach(el => el.remove());
+            console.log('🚫 تم إخفاء Gabster في وضع المشرف');
+
             const tgBtn = document.getElementById('tgAdBtn');
             if (tgBtn) tgBtn.style.display = 'none';
             const offerBtn = document.getElementById('offersFloatBtn');
@@ -1161,5 +1185,25 @@
             });
         }
     </script>
+
+    <!-- ===== ✅ Gabster AI Widget ===== -->
+    <script>
+    (function() {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') {
+            console.log('🚫 وضع المشرف — لن يتم تحميل Gabster');
+            return;
+        }
+
+        var s = document.createElement('script');
+        s.src = 'https://widget.gabster.ai/loader?cbid=6ae35c4bd9286c4d3808c92a';
+        s.setAttribute('data-gabster-widget', '');
+        s.setAttribute('data-embed-type', 'widget');
+        s.async = true;
+        s.onload = function() { console.log('✅ Gabster widget loaded'); };
+        s.onerror = function() { console.error('❌ Gabster widget failed'); };
+        document.body.appendChild(s);
+    })();
+    </script>
+
 </body>
 </html>
