@@ -32,6 +32,22 @@
 
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
 
+    <!-- ✅ كود إجباري لمسح الكاش القديم (Service Workers) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('✅ تم إلغاء تسجيل Service Worker القديم بنجاح');
+                }
+            });
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+                console.log('✅ تم مسح الكاش القديم');
+            });
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
 
@@ -963,12 +979,17 @@
 
         window.addEventListener('load', function() {
             if (window.Telegram && window.Telegram.WebApp) {
-                const tg = window.Telegram.WebApp;
                 try {
-                    tg.ready();
-                    tg.expand();
-                    tg.setHeaderColor('#0A2540');
-                } catch (e) {}
+                    const tg = window.Telegram.WebApp;
+                    // فقط إذا كنا داخل تطبيق تيليجرام فعلاً
+                    if (tg.initData) {
+                        tg.ready();
+                        tg.expand();
+                        tg.setHeaderColor('#0A2540');
+                    }
+                } catch (e) {
+                    console.warn('تم تجاهل تهيئة تيليجرام لأننا لسنا داخل التطبيق أو النسخة قديمة.');
+                }
             }
         });
 
@@ -985,26 +1006,6 @@
         });
 
         window.addEventListener('hashchange', checkSecretUrlAccess);
-    </script>
-
-    <!-- ✅ تم إصلاح هذا الجزء -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                try {
-                    const swPromise = navigator.serviceWorker.register('./sw.js');
-                    if (swPromise && typeof swPromise.then === 'function') {
-                        swPromise.then(function (reg) { 
-                            console.log('✅ Service Worker مسجل:', reg.scope); 
-                        }).catch(function (err) { 
-                            console.error('❌ فشل SW:', err); 
-                        });
-                    }
-                } catch (e) {
-                    console.error('❌ خطأ في تسجيل Service Worker:', e);
-                }
-            });
-        }
     </script>
 </body>
 </html>
