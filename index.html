@@ -611,17 +611,28 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // ✅ تم إصلاح هذا الجزء
         function watchTgAd() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
             if (typeof show_12120918 !== 'function') {
                 alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
                 return;
             }
-            show_12120918().then(() => {
-                console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
-            }).catch(err => {
-                console.error('❌ خطأ في عرض الإعلان:', err);
-            });
+            
+            try {
+                const adPromise = show_12120918();
+                if (adPromise && typeof adPromise.then === 'function') {
+                    adPromise.then(() => {
+                        console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
+                    }).catch(err => {
+                        console.error('❌ خطأ في عرض الإعلان:', err);
+                    });
+                } else {
+                    console.log('تم فتح الإعلان، لكن الدالة لم ترجع Promise (طبيعي في المتصفح).');
+                }
+            } catch (e) {
+                console.error('❌ حدث خطأ أثناء محاولة عرض الإعلان:', e);
+            }
         }
 
         function updateTgAdButton() {
@@ -1070,12 +1081,22 @@
         window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
 
+    <!-- ✅ تم إصلاح هذا الجزء -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(function (reg) { console.log('✅ Service Worker مسجل:', reg.scope); })
-                    .catch(function (err) { console.error('❌ فشل SW:', err); });
+                try {
+                    const swPromise = navigator.serviceWorker.register('./sw.js');
+                    if (swPromise && typeof swPromise.then === 'function') {
+                        swPromise.then(function (reg) { 
+                            console.log('✅ Service Worker مسجل:', reg.scope); 
+                        }).catch(function (err) { 
+                            console.error('❌ فشل SW:', err); 
+                        });
+                    }
+                } catch (e) {
+                    console.error('❌ خطأ في تسجيل Service Worker:', e);
+                }
             });
         }
     </script>
