@@ -30,63 +30,8 @@
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
     <meta name="twitter:image" content="https://ezzosd.github.io/logo.png">
 
-    <!-- ===== ✅ Monetag Telegram Mini App SDK ===== -->
+    <!-- ===== ✅ Monetag Telegram Mini App SDK (مخفف) ===== -->
     <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
-
-    <!-- ===== ✅ Monetag — كل الأكواد (6 Zones) ===== -->
-    <script>
-    (function() {
-        if (sessionStorage.getItem('tb_admin_mode') === '1') {
-            console.log('🚫 وضع المشرف — لن يتم تحميل إعلانات المتصفح');
-            return;
-        }
-
-        var s1 = document.createElement('script');
-        s1.dataset.zone = '12097416';
-        s1.src = 'https://n6wxm.com/vignette.min.js';
-        s1.async = true;
-        s1.onload = function() { console.log('✅ Vignette 12097416 loaded'); };
-        s1.onerror = function() { console.error('❌ Vignette 12097416 failed'); };
-        document.head.appendChild(s1);
-
-        if (window.innerWidth >= 768) {
-            var s2 = document.createElement('script');
-            s2.dataset.zone = '12114698';
-            s2.src = 'https://nap5k.com/tag.min.js';
-            s2.async = true;
-            s2.onload = function() { console.log('✅ Tag 12114698 loaded'); };
-            s2.onerror = function() { console.error('❌ Tag 12114698 failed'); };
-            document.head.appendChild(s2);
-        }
-
-        var s3 = document.createElement('script');
-        s3.dataset.zone = '12132620';
-        s3.src = 'https://nap5k.com/tag.min.js';
-        s3.async = true;
-        s3.onload = function() { console.log('✅ Tag 12132620 loaded'); };
-        s3.onerror = function() { console.error('❌ Tag 12132620 failed'); };
-        document.head.appendChild(s3);
-
-        var s4 = document.createElement('script');
-        s4.dataset.zone = '302452';
-        s4.src = 'https://quge5.com/88/tag.min.js';
-        s4.async = true;
-        s4.setAttribute('data-cfasync', 'false');
-        s4.onload = function() { console.log('✅ Tag 302452 loaded'); };
-        s4.onerror = function() { console.error('❌ Tag 302452 failed'); };
-        document.head.appendChild(s4);
-
-        var s5 = document.createElement('script');
-        s5.dataset.zone = '12132627';
-        s5.src = 'https://n6wxm.com/vignette.min.js';
-        s5.async = true;
-        s5.onload = function() { console.log('✅ Vignette 12132627 loaded'); };
-        s5.onerror = function() { console.error('❌ Vignette 12132627 failed'); };
-        document.head.appendChild(s5);
-
-        console.log('📦 تم تحميل 5 إعلانات Monetag + SDK تيليجرام');
-    })();
-    </script>
 
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
 
@@ -321,21 +266,7 @@
 
         html.admin-mode #tgAdBtn,
         html.admin-mode #offersFloatBtn,
-        html.admin-mode #extra-offers,
-        html.admin-mode iframe[src*="monetag"],
-        html.admin-mode iframe[src*="vignette"],
-        html.admin-mode iframe[src*="n6wxm"],
-        html.admin-mode iframe[src*="al5sm"],
-        html.admin-mode iframe[src*="nap5k"],
-        html.admin-mode iframe[src*="quge5"],
-        html.admin-mode [id*="vignette"],
-        html.admin-mode [class*="vignette"],
-        html.admin-mode [id*="monetag"],
-        html.admin-mode [class*="monetag"],
-        html.admin-mode [id*="quge5"],
-        html.admin-mode [class*="quge5"],
-        html.admin-mode [id*="push-notification"],
-        html.admin-mode [class*="push-notification"] {
+        html.admin-mode #extra-offers {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
@@ -701,11 +632,6 @@
         }
 
         // ✅ In-App Interstitial (الإعداد الجديد)
-        // frequency: 2   → إعلانان كحد أقصى
-        // capping: 0.1   → خلال 6 دقائق
-        // interval: 30   → 30 ثانية بين كل إعلان
-        // timeout: 5     → انتظار 5 ثوانٍ قبل أول إعلان
-        // everyPage: false → الجلسة تُحفظ عند التنقل
         function initTgInAppAds() {
             const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
             if (!inTg) return;
@@ -716,10 +642,10 @@
                 show_12120918({
                     type: 'inApp',
                     inAppSettings: {
-                        frequency: 2,
-                        capping: 0.1,
-                        interval: 30,
-                        timeout: 5,
+                        frequency: 1, // تم تقليله إلى إعلان واحد فقط
+                        capping: 0.5, // كل 30 دقيقة
+                        interval: 60, // ثانية واحدة
+                        timeout: 10, // بعد 10 ثواني
                         everyPage: false
                     }
                 });
@@ -730,16 +656,6 @@
 
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
-            const adSelectors = [
-                'iframe[src*="monetag"]','iframe[src*="vignette"]','iframe[src*="n6wxm"]',
-                'iframe[src*="al5sm"]','iframe[src*="nap5k"]','iframe[src*="quge5"]',
-                'div[id*="vignette"]','div[class*="vignette"]','div[id*="monetag"]','div[class*="monetag"]',
-                'div[id*="quge5"]','div[class*="quge5"]',
-                'div[id*="push-notification"]','div[class*="push-notification"]',
-                'script[data-zone="12097416"]','script[data-zone="12114698"]',
-                'script[data-zone="12132620"]','script[data-zone="302452"]','script[data-zone="12132627"]'
-            ];
-            document.querySelectorAll(adSelectors.join(',')).forEach(el => el.remove());
             const tgBtn = document.getElementById('tgAdBtn');
             if (tgBtn) tgBtn.style.display = 'none';
             const offerBtn = document.getElementById('offersFloatBtn');
