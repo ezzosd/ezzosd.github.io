@@ -32,22 +32,6 @@
 
     <title>TeachBridge | وظائف ومنح للمعلمين حول العالم</title>
 
-    <!-- ✅ كود إجباري لمسح الكاش القديم (Service Workers) -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                    console.log('✅ تم إلغاء تسجيل Service Worker القديم بنجاح');
-                }
-            });
-            caches.keys().then(function(names) {
-                for (let name of names) caches.delete(name);
-                console.log('✅ تم مسح الكاش القديم');
-            });
-        }
-    </script>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
 
@@ -113,6 +97,30 @@
         .search-box input { flex: 1; padding: 15px 20px; border: none; outline: none; font-size: 1rem; border-radius: 50px; min-width: 200px; font-family: inherit; }
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
+
+        #tgAdBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
+        #tgAdBtn:active { transform: translateY(0); }
+        html.admin-mode #tgAdBtn { display: none !important; }
 
         /* ✅ زرار عائم للعروض */
         #offersFloatBtn {
@@ -251,6 +259,7 @@
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
 
+        html.admin-mode #tgAdBtn,
         html.admin-mode #offersFloatBtn,
         html.admin-mode #extra-offers {
             display: none !important;
@@ -274,6 +283,7 @@
             .search-box { flex-direction: column; border-radius: 20px; }
             .search-box input, .search-box button { width: 100%; border-radius: 10px; }
             #offersFloatBtn { bottom: 20px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
+            #tgAdBtn { bottom: 80px; left: 15px; padding: 10px 16px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -544,6 +554,11 @@
         </div>
     </div>
 
+    <!-- زر إعلان تيليجرام (يظهر فقط داخل التطبيق) -->
+    <button id="tgAdBtn" onclick="watchTgAd()">
+        🎬 شاهد إعلانًا وادعم الموقع
+    </button>
+
     <script>
         const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dHB1d3F5YmR6aGpiaXdydmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU3MjYsImV4cCI6MjEwODE2MTcyNn0.tePW-I7gioA6O-0SSu0nohl7vUBS8N1vIq-F9R3HLcw";
@@ -593,8 +608,45 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // ✅ دالة آمنة لعرض إعلان تيليجرام
+        function watchTgAd() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+            if (typeof show_12120918 !== 'function') {
+                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
+                return;
+            }
+            
+            try {
+                const adPromise = show_12120918();
+                // التحقق من أن الدالة أعادت Promise قبل استخدام .catch
+                if (adPromise && typeof adPromise.then === 'function') {
+                    adPromise.then(() => {
+                        console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
+                        alert('شكرًا لدعمك! تمت مشاهدة الإعلان بنجاح.');
+                    }).catch(err => {
+                        console.error('❌ خطأ في عرض الإعلان:', err);
+                        alert('تعذر عرض الإعلان حاليًا. حاول مرة أخرى لاحقًا.');
+                    });
+                } else {
+                    console.log('تم فتح الإعلان، لكن الدالة لم ترجع Promise (طبيعي في المتصفح).');
+                }
+            } catch (e) {
+                console.error('❌ حدث خطأ أثناء محاولة عرض الإعلان:', e);
+                alert('حدث خطأ غير متوقع أثناء عرض الإعلان.');
+            }
+        }
+
+        function updateTgAdButton() {
+            const btn = document.getElementById('tgAdBtn');
+            if (!btn) return;
+            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            btn.style.display = inTg ? 'flex' : 'none';
+        }
+
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
+            const tgBtn = document.getElementById('tgAdBtn');
+            if (tgBtn) tgBtn.style.display = 'none';
             const offerBtn = document.getElementById('offersFloatBtn');
             if (offerBtn) offerBtn.style.display = 'none';
         }
@@ -981,7 +1033,6 @@
             if (window.Telegram && window.Telegram.WebApp) {
                 try {
                     const tg = window.Telegram.WebApp;
-                    // فقط إذا كنا داخل تطبيق تيليجرام فعلاً
                     if (tg.initData) {
                         tg.ready();
                         tg.expand();
@@ -991,7 +1042,32 @@
                     console.warn('تم تجاهل تهيئة تيليجرام لأننا لسنا داخل التطبيق أو النسخة قديمة.');
                 }
             }
+            updateTgAdButton();
+            setTimeout(updateTgAdButton, 800);
         });
+
+        // ✅ تحميل إعلان منبثق واحد (OnClick PopUnder) - يعمل فقط خارج وضع المشرف
+        (function loadPopunderAd() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان المنبثق');
+                return;
+            }
+            
+            // ⚠️ استبدل 12120918 بمعرف المنطقة (Zone ID) الخاص بإعلان Popunder من حسابك في Monetag
+            const POPUNDER_ZONE_ID = '12120918'; 
+            
+            try {
+                const script = document.createElement('script');
+                script.src = 'https://nap5k.com/tag.min.js'; // رابط سكربت Popunder من Monetag
+                script.dataset.zone = POPUNDER_ZONE_ID;
+                script.async = true;
+                script.onload = function() { console.log('✅ تم تحميل الإعلان المنبثق (Popunder)'); };
+                script.onerror = function() { console.error('❌ فشل تحميل الإعلان المنبثق'); };
+                document.body.appendChild(script);
+            } catch (e) {
+                console.error('❌ خطأ في تحميل الإعلان المنبثق:', e);
+            }
+        })();
 
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
