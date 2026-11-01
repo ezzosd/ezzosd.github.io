@@ -1046,29 +1046,6 @@
             setTimeout(updateTgAdButton, 800);
         });
 
-        // ✅ تحميل إعلان منبثق واحد (OnClick PopUnder) - يعمل فقط خارج وضع المشرف
-        (function loadPopunderAd() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان المنبثق');
-                return;
-            }
-            
-            // ⚠️ استبدل 12120918 بمعرف المنطقة (Zone ID) الخاص بإعلان Popunder من حسابك في Monetag
-            const POPUNDER_ZONE_ID = '12120918'; 
-            
-            try {
-                const script = document.createElement('script');
-                script.src = 'https://nap5k.com/tag.min.js'; // رابط سكربت Popunder من Monetag
-                script.dataset.zone = POPUNDER_ZONE_ID;
-                script.async = true;
-                script.onload = function() { console.log('✅ تم تحميل الإعلان المنبثق (Popunder)'); };
-                script.onerror = function() { console.error('❌ فشل تحميل الإعلان المنبثق'); };
-                document.body.appendChild(script);
-            } catch (e) {
-                console.error('❌ خطأ في تحميل الإعلان المنبثق:', e);
-            }
-        })();
-
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 isLoggedIn = true;
@@ -1083,5 +1060,21 @@
 
         window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
+
+    <!-- ✅ كود الإعلان المنبثق (يتم تحميله فقط للزوار وليس للمشرف) -->
+    <script>
+        (function() {
+            if (sessionStorage.getItem('tb_admin_mode') === '1') {
+                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان المنبثق');
+                return;
+            }
+            // كود الإعلان الخاص بك (Zone ID: 12167732)
+            (function(s){
+                s.dataset.zone='12167732';
+                s.src='https://al5sm.com/tag.min.js';
+            })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+        })();
+    </script>
+
 </body>
 </html>
