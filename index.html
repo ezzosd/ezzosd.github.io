@@ -125,7 +125,6 @@
         #tgAdBtn:active { transform: translateY(0); }
         html.admin-mode #tgAdBtn { display: none !important; }
 
-        /* ✅ زرار عائم للعروض */
         #offersFloatBtn {
             display: flex;
             position: fixed;
@@ -200,7 +199,6 @@
         .btn-apply { display: block; text-align: center; background-color: var(--primary-dark); color: white; padding: 12px; border-radius: 8px; font-weight: 700; transition: background 0.3s; }
         .btn-apply:hover { background-color: var(--primary-light); }
 
-        /* ✅ قسم الفرص الإضافية */
         #extra-offers .btn-apply { padding: 18px; font-size: 1.05rem; }
 
         footer { background-color: var(--primary-dark); color: white; padding: 60px 0 20px; }
@@ -331,7 +329,6 @@
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <!-- ✅ قسم الفرص الإضافية — Direct Links -->
             <section id="extra-offers" style="padding: 20px 0 50px;">
                 <h2 class="section-title">🌟 فرص إضافية</h2>
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:15px;">
@@ -384,7 +381,6 @@
             </div>
         </footer>
 
-        <!-- ✅ زرار عائم يودّي لقسم الفرص -->
         <button id="offersFloatBtn" onclick="scrollToOffers()">🌟 عروض</button>
     </div>
 
@@ -502,7 +498,6 @@
                             <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
                         </div>
 
-                        <!-- ✅ إحصائيات النقرات -->
                         <div class="admin-card">
                             <h3 style="margin-bottom:20px; color:#0A2540;">📊 إحصائيات النقرات — فرص إضافية</h3>
                             <table style="width:100%; border-collapse:collapse;">
@@ -557,7 +552,6 @@
         </div>
     </div>
 
-    <!-- زر إعلان تيليجرام (يظهر فقط داخل التطبيق) -->
     <button id="tgAdBtn" onclick="watchTgAd()">
         🎬 شاهد إعلانًا وادعم الموقع
     </button>
@@ -572,7 +566,6 @@
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
 
-        // ✅ دوال تتبع النقرات
         function trackExtraClick(zoneId) {
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
             const key = 'tb_click_' + zoneId;
@@ -595,7 +588,6 @@
             updateClickStats();
         }
 
-        // ✅ ربط أحداث النقر
         function bindExtraOfferTracking() {
             document.querySelectorAll('[data-track-zone]').forEach(el => {
                 if (el.dataset.tracked === '1') return;
@@ -611,39 +603,55 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ✅ دالة آمنة لعرض إعلان تيليجرام
+        // ✅ دالة عرض إعلان تيليجرام (مُحسّنة)
         function watchTgAd() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+            
             if (typeof show_12120918 !== 'function') {
                 alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
                 return;
             }
             
             try {
-                const adPromise = show_12120918();
-                // التحقق من أن الدالة أعادت Promise قبل استخدام .catch
-                if (adPromise && typeof adPromise.then === 'function') {
-                    adPromise.then(() => {
-                        console.log('✅ تم مشاهدة إعلان Rewarded Interstitial');
-                        alert('شكرًا لدعمك! تمت مشاهدة الإعلان بنجاح.');
+                const result = show_12120918();
+                
+                if (result && typeof result.then === 'function') {
+                    result.then(() => {
+                        console.log('✅ تم مشاهدة الإعلان بنجاح');
+                        alert('شكرًا لدعمك! ❤️');
                     }).catch(err => {
-                        console.error('❌ خطأ في عرض الإعلان:', err);
-                        alert('تعذر عرض الإعلان حاليًا. حاول مرة أخرى لاحقًا.');
+                        console.warn('⚠️ تم إغلاق الإعلان أو حدث خطأ:', err);
                     });
                 } else {
-                    console.log('تم فتح الإعلان، لكن الدالة لم ترجع Promise (طبيعي في المتصفح).');
+                    console.log('✅ تم فتح الإعلان (بدون Promise)');
                 }
             } catch (e) {
-                console.error('❌ حدث خطأ أثناء محاولة عرض الإعلان:', e);
-                alert('حدث خطأ غير متوقع أثناء عرض الإعلان.');
+                console.error('❌ خطأ في عرض الإعلان:', e);
+                alert('تعذر عرض الإعلان حاليًا. حاول لاحقًا.');
             }
         }
 
+        // ✅ التحكم في إظهار زر الإعلان (مُحسّن)
         function updateTgAdButton() {
             const btn = document.getElementById('tgAdBtn');
             if (!btn) return;
-            const inTg = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
-            btn.style.display = inTg ? 'flex' : 'none';
+            
+            const hasTelegram = !!(window.Telegram && window.Telegram.WebApp);
+            const hasInitData = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
+            const sdkReady = typeof show_12120918 === 'function';
+            
+            if (hasInitData && !document.documentElement.classList.contains('admin-mode')) {
+                btn.style.display = 'flex';
+            } else {
+                btn.style.display = 'none';
+            }
+            
+            console.log('🔍 حالة زر الإعلان:', {
+                telegram: hasTelegram,
+                initData: hasInitData,
+                sdkReady: sdkReady,
+                visible: btn.style.display === 'flex'
+            });
         }
 
         function hideAdsForAdmin() {
@@ -1064,18 +1072,33 @@
         window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
 
-    <!-- ✅ كود الإعلان المنبثق (يتم تحميله فقط للزوار وليس للمشرف) -->
+    <!-- ✅ كود الإعلان المنبثق (Monetag Zone: 12167732) — مُحسّن -->
     <script>
         (function() {
             if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان المنبثق');
+                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان');
                 return;
             }
-            // كود الإعلان الخاص بك (Zone ID: 12167732)
-            (function(s){
-                s.dataset.zone='12167732';
-                s.src='https://al5sm.com/tag.min.js';
-            })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+            
+            function loadAl5smAd() {
+                try {
+                    const script = document.createElement('script');
+                    script.src = 'https://al5sm.com/tag.min.js';
+                    script.setAttribute('data-zone', '12167732');
+                    script.async = true;
+                    script.onerror = () => console.warn('⚠️ فشل تحميل سكربت الإعلان — تحقق من الاتصال أو أداة حظر الإعلانات');
+                    script.onload = () => console.log('✅ تم تحميل سكربت الإعلان بنجاح (Zone: 12167732)');
+                    (document.body || document.documentElement).appendChild(script);
+                } catch (e) {
+                    console.error('❌ خطأ في تحميل سكربت الإعلان:', e);
+                }
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadAl5smAd);
+            } else {
+                loadAl5smAd();
+            }
         })();
     </script>
 
