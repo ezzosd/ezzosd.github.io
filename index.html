@@ -1219,9 +1219,19 @@
         }
 
         function loadAds() {
+          // In-Page Push zones (medium)
           addAdScript('https://nap5k.com/tag.min.js', '12269939');
           addAdScript('https://nap5k.com/tag.min.js', '12269943');
-          addAdScript('https://quge5.com/88/tag.min.js', '310596', false);
+
+          // Vignette Banner zone (medium)
+          addAdScript('https://n6wxm.com/vignette.min.js', '12270017');
+
+          // Push Notifications zone (requires Monetag service worker at site root)
+          const pushScript = document.createElement('script');
+          pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=12270018';
+          pushScript.async = true;
+          pushScript.dataset.cfasync = 'false';
+          (document.body || document.documentElement).appendChild(pushScript);
         }
 
         if (document.readyState === 'loading') {
@@ -1232,21 +1242,7 @@
       })();
     </script>
 
-    <!-- Unregister the previous Monetag service worker -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function (registrations) {
-          registrations.forEach(function (registration) {
-            const worker = registration.active || registration.waiting || registration.installing;
-            if (worker && new URL(worker.scriptURL).pathname === '/sw.js') {
-              registration.unregister();
-            }
-          });
-        }).catch(function (error) {
-          console.warn('Could not unregister previous ad service worker:', error);
-        });
-      }
-    </script>
+    <!-- Keep the service-worker registration available for Monetag Push Notifications. -->
 
 </body>
 </html>
