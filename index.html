@@ -1318,5 +1318,21 @@
         })();
     </script>
 
+
+    <!-- Monetag Service Worker registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                    .then(function (registration) {
+                        console.log('Monetag Service Worker registered:', registration.scope);
+                    })
+                    .catch(function (error) {
+                        console.warn('Monetag Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+
 </body>
 </html>
