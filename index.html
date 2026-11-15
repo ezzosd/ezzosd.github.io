@@ -32,9 +32,6 @@
 
     <title>TeachGrant | وظائف ومنح للمعلمين حول العالم</title>
 
-    <!-- ✅ سكربت تيليجرام (Monetag SDK) -->
-    <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
 
@@ -100,30 +97,6 @@
         .search-box input { flex: 1; padding: 15px 20px; border: none; outline: none; font-size: 1rem; border-radius: 50px; min-width: 200px; font-family: inherit; }
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
-
-        #tgAdBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
-            background: linear-gradient(135deg, #0088cc, #00aaff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
-        #tgAdBtn:active { transform: translateY(0); }
-        html.admin-mode #tgAdBtn { display: none !important; }
 
         #offersFloatBtn {
             display: flex;
@@ -259,8 +232,6 @@
         .btn-primary-cls:hover { background: #0085d1; }
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
-
-        html.admin-mode #tgAdBtn,
         html.admin-mode #offersFloatBtn,
         html.admin-mode #extra-offers {
             display: none !important;
@@ -284,7 +255,6 @@
             .search-box { flex-direction: column; border-radius: 20px; }
             .search-box input, .search-box button { width: 100%; border-radius: 10px; }
             #offersFloatBtn { bottom: 20px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
-            #tgAdBtn { bottom: 80px; left: 15px; padding: 10px 16px; font-size: 0.85rem; }
         }
     </style>
 
@@ -714,9 +684,6 @@
         </div>
     </div>
 
-    <button id="tgAdBtn" onclick="watchTgAd()">
-        🎬 شاهد إعلانًا وادعم الموقع
-    </button>
 
     <script>
         const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
@@ -763,57 +730,6 @@
         function scrollToOffers() {
             const el = document.getElementById('extra-offers');
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // ✅ دالة عرض إعلان تيليجرام (مُحسّنة)
-        function watchTgAd() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-            
-            if (typeof show_12120918 !== 'function') {
-                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
-                return;
-            }
-            
-            try {
-                const result = show_12120918();
-                
-                if (result && typeof result.then === 'function') {
-                    result.then(() => {
-                        console.log('✅ تم مشاهدة الإعلان بنجاح');
-                        alert('شكرًا لدعمك! ❤️');
-                    }).catch(err => {
-                        console.warn('⚠️ تم إغلاق الإعلان أو حدث خطأ:', err);
-                    });
-                } else {
-                    console.log('✅ تم فتح الإعلان (بدون Promise)');
-                }
-            } catch (e) {
-                console.error('❌ خطأ في عرض الإعلان:', e);
-                alert('تعذر عرض الإعلان حاليًا. حاول لاحقًا.');
-            }
-        }
-
-        // ✅ التحكم في إظهار زر الإعلان (مُحسّن)
-        function updateTgAdButton() {
-            const btn = document.getElementById('tgAdBtn');
-            if (!btn) return;
-            
-            const hasTelegram = !!(window.Telegram && window.Telegram.WebApp);
-            const hasInitData = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
-            const sdkReady = typeof show_12120918 === 'function';
-            
-            if (hasInitData && !document.documentElement.classList.contains('admin-mode')) {
-                btn.style.display = 'flex';
-            } else {
-                btn.style.display = 'none';
-            }
-            
-            console.log('🔍 حالة زر الإعلان:', {
-                telegram: hasTelegram,
-                initData: hasInitData,
-                sdkReady: sdkReady,
-                visible: btn.style.display === 'flex'
-            });
         }
 
         function hideAdsForAdmin() {
@@ -1269,8 +1185,6 @@
                     console.warn('تم تجاهل تهيئة تيليجرام لأننا لسنا داخل التطبيق أو النسخة قديمة.');
                 }
             }
-            updateTgAdButton();
-            setTimeout(updateTgAdButton, 800);
         });
 
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -1288,50 +1202,50 @@
         window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
 
-    <!-- ✅ كود الإعلان المنبثق (Monetag Zone: 12167732) — مُحسّن -->
+
+
+    <!-- Monetag ad zones: new approved tags -->
     <script>
-        (function() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان');
-                return;
-            }
-            
-            function loadAl5smAd() {
-                try {
-                    const script = document.createElement('script');
-                    script.src = 'https://al5sm.com/tag.min.js';
-                    script.setAttribute('data-zone', '12167732');
-                    script.async = true;
-                    script.onerror = () => console.warn('⚠️ فشل تحميل سكربت الإعلان — تحقق من الاتصال أو أداة حظر الإعلانات');
-                    script.onload = () => console.log('✅ تم تحميل سكربت الإعلان بنجاح (Zone: 12167732)');
-                    (document.body || document.documentElement).appendChild(script);
-                } catch (e) {
-                    console.error('❌ خطأ في تحميل سكربت الإعلان:', e);
-                }
-            }
-            
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadAl5smAd);
-            } else {
-                loadAl5smAd();
-            }
-        })();
+      (function () {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+        function addAdScript(src, zone, cfasync) {
+          const script = document.createElement('script');
+          script.src = src;
+          script.dataset.zone = zone;
+          script.async = true;
+          if (cfasync === false) script.dataset.cfasync = 'false';
+          (document.body || document.documentElement).appendChild(script);
+        }
+
+        function loadAds() {
+          addAdScript('https://nap5k.com/tag.min.js', '12269939');
+          addAdScript('https://nap5k.com/tag.min.js', '12269943');
+          addAdScript('https://quge5.com/88/tag.min.js', '310596', false);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', loadAds, { once: true });
+        } else {
+          loadAds();
+        }
+      })();
     </script>
 
-
-    <!-- Monetag Service Worker registration -->
+    <!-- Unregister the previous Monetag service worker -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then(function (registration) {
-                        console.log('Monetag Service Worker registered:', registration.scope);
-                    })
-                    .catch(function (error) {
-                        console.warn('Monetag Service Worker registration failed:', error);
-                    });
-            });
-        }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          registrations.forEach(function (registration) {
+            const worker = registration.active || registration.waiting || registration.installing;
+            if (worker && new URL(worker.scriptURL).pathname === '/sw.js') {
+              registration.unregister();
+            }
+          });
+        }).catch(function (error) {
+          console.warn('Could not unregister previous ad service worker:', error);
+        });
+      }
     </script>
 
 </body>
