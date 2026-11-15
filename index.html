@@ -406,6 +406,31 @@
       }
     </style>
 
+    <style id="teachgrant-listing-filters">
+      .listing-toolbar {
+        display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px;
+        margin:-12px auto 24px; padding:14px; max-width:100%;
+        background:#fff; border:1px solid var(--border-color); border-radius:16px;
+        box-shadow:0 6px 20px rgba(16,43,70,.045);
+      }
+      .listing-count { color:var(--primary-dark); margin-inline-end:auto; font-size:.95rem; }
+      .listing-toolbar select {
+        min-width:150px; max-width:100%; padding:10px 12px; border:1px solid var(--border-color);
+        border-radius:10px; background:#fff; color:var(--text-main); font:inherit; font-size:.88rem;
+      }
+      .listing-toolbar button {
+        border:0; border-radius:10px; padding:10px 14px; background:#eef3f9;
+        color:var(--primary-dark); font:inherit; font-weight:700; cursor:pointer;
+      }
+      .listing-toolbar button:hover { background:#e2ebf5; }
+      .card-deadline { color:#9a6513; font-weight:700; }
+      @media(max-width:700px) {
+        .listing-toolbar { justify-content:stretch; }
+        .listing-count { width:100%; margin:0 0 4px; text-align:center; }
+        .listing-toolbar select,.listing-toolbar button { flex:1 1 100%; width:100%; }
+      }
+    </style>
+
 </head>
 <body>
 
@@ -440,11 +465,29 @@
         <div class="container">
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
+                <div class="listing-toolbar" aria-label="تصفية الوظائف">
+                    <strong id="jobsCount" class="listing-count">جاري تحميل الوظائف...</strong>
+                    <select id="jobsCountryFilter" aria-label="تصفية الوظائف حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="jobsTypeFilter" aria-label="تصفية الوظائف حسب النوع" onchange="renderPublicData()"><option value="">كل أنواع الوظائف</option></select>
+                    <select id="jobsDeadlineFilter" aria-label="تصفية الوظائف حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('jobs')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
+                <div class="listing-toolbar" aria-label="تصفية المنح">
+                    <strong id="scholarshipsCount" class="listing-count">جاري تحميل المنح...</strong>
+                    <select id="scholarshipsCountryFilter" aria-label="تصفية المنح حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option></select>
+                    <select id="scholarshipsDeadlineFilter" aria-label="تصفية المنح حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('scholarships')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
@@ -816,6 +859,7 @@
                 <div class="card-details">
                     <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
+                    ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
                 <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">تفاصيل والتقديم</a>
             </div>`;
@@ -863,28 +907,81 @@
         function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
         document.getElementById('detailsModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
 
-        async function renderPublicData(filterText = "") {
+        function fillFilterOptions(selectId, values, emptyLabel) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            const previous = select.value;
+            const unique = [...new Set(values.filter(Boolean).map(v => String(v).trim()).filter(Boolean))]
+                .sort((a,b) => a.localeCompare(b, 'ar'));
+            select.innerHTML = '<option value="">'+ escapeHtml(emptyLabel) +'</option>' +
+                unique.map(value => '<option value="'+ escapeHtml(value) +'">'+ escapeHtml(value) +'</option>').join('');
+            if (unique.includes(previous)) select.value = previous;
+        }
+
+        function updateListingFilterOptions() {
+            fillFilterOptions('jobsCountryFilter', jobsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('jobsTypeFilter', jobsData.map(x => x.type), 'كل أنواع الوظائف');
+            fillFilterOptions('scholarshipsCountryFilter', scholarshipsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('scholarshipsTypeFilter', scholarshipsData.map(x => x.type), 'كل أنواع التمويل');
+        }
+
+        function filterListing(items, prefix, query) {
+            const country = document.getElementById(prefix + 'CountryFilter')?.value || '';
+            const type = document.getElementById(prefix + 'TypeFilter')?.value || '';
+            const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            return items.filter(item => {
+                const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements]
+                    .map(v => String(v || '').toLocaleLowerCase('ar')).join(' ');
+                if (query && !searchable.includes(query)) return false;
+                if (country && String(item.location || '') !== country) return false;
+                if (type && String(item.type || '') !== type) return false;
+                if (deadlineMode && item.deadline) {
+                    const deadline = new Date(String(item.deadline).slice(0,10) + 'T00:00:00');
+                    const expired = !Number.isNaN(deadline.getTime()) && deadline < today;
+                    if (deadlineMode === 'active' && expired) return false;
+                    if (deadlineMode === 'expired' && !expired) return false;
+                } else if (deadlineMode === 'expired' && !item.deadline) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function resetListingFilters(prefix) {
+            ['CountryFilter','TypeFilter','DeadlineFilter'].forEach(suffix => {
+                const el = document.getElementById(prefix + suffix);
+                if (el) el.value = '';
+            });
+            renderPublicData();
+        }
+
+        async function renderPublicData(filterText = document.getElementById('searchInput')?.value.trim() || '') {
             const jobsGrid = document.getElementById('jobsGrid');
             const scholarshipsGrid = document.getElementById('scholarshipsGrid');
-            jobsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
-            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
+            jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
+            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
             jobsData = await loadJobs();
             scholarshipsData = await loadScholarships();
             await loadSocials();
-            jobsGrid.innerHTML = ""; scholarshipsGrid.innerHTML = "";
-            const q = filterText.toLowerCase();
-            const fJobs = jobsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
-            const fSchs = scholarshipsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
+            updateListingFilterOptions();
+            jobsGrid.innerHTML = ''; scholarshipsGrid.innerHTML = '';
+            const q = String(filterText || '').toLocaleLowerCase('ar');
+            const fJobs = filterListing(jobsData, 'jobs', q);
+            const fSchs = filterListing(scholarshipsData, 'scholarships', q);
             fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
             fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
-            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق بحثك.</p>";
-            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق بحثك.</p>";
-            document.getElementById('link-fb').href = socialsData.fb || "#";
-            document.getElementById('link-li').href = socialsData.li || "#";
-            document.getElementById('link-wa').href = socialsData.wa || "#";
-            document.getElementById('link-tg').href = socialsData.tg || "#";
-            document.getElementById('link-bot').href = socialsData.bot || "#";
-            document.getElementById('link-ig').href = socialsData.ig || "#";
+            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق عوامل البحث والتصفية.</p>";
+            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
+            document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
+            document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
+            document.getElementById('link-fb').href = socialsData.fb || '#';
+            document.getElementById('link-li').href = socialsData.li || '#';
+            document.getElementById('link-wa').href = socialsData.wa || '#';
+            document.getElementById('link-tg').href = socialsData.tg || '#';
+            document.getElementById('link-bot').href = socialsData.bot || '#';
+            document.getElementById('link-ig').href = socialsData.ig || '#';
             bindCardEvents();
             bindExtraOfferTracking();
         }
