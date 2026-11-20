@@ -13,9 +13,9 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://teachgrant.tech/">
 
-    <link rel="icon" type="image/png" href="/logo.png">
-    <link rel="apple-touch-icon" href="/logo.png">
-    <link rel="shortcut icon" href="/logo.png">
+    <link rel="icon" type="image/png" href="/teachgrant-banner.png?v=2">
+    <link rel="apple-touch-icon" href="/teachgrant-banner.png?v=2">
+    <link rel="shortcut icon" href="/teachgrant-banner.png?v=2">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
@@ -23,17 +23,14 @@
     <meta property="og:title" content="TeachGrant | وظائف ومنح للمعلمين حول العالم">
     <meta property="og:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
     <meta property="og:url" content="https://teachgrant.tech/">
-    <meta property="og:image" content="https://teachgrant.tech/logo.png">
+    <meta property="og:image" content="https://teachgrant.tech/teachgrant-banner.png?v=2">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="TeachGrant | وظائف ومنح للمعلمين حول العالم">
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
-    <meta name="twitter:image" content="https://teachgrant.tech/logo.png">
+    <meta name="twitter:image" content="https://teachgrant.tech/teachgrant-banner.png?v=2">
 
     <title>TeachGrant | وظائف ومنح للمعلمين حول العالم</title>
-
-    <!-- ✅ سكربت تيليجرام (Monetag SDK) -->
-    <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
@@ -100,30 +97,6 @@
         .search-box input { flex: 1; padding: 15px 20px; border: none; outline: none; font-size: 1rem; border-radius: 50px; min-width: 200px; font-family: inherit; }
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
-
-        #tgAdBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
-            background: linear-gradient(135deg, #0088cc, #00aaff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
-        #tgAdBtn:active { transform: translateY(0); }
-        html.admin-mode #tgAdBtn { display: none !important; }
 
         #offersFloatBtn {
             display: flex;
@@ -259,8 +232,6 @@
         .btn-primary-cls:hover { background: #0085d1; }
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
-
-        html.admin-mode #tgAdBtn,
         html.admin-mode #offersFloatBtn,
         html.admin-mode #extra-offers {
             display: none !important;
@@ -284,7 +255,6 @@
             .search-box { flex-direction: column; border-radius: 20px; }
             .search-box input, .search-box button { width: 100%; border-radius: 10px; }
             #offersFloatBtn { bottom: 20px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
-            #tgAdBtn { bottom: 80px; left: 15px; padding: 10px 16px; font-size: 0.85rem; }
         }
     </style>
 
@@ -406,15 +376,43 @@
       }
     </style>
 
+    <style id="teachgrant-listing-filters">
+      .listing-toolbar {
+        display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px;
+        margin:-12px auto 24px; padding:14px; max-width:100%;
+        background:#fff; border:1px solid var(--border-color); border-radius:16px;
+        box-shadow:0 6px 20px rgba(16,43,70,.045);
+      }
+      .listing-count { color:var(--primary-dark); margin-inline-end:auto; font-size:.95rem; }
+      .listing-toolbar select {
+        min-width:150px; max-width:100%; padding:10px 12px; border:1px solid var(--border-color);
+        border-radius:10px; background:#fff; color:var(--text-main); font:inherit; font-size:.88rem;
+      }
+      .listing-toolbar button {
+        border:0; border-radius:10px; padding:10px 14px; background:#eef3f9;
+        color:var(--primary-dark); font:inherit; font-weight:700; cursor:pointer;
+      }
+      .listing-toolbar button:hover { background:#e2ebf5; }
+      .card-deadline { color:#9a6513; font-weight:700; }
+      @media(max-width:700px) {
+        .listing-toolbar { justify-content:stretch; }
+        .listing-count { width:100%; margin:0 0 4px; text-align:center; }
+        .listing-toolbar select,.listing-toolbar button { flex:1 1 100%; width:100%; }
+      }
+    </style>
 </head>
 <body>
 
     <div id="publicSite">
         <header>
             <div class="container header-content">
+
                 <a href="#" class="logo" id="siteLogo">
-                    <img src="logo.png" alt="شعار TeachGrant" style="max-width: 100%;">
+                    <img src="/teachgrant-banner.png?v=2"
+                         alt="شعار TeachGrant"
+                         style="height:60px; width:auto; object-fit:contain;">
                 </a>
+
                 <nav>
                     <ul>
                         <li><a href="#" class="active">الرئيسية</a></li>
@@ -440,11 +438,29 @@
         <div class="container">
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
+                <div class="listing-toolbar" aria-label="تصفية الوظائف">
+                    <strong id="jobsCount" class="listing-count">جاري تحميل الوظائف...</strong>
+                    <select id="jobsCountryFilter" aria-label="تصفية الوظائف حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="jobsTypeFilter" aria-label="تصفية الوظائف حسب النوع" onchange="renderPublicData()"><option value="">كل أنواع الوظائف</option></select>
+                    <select id="jobsDeadlineFilter" aria-label="تصفية الوظائف حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('jobs')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
+                <div class="listing-toolbar" aria-label="تصفية المنح">
+                    <strong id="scholarshipsCount" class="listing-count">جاري تحميل المنح...</strong>
+                    <select id="scholarshipsCountryFilter" aria-label="تصفية المنح حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option></select>
+                    <select id="scholarshipsDeadlineFilter" aria-label="تصفية المنح حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('scholarships')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
@@ -555,14 +571,17 @@
                     <div id="panel-job-add" class="admin-panel" style="display:block;">
                         <div class="admin-card">
                             <input type="hidden" id="jobEditId">
-                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" value="مدرس رياضيات"></div></div>
-                            <div class="form-row"><div class="form-label">الجهة / الشركة</div><div class="form-input"><input type="text" id="jobCompany" value="مدارس النيل"></div></div>
-                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><select id="jobLocation"><option value="القاهرة، مصر">القاهرة، مصر</option><option value="الرياض، السعودية">الرياض، السعودية</option><option value="دبي، الإمارات">دبي، الإمارات</option></select></div></div>
-                            <div class="form-row"><div class="form-label">نوع الدوام</div><div class="form-input"><input type="text" id="jobType" value="دوام كامل"></div></div>
-                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="jobDesc"></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
-                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="jobReq"></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr"></div></div>
+                            <div class="form-row"><div class="form-label">المدرسة / جهة العمل</div><div class="form-input"><input type="text" id="jobCompany" placeholder="اسم المدرسة أو جهة العمل" required></div></div>
+                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" placeholder="مثال: مدرس دراسات اجتماعية" required></div></div>
+                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="jobLocation" placeholder="مثال: الإمارات العربية المتحدة" required></div></div>
+                            <div class="form-row"><div class="form-label">المدينة</div><div class="form-input"><input type="text" id="jobCity" placeholder="مثال: دبي" required></div></div>
+                            <div class="form-row"><div class="form-label">التخصص</div><div class="form-input"><input type="text" id="jobSpecialty" placeholder="مثال: الدراسات الاجتماعية، التاريخ" required></div></div>
+                            <div class="form-row"><div class="form-label">المؤهلات المطلوبة</div><div class="form-input"><textarea id="jobReq" placeholder="المؤهل العلمي، الشهادات التربوية، سنوات الخبرة..." required></textarea></div></div>
+                            <div class="form-row"><div class="form-label">نوع الوظيفة</div><div class="form-input"><input type="text" id="jobType" placeholder="مثال: دوام كامل" required></div></div>
+                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr" placeholder="https://..." required></div></div>
+                            <div class="form-row"><div class="form-label">المصدر</div><div class="form-input"><input type="url" id="jobSource" dir="ltr" placeholder="رابط صفحة الوظيفة الأصلية"></div></div>
+                            <div class="form-row"><div class="form-label">وصف إضافي (اختياري)</div><div class="form-input"><textarea id="jobDesc" placeholder="تفاصيل إضافية عن الوظيفة..."></textarea></div></div>
+                            <div class="form-row"><div class="form-label">آخر موعد (اختياري)</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
                             <div class="form-actions">
                                 <button class="btn-primary-cls" onclick="saveJob()" id="jobSaveBtn">حفظ الوظيفة</button>
                                 <button class="btn-secondary-cls" onclick="loadPanel('job-list')">إلغاء</button>
@@ -573,7 +592,7 @@
                     <div id="panel-job-list" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
+                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى الوظيفي</th><th style="padding:15px;text-align:right;">المدرسة / جهة العمل</th><th style="padding:15px;text-align:right;">الموقع</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
                                 <tbody id="jobListTbody"></tbody>
                             </table>
                         </div>
@@ -667,13 +686,11 @@
             <div id="modalMeta" style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px; color:#64748B; font-size:0.9rem;"></div>
             <div id="modalDesc" style="line-height:1.9; color:#1E293B; margin-bottom:20px;"></div>
             <div id="modalRequirements" style="background:#F8FAFC; padding:15px; border-radius:8px; margin-bottom:20px; display:none;"></div>
-            <a id="modalApplyBtn" href="#" target="_blank" class="btn-apply" style="background:#10B981; display:block; text-align:center;">تقديم الآن ↗</a>
+            <div id="modalSource" style="margin:0 0 18px;display:none;"></div>
+            <a id="modalApplyBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-apply" style="background:#10B981; display:block; text-align:center;">رابط التقديم ↗</a>
         </div>
     </div>
 
-    <button id="tgAdBtn" onclick="watchTgAd()">
-        🎬 شاهد إعلانًا وادعم الموقع
-    </button>
 
     <script>
         const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
@@ -684,6 +701,7 @@
         let scholarshipsData = [];
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
+        let adminDataLoadError = '';
 
         function trackExtraClick(zoneId) {
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
@@ -722,57 +740,6 @@
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // ✅ دالة عرض إعلان تيليجرام (مُحسّنة)
-        function watchTgAd() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-            
-            if (typeof show_12120918 !== 'function') {
-                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
-                return;
-            }
-            
-            try {
-                const result = show_12120918();
-                
-                if (result && typeof result.then === 'function') {
-                    result.then(() => {
-                        console.log('✅ تم مشاهدة الإعلان بنجاح');
-                        alert('شكرًا لدعمك! ❤️');
-                    }).catch(err => {
-                        console.warn('⚠️ تم إغلاق الإعلان أو حدث خطأ:', err);
-                    });
-                } else {
-                    console.log('✅ تم فتح الإعلان (بدون Promise)');
-                }
-            } catch (e) {
-                console.error('❌ خطأ في عرض الإعلان:', e);
-                alert('تعذر عرض الإعلان حاليًا. حاول لاحقًا.');
-            }
-        }
-
-        // ✅ التحكم في إظهار زر الإعلان (مُحسّن)
-        function updateTgAdButton() {
-            const btn = document.getElementById('tgAdBtn');
-            if (!btn) return;
-            
-            const hasTelegram = !!(window.Telegram && window.Telegram.WebApp);
-            const hasInitData = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
-            const sdkReady = typeof show_12120918 === 'function';
-            
-            if (hasInitData && !document.documentElement.classList.contains('admin-mode')) {
-                btn.style.display = 'flex';
-            } else {
-                btn.style.display = 'none';
-            }
-            
-            console.log('🔍 حالة زر الإعلان:', {
-                telegram: hasTelegram,
-                initData: hasInitData,
-                sdkReady: sdkReady,
-                visible: btn.style.display === 'flex'
-            });
-        }
-
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
             const tgBtn = document.getElementById('tgAdBtn');
@@ -783,19 +750,28 @@
 
         async function loadJobs() {
             const { data, error } = await supabaseClient.from('jobs').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل الوظائف:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل الوظائف:', error);
+                throw new Error('تعذر تحميل الوظائف. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            return Array.isArray(data) ? data : [];
         }
 
         async function loadScholarships() {
             const { data, error } = await supabaseClient.from('scholarships').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل المنح:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل المنح:', error);
+                throw new Error('تعذر تحميل المنح. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            return Array.isArray(data) ? data : [];
         }
 
         async function loadSocials() {
             const { data, error } = await supabaseClient.from('settings').select('key, value');
-            if (error) { console.error('خطأ في تحميل الإعدادات:', error); return; }
+            if (error) {
+                console.error('خطأ في تحميل الإعدادات:', error);
+                throw new Error('تعذر تحميل إعدادات الموقع.');
+            }
             const map = {};
             (data || []).forEach(row => map[row.key] = row.value);
             socialsData.fb = map.fb || "#";
@@ -806,18 +782,45 @@
             socialsData.ig = map.ig || "#";
         }
 
+        const JOB_META_MARKER = '<!--TG_JOB_META:';
+        function getJobMeta(description) {
+            const match = String(description || '').match(/<!--TG_JOB_META:([A-Za-z0-9+/=]+)-->/);
+            if (!match) return {};
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(match[1]))));
+            } catch (_) {
+                return {};
+            }
+        }
+
+        function stripJobMeta(description) {
+            return String(description || '').replace(/<!--TG_JOB_META:[A-Za-z0-9+/=]+-->/g, '').trim();
+        }
+
+        function addJobMeta(description, meta) {
+            const cleanDescription = stripJobMeta(description);
+            const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(meta))));
+            return cleanDescription + (cleanDescription ? '\n' : '') + JOB_META_MARKER + encoded + '-->';
+        }
+
         function createCard(item, isJob) {
             const typeClass = isJob ? 'type-job' : 'type-scholarship';
             const badge = isJob ? 'وظيفة' : 'منحة';
+            const meta = isJob ? getJobMeta(item.description) : {};
+            const city = meta.city || '';
+            const specialty = meta.specialty || '';
             return `<div class="card">
                 <span class="card-type ${typeClass}">${badge}</span>
                 <h3>${escapeHtml(item.title)}</h3>
                 <div class="card-company"><i class="fas fa-building"></i> ${escapeHtml(item.company)}</div>
                 <div class="card-details">
-                    <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
+                    <span><i class="fas fa-globe"></i> ${escapeHtml(item.location || '-')}</span>
+                    ${isJob && city ? `<span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(city)}</span>` : ''}
+                    ${isJob && specialty ? `<span><i class="fas fa-book"></i> ${escapeHtml(specialty)}</span>` : ''}
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
+                    ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
-                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">تفاصيل والتقديم</a>
+                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">عرض التفاصيل والتقديم</a>
             </div>`;
         }
 
@@ -838,53 +841,203 @@
             });
         }
 
+        function safeHttpUrl(value) {
+            try {
+                const parsed = new URL(String(value || '').trim(), window.location.origin);
+                return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : '';
+            } catch (_) {
+                return '';
+            }
+        }
+
+        function sanitizeRichText(value) {
+            const template = document.createElement('template');
+            template.innerHTML = String(value || '');
+            const allowed = new Set(['P','BR','STRONG','B','EM','I','U','UL','OL','LI','H2','H3','H4','BLOCKQUOTE','A','SPAN','DIV']);
+            const forbidden = new Set(['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','FORM','INPUT','BUTTON','SVG','MATH','TEMPLATE']);
+            function clean(parent) {
+                Array.from(parent.childNodes).forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE) return;
+                    if (node.nodeType !== Node.ELEMENT_NODE) { node.remove(); return; }
+                    if (forbidden.has(node.tagName)) { node.remove(); return; }
+                    clean(node);
+                    if (!allowed.has(node.tagName)) {
+                        node.replaceWith(...Array.from(node.childNodes));
+                        return;
+                    }
+                    const originalHref = node.tagName === 'A' ? node.getAttribute('href') : null;
+                    Array.from(node.attributes).forEach(attr => node.removeAttribute(attr.name));
+                    if (node.tagName === 'A') {
+                        const safeHref = safeHttpUrl(originalHref);
+                        if (safeHref) {
+                            node.setAttribute('href', safeHref);
+                            node.setAttribute('target', '_blank');
+                            node.setAttribute('rel', 'noopener noreferrer');
+                        }
+                    }
+                });
+            }
+            clean(template.content);
+            return template.innerHTML;
+        }
+
+        function setSocialLink(id, value) {
+            const link = document.getElementById(id);
+            if (!link) return;
+            const safeUrl = safeHttpUrl(value);
+            if (!safeUrl) {
+                link.removeAttribute('href');
+                link.style.display = 'none';
+                return;
+            }
+            link.href = safeUrl;
+            link.rel = 'noopener noreferrer';
+            link.style.display = '';
+        }
+
         function openModal(item) {
             const badge = document.getElementById('modalBadge');
             badge.textContent = item.isJob ? 'وظيفة' : 'منحة';
             badge.className = 'card-type ' + (item.isJob ? 'type-job' : 'type-scholarship');
             badge.style.position = 'static';
             document.getElementById('modalTitle').textContent = item.title;
-            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-building"></i> ' + escapeHtml(item.company);
-            document.getElementById('modalMeta').innerHTML = `
+            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-school"></i> المدرسة / جهة العمل: ' + escapeHtml(item.company);
+            const jobMeta = item.isJob ? getJobMeta(item.description) : {};
+            document.getElementById('modalMeta').innerHTML = item.isJob ? `
+                <span><i class="fas fa-globe"></i> الدولة: ${escapeHtml(item.location || '-')}</span>
+                <span><i class="fas fa-map-marker-alt"></i> المدينة: ${escapeHtml(jobMeta.city || '-')}</span>
+                <span><i class="fas fa-book"></i> التخصص: ${escapeHtml(jobMeta.specialty || '-')}</span>
+                <span><i class="fas fa-clock"></i> نوع الوظيفة: ${escapeHtml(item.type || '-')}</span>
+                ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}` : `
                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
                 <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                 ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}`;
-            document.getElementById('modalDesc').innerHTML = item.description || 'لا يوجد وصف متاح.';
+            const cleanDescription = item.isJob ? stripJobMeta(item.description) : item.description;
+            document.getElementById('modalDesc').innerHTML = sanitizeRichText(cleanDescription || 'لا يوجد وصف إضافي.');
             document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
             const reqBox = document.getElementById('modalRequirements');
-            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>المتطلبات:</strong><br>' + escapeHtml(item.requirements); }
+            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>' + (item.isJob ? 'المؤهلات المطلوبة:' : 'المتطلبات:') + '</strong><br>' + escapeHtml(item.requirements).replace(/\n/g, '<br>'); }
             else { reqBox.style.display = 'none'; }
+            const sourceBox = document.getElementById('modalSource');
+            const safeSourceUrl = item.isJob ? safeHttpUrl(jobMeta.source) : '';
+            if (safeSourceUrl) {
+                sourceBox.innerHTML = '<strong>المصدر:</strong> <a href="' + escapeHtml(safeSourceUrl) + '" target="_blank" rel="noopener noreferrer">صفحة المصدر الأصلية ↗</a>';
+                sourceBox.style.display = 'block';
+            } else {
+                sourceBox.innerHTML = '';
+                sourceBox.style.display = 'none';
+            }
             const applyBtn = document.getElementById('modalApplyBtn');
-            if (item.apply_link && item.apply_link !== '#') { applyBtn.href = item.apply_link; applyBtn.style.display = 'block'; }
-            else { applyBtn.style.display = 'none'; }
+            const safeApplyUrl = safeHttpUrl(item.apply_link);
+            if (safeApplyUrl) {
+                applyBtn.href = safeApplyUrl;
+                applyBtn.rel = 'noopener noreferrer';
+                applyBtn.style.display = 'block';
+            } else {
+                applyBtn.removeAttribute('href');
+                applyBtn.style.display = 'none';
+            }
             document.getElementById('detailsModal').style.display = 'flex';
         }
 
         function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
         document.getElementById('detailsModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
 
-        async function renderPublicData(filterText = "") {
+        function fillFilterOptions(selectId, values, emptyLabel) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            const previous = select.value;
+            const unique = [...new Set(values.filter(Boolean).map(v => String(v).trim()).filter(Boolean))]
+                .sort((a,b) => a.localeCompare(b, 'ar'));
+            select.innerHTML = '<option value="">'+ escapeHtml(emptyLabel) +'</option>' +
+                unique.map(value => '<option value="'+ escapeHtml(value) +'">'+ escapeHtml(value) +'</option>').join('');
+            if (unique.includes(previous)) select.value = previous;
+        }
+
+        function updateListingFilterOptions() {
+            fillFilterOptions('jobsCountryFilter', jobsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('jobsTypeFilter', jobsData.map(x => x.type), 'كل أنواع الوظائف');
+            fillFilterOptions('scholarshipsCountryFilter', scholarshipsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('scholarshipsTypeFilter', scholarshipsData.map(x => x.type), 'كل أنواع التمويل');
+        }
+
+        function filterListing(items, prefix, query) {
+            const country = document.getElementById(prefix + 'CountryFilter')?.value || '';
+            const type = document.getElementById(prefix + 'TypeFilter')?.value || '';
+            const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            return items.filter(item => {
+                const jobMeta = getJobMeta(item.description);
+                const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements,jobMeta.city,jobMeta.specialty]
+                    .map(v => String(v || '').toLocaleLowerCase('ar')).join(' ');
+                if (query && !searchable.includes(query)) return false;
+                if (country && String(item.location || '') !== country) return false;
+                if (type && String(item.type || '') !== type) return false;
+                if (deadlineMode && item.deadline) {
+                    const deadline = new Date(String(item.deadline).slice(0,10) + 'T00:00:00');
+                    const expired = !Number.isNaN(deadline.getTime()) && deadline < today;
+                    if (deadlineMode === 'active' && expired) return false;
+                    if (deadlineMode === 'expired' && !expired) return false;
+                } else if (deadlineMode === 'expired' && !item.deadline) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function resetListingFilters(prefix) {
+            ['CountryFilter','TypeFilter','DeadlineFilter'].forEach(suffix => {
+                const el = document.getElementById(prefix + suffix);
+                if (el) el.value = '';
+            });
+            renderPublicData();
+        }
+
+        let publicRenderRequestId = 0;
+
+        async function renderPublicData(filterText = document.getElementById('searchInput')?.value.trim() || '') {
             const jobsGrid = document.getElementById('jobsGrid');
             const scholarshipsGrid = document.getElementById('scholarshipsGrid');
-            jobsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
-            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
-            jobsGrid.innerHTML = ""; scholarshipsGrid.innerHTML = "";
-            const q = filterText.toLowerCase();
-            const fJobs = jobsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
-            const fSchs = scholarshipsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
+            const requestId = ++publicRenderRequestId;
+            jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
+            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
+            let loadedJobs, loadedScholarships;
+            try {
+                [loadedJobs, loadedScholarships] = await Promise.all([
+                    loadJobs(),
+                    loadScholarships(),
+                    loadSocials()
+                ]);
+            } catch (error) {
+                if (requestId !== publicRenderRequestId) return;
+                const message = escapeHtml(error?.message || 'حدث خطأ أثناء تحميل البيانات.');
+                jobsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
+                scholarshipsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
+                document.getElementById('jobsCount').textContent = 'تعذر تحميل الوظائف';
+                document.getElementById('scholarshipsCount').textContent = 'تعذر تحميل المنح';
+                return;
+            }
+            if (requestId !== publicRenderRequestId) return;
+            jobsData = loadedJobs;
+            scholarshipsData = loadedScholarships;
+            updateListingFilterOptions();
+            jobsGrid.innerHTML = ''; scholarshipsGrid.innerHTML = '';
+            const q = String(filterText || '').toLocaleLowerCase('ar');
+            const fJobs = filterListing(jobsData, 'jobs', q);
+            const fSchs = filterListing(scholarshipsData, 'scholarships', q);
             fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
             fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
-            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق بحثك.</p>";
-            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق بحثك.</p>";
-            document.getElementById('link-fb').href = socialsData.fb || "#";
-            document.getElementById('link-li').href = socialsData.li || "#";
-            document.getElementById('link-wa').href = socialsData.wa || "#";
-            document.getElementById('link-tg').href = socialsData.tg || "#";
-            document.getElementById('link-bot').href = socialsData.bot || "#";
-            document.getElementById('link-ig').href = socialsData.ig || "#";
+            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق عوامل البحث والتصفية.</p>";
+            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
+            document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
+            document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
+            setSocialLink('link-fb', socialsData.fb);
+            setSocialLink('link-li', socialsData.li);
+            setSocialLink('link-wa', socialsData.wa);
+            setSocialLink('link-tg', socialsData.tg);
+            setSocialLink('link-bot', socialsData.bot);
+            setSocialLink('link-ig', socialsData.ig);
             bindCardEvents();
             bindExtraOfferTracking();
         }
@@ -981,46 +1134,81 @@
         }
 
         async function loadAdminData() {
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
-            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
-            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
-            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
-            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
-            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+            try {
+                const [loadedJobs, loadedScholarships] = await Promise.all([
+                    loadJobs(),
+                    loadScholarships(),
+                    loadSocials()
+                ]);
+                jobsData = loadedJobs;
+                scholarshipsData = loadedScholarships;
+                adminDataLoadError = '';
+                document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
+                document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
+                document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
+                document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
+                document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
+                document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+            } catch (error) {
+                adminDataLoadError = error?.message || 'تعذر تحميل بيانات لوحة الإدارة.';
+                console.error('تعذر تحميل بيانات لوحة الإدارة:', error);
+                alert(adminDataLoadError + ' لم يتم استبدال البيانات المعروضة ببيانات فارغة.');
+            }
             renderJobList(); renderSchList();
             updateClickStats();
         }
 
         function renderJobList() {
             const tbody = document.getElementById('jobListTbody');
-            tbody.innerHTML = jobsData.length === 0
+            tbody.innerHTML = adminDataLoadError
+                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل الوظائف. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
+                : jobsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
-                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button onclick="editJob('${j.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteJob('${j.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+                : jobsData.map(j => {
+                    const meta = getJobMeta(j.description);
+                    return `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;">${escapeHtml(j.location || '')}${meta.city ? '، ' + escapeHtml(meta.city) : ''}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`;
+                }).join('');
         }
 
         function renderSchList() {
             const tbody = document.getElementById('schListTbody');
-            tbody.innerHTML = scholarshipsData.length === 0
+            tbody.innerHTML = adminDataLoadError
+                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل المنح. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
+                : scholarshipsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
-                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button onclick="editSch('${s.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteSch('${s.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-sch" data-id="${escapeHtml(s.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-sch" data-id="${escapeHtml(s.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
         }
+
+        document.addEventListener('click', function(event) {
+            const button = event.target.closest('button[data-admin-action]');
+            if (!button) return;
+            const id = button.dataset.id;
+            switch (button.dataset.adminAction) {
+                case 'edit-job': editJob(id); break;
+                case 'delete-job': deleteJob(id); break;
+                case 'edit-sch': editSch(id); break;
+                case 'delete-sch': deleteSch(id); break;
+            }
+        });
 
         function editJob(id) {
             const j = jobsData.find(x => String(x.id) === String(id));
             if (!j) return;
             document.getElementById('jobEditId').value = j.id;
+            const meta = getJobMeta(j.description);
             document.getElementById('jobTitle').value = j.title || '';
             document.getElementById('jobCompany').value = j.company || '';
             document.getElementById('jobLocation').value = j.location || '';
+            document.getElementById('jobCity').value = meta.city || '';
+            document.getElementById('jobSpecialty').value = meta.specialty || '';
             document.getElementById('jobType').value = j.type || '';
             document.getElementById('jobDeadline').value = j.deadline || '';
             document.getElementById('jobReq').value = j.requirements || '';
             document.getElementById('jobLink').value = j.apply_link || '';
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(j.description || '');
-            else document.getElementById('jobDesc').value = j.description || '';
+            document.getElementById('jobSource').value = meta.source || '';
+            const cleanDescription = stripJobMeta(j.description);
+            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(cleanDescription);
+            else document.getElementById('jobDesc').value = cleanDescription;
             loadPanel('job-add');
             document.getElementById('panelTitle').textContent = 'تعديل الوظيفة';
         }
@@ -1045,28 +1233,49 @@
         async function saveJob() {
             const title = document.getElementById('jobTitle').value.trim();
             const company = document.getElementById('jobCompany').value.trim();
-            if (!title || !company) return alert("يرجى ملء المسمى والجهة.");
+            const country = document.getElementById('jobLocation').value.trim();
+            const city = document.getElementById('jobCity').value.trim();
+            const specialty = document.getElementById('jobSpecialty').value.trim();
+            const requirements = document.getElementById('jobReq').value.trim();
+            const type = document.getElementById('jobType').value.trim();
+            const applyLink = safeHttpUrl(document.getElementById('jobLink').value.trim());
+            const source = safeHttpUrl(document.getElementById('jobSource').value.trim());
+            if (!company || !title || !country || !city || !specialty || !requirements || !type || !applyLink) {
+                return alert("يرجى ملء المدرسة والمسمى والدولة والمدينة والتخصص والمؤهلات ونوع الوظيفة ورابط التقديم.");
+            }
+            if (document.getElementById('jobSource').value.trim() && !source) return alert("رابط المصدر غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://");
             const btn = document.getElementById('jobSaveBtn');
             btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
-            const data = {
-                title, company,
-                location: document.getElementById('jobLocation').value.trim(),
-                type: document.getElementById('jobType').value.trim(),
-                description: descContent,
-                deadline: document.getElementById('jobDeadline').value || null,
-                requirements: document.getElementById('jobReq').value.trim(),
-                apply_link: document.getElementById('jobLink').value.trim()
-            };
-            const id = document.getElementById('jobEditId').value;
-            const { error } = id ? await supabaseClient.from('jobs').update(data).eq('id', id) : await supabaseClient.from('jobs').insert([data]);
-            btn.disabled = false; btn.textContent = "حفظ الوظيفة";
-            if (error) return alert("خطأ: " + error.message);
-            document.getElementById('jobEditId').value = '';
-            ['jobTitle','jobCompany','jobLocation','jobType','jobDeadline','jobReq','jobLink'].forEach(f => document.getElementById(f).value = '');
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
-            await loadAdminData();
-            loadPanel('job-list');
+            try {
+                const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
+                const description = addJobMeta(descContent, { city, specialty, source });
+                const data = {
+                    title, company,
+                    location: country,
+                    type,
+                    description,
+                    deadline: document.getElementById('jobDeadline').value || null,
+                    requirements,
+                    apply_link: applyLink
+                };
+                const id = document.getElementById('jobEditId').value;
+                const result = id
+                    ? await supabaseClient.from('jobs').update(data).eq('id', id)
+                    : await supabaseClient.from('jobs').insert([data]);
+                if (result.error) throw result.error;
+                document.getElementById('jobEditId').value = '';
+                ['jobTitle','jobCompany','jobLocation','jobCity','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
+                if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
+                else document.getElementById('jobDesc').value = '';
+                await loadAdminData();
+                loadPanel('job-list');
+            } catch (error) {
+                console.error('تعذر حفظ الوظيفة:', error);
+                alert("تعذر حفظ الوظيفة: " + (error?.message || 'حدث خطأ غير معروف.'));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "حفظ الوظيفة";
+            }
         }
 
         async function saveScholarship() {
@@ -1172,8 +1381,6 @@
                     console.warn('تم تجاهل تهيئة تيليجرام لأننا لسنا داخل التطبيق أو النسخة قديمة.');
                 }
             }
-            updateTgAdButton();
-            setTimeout(updateTgAdButton, 800);
         });
 
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -1191,35 +1398,47 @@
         window.addEventListener('hashchange', checkSecretUrlAccess);
     </script>
 
-    <!-- ✅ كود الإعلان المنبثق (Monetag Zone: 12167732) — مُحسّن -->
+
+
+    <!-- Monetag ad zones: new approved tags -->
     <script>
-        (function() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان');
-                return;
-            }
-            
-            function loadAl5smAd() {
-                try {
-                    const script = document.createElement('script');
-                    script.src = 'https://al5sm.com/tag.min.js';
-                    script.setAttribute('data-zone', '12167732');
-                    script.async = true;
-                    script.onerror = () => console.warn('⚠️ فشل تحميل سكربت الإعلان — تحقق من الاتصال أو أداة حظر الإعلانات');
-                    script.onload = () => console.log('✅ تم تحميل سكربت الإعلان بنجاح (Zone: 12167732)');
-                    (document.body || document.documentElement).appendChild(script);
-                } catch (e) {
-                    console.error('❌ خطأ في تحميل سكربت الإعلان:', e);
-                }
-            }
-            
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadAl5smAd);
-            } else {
-                loadAl5smAd();
-            }
-        })();
+      (function () {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+        function addAdScript(src, zone, cfasync) {
+          const script = document.createElement('script');
+          script.src = src;
+          script.dataset.zone = zone;
+          script.async = true;
+          if (cfasync === false) script.dataset.cfasync = 'false';
+          (document.body || document.documentElement).appendChild(script);
+        }
+
+        function loadAds() {
+          // In-Page Push zones (medium)
+          addAdScript('https://nap5k.com/tag.min.js', '12269939');
+          addAdScript('https://nap5k.com/tag.min.js', '12269943');
+
+          // Vignette Banner zone (medium)
+          addAdScript('https://n6wxm.com/vignette.min.js', '12270017');
+
+          // Push Notifications zone (requires Monetag service worker at site root)
+          const pushScript = document.createElement('script');
+          pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=12270018';
+          pushScript.async = true;
+          pushScript.dataset.cfasync = 'false';
+          (document.body || document.documentElement).appendChild(pushScript);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', loadAds, { once: true });
+        } else {
+          loadAds();
+        }
+      })();
     </script>
+
+    <!-- Keep the service-worker registration available for Monetag Push Notifications. -->
 
 </body>
 </html>
