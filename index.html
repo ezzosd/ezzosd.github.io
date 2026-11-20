@@ -697,6 +697,7 @@
         let scholarshipsData = [];
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
+        let adminDataLoadError = '';
 
         function trackExtraClick(zoneId) {
             if (sessionStorage.getItem('tb_admin_mode') === '1') return;
@@ -1086,33 +1087,44 @@
         }
 
         async function loadAdminData() {
-            const [loadedJobs, loadedScholarships] = await Promise.all([
-                loadJobs(),
-                loadScholarships(),
-                loadSocials()
-            ]);
-            jobsData = loadedJobs;
-            scholarshipsData = loadedScholarships;
-            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
-            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
-            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
-            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
-            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+            try {
+                const [loadedJobs, loadedScholarships] = await Promise.all([
+                    loadJobs(),
+                    loadScholarships(),
+                    loadSocials()
+                ]);
+                jobsData = loadedJobs;
+                scholarshipsData = loadedScholarships;
+                adminDataLoadError = '';
+                document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
+                document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
+                document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
+                document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
+                document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
+                document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+            } catch (error) {
+                adminDataLoadError = error?.message || 'تعذر تحميل بيانات لوحة الإدارة.';
+                console.error('تعذر تحميل بيانات لوحة الإدارة:', error);
+                alert(adminDataLoadError + ' لم يتم استبدال البيانات المعروضة ببيانات فارغة.');
+            }
             renderJobList(); renderSchList();
             updateClickStats();
         }
 
         function renderJobList() {
             const tbody = document.getElementById('jobListTbody');
-            tbody.innerHTML = jobsData.length === 0
+            tbody.innerHTML = adminDataLoadError
+                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل الوظائف. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
+                : jobsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
                 : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
         }
 
         function renderSchList() {
             const tbody = document.getElementById('schListTbody');
-            tbody.innerHTML = scholarshipsData.length === 0
+            tbody.innerHTML = adminDataLoadError
+                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل المنح. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
+                : scholarshipsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
                 : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-sch" data-id="${escapeHtml(s.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-sch" data-id="${escapeHtml(s.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
         }
