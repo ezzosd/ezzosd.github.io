@@ -573,7 +573,7 @@
                             <input type="hidden" id="jobEditId">
                             <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" value="مدرس رياضيات"></div></div>
                             <div class="form-row"><div class="form-label">الجهة / الشركة</div><div class="form-input"><input type="text" id="jobCompany" value="مدارس النيل"></div></div>
-                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><select id="jobLocation"><option value="القاهرة، مصر">القاهرة، مصر</option><option value="الرياض، السعودية">الرياض، السعودية</option><option value="دبي، الإمارات">دبي، الإمارات</option></select></div></div>
+                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><input type="text" id="jobLocation" value="القاهرة، مصر" placeholder="مثال: دبي، الإمارات"></div></div>
                             <div class="form-row"><div class="form-label">نوع الدوام</div><div class="form-input"><input type="text" id="jobType" value="دوام كامل"></div></div>
                             <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="jobDesc"></textarea></div></div>
                             <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
@@ -801,6 +801,60 @@
             });
         }
 
+        function safeHttpUrl(value) {
+            try {
+                const parsed = new URL(String(value || '').trim(), window.location.origin);
+                return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : '';
+            } catch (_) {
+                return '';
+            }
+        }
+
+        function sanitizeRichText(value) {
+            const template = document.createElement('template');
+            template.innerHTML = String(value || '');
+            const allowed = new Set(['P','BR','STRONG','B','EM','I','U','UL','OL','LI','H2','H3','H4','BLOCKQUOTE','A','SPAN','DIV']);
+            const forbidden = new Set(['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','FORM','INPUT','BUTTON','SVG','MATH','TEMPLATE']);
+            function clean(parent) {
+                Array.from(parent.childNodes).forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE) return;
+                    if (node.nodeType !== Node.ELEMENT_NODE) { node.remove(); return; }
+                    if (forbidden.has(node.tagName)) { node.remove(); return; }
+                    clean(node);
+                    if (!allowed.has(node.tagName)) {
+                        node.replaceWith(...Array.from(node.childNodes));
+                        return;
+                    }
+                    const originalHref = node.tagName === 'A' ? node.getAttribute('href') : null;
+                    Array.from(node.attributes).forEach(attr => node.removeAttribute(attr.name));
+                    if (node.tagName === 'A') {
+                        const safeHref = safeHttpUrl(originalHref);
+                        if (safeHref) {
+                            node.setAttribute('href', safeHref);
+                            node.setAttribute('target', '_blank');
+                            node.setAttribute('rel', 'noopener noreferrer');
+                        }
+                    }
+                });
+            }
+            clean(template.content);
+            return template.innerHTML;
+        }
+
+        function setSocialLink(id, value) {
+            const link = document.getElementById(id);
+            if (!link) return;
+            const safeUrl = safeHttpUrl(value);
+            if (!safeUrl) {
+                link.removeAttribute('href');
+                link.style.display = 'none';
+                return;
+            }
+            link.href = safeUrl;
+            link.rel = 'noopener noreferrer';
+            link.style.display = '';
+        }
+
         function openModal(item) {
             const badge = document.getElementById('modalBadge');
             badge.textContent = item.isJob ? 'وظيفة' : 'منحة';
@@ -812,14 +866,21 @@
                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
                 <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                 ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}`;
-            document.getElementById('modalDesc').innerHTML = item.description || 'لا يوجد وصف متاح.';
+            document.getElementById('modalDesc').innerHTML = sanitizeRichText(item.description || 'لا يوجد وصف متاح.');
             document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
             const reqBox = document.getElementById('modalRequirements');
             if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>المتطلبات:</strong><br>' + escapeHtml(item.requirements); }
             else { reqBox.style.display = 'none'; }
             const applyBtn = document.getElementById('modalApplyBtn');
-            if (item.apply_link && item.apply_link !== '#') { applyBtn.href = item.apply_link; applyBtn.style.display = 'block'; }
-            else { applyBtn.style.display = 'none'; }
+            const safeApplyUrl = safeHttpUrl(item.apply_link);
+            if (safeApplyUrl) {
+                applyBtn.href = safeApplyUrl;
+                applyBtn.rel = 'noopener noreferrer';
+                applyBtn.style.display = 'block';
+            } else {
+                applyBtn.removeAttribute('href');
+                applyBtn.style.display = 'none';
+            }
             document.getElementById('detailsModal').style.display = 'flex';
         }
 
@@ -876,14 +937,22 @@
             renderPublicData();
         }
 
+        let publicRenderRequestId = 0;
+
         async function renderPublicData(filterText = document.getElementById('searchInput')?.value.trim() || '') {
             const jobsGrid = document.getElementById('jobsGrid');
             const scholarshipsGrid = document.getElementById('scholarshipsGrid');
+            const requestId = ++publicRenderRequestId;
             jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
             scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
+            const [loadedJobs, loadedScholarships] = await Promise.all([
+                loadJobs(),
+                loadScholarships(),
+                loadSocials()
+            ]);
+            if (requestId !== publicRenderRequestId) return;
+            jobsData = loadedJobs;
+            scholarshipsData = loadedScholarships;
             updateListingFilterOptions();
             jobsGrid.innerHTML = ''; scholarshipsGrid.innerHTML = '';
             const q = String(filterText || '').toLocaleLowerCase('ar');
@@ -895,12 +964,12 @@
             if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
             document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
             document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
-            document.getElementById('link-fb').href = socialsData.fb || '#';
-            document.getElementById('link-li').href = socialsData.li || '#';
-            document.getElementById('link-wa').href = socialsData.wa || '#';
-            document.getElementById('link-tg').href = socialsData.tg || '#';
-            document.getElementById('link-bot').href = socialsData.bot || '#';
-            document.getElementById('link-ig').href = socialsData.ig || '#';
+            setSocialLink('link-fb', socialsData.fb);
+            setSocialLink('link-li', socialsData.li);
+            setSocialLink('link-wa', socialsData.wa);
+            setSocialLink('link-tg', socialsData.tg);
+            setSocialLink('link-bot', socialsData.bot);
+            setSocialLink('link-ig', socialsData.ig);
             bindCardEvents();
             bindExtraOfferTracking();
         }
