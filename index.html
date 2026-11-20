@@ -745,19 +745,28 @@
 
         async function loadJobs() {
             const { data, error } = await supabaseClient.from('jobs').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل الوظائف:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل الوظائف:', error);
+                throw new Error('تعذر تحميل الوظائف. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            return Array.isArray(data) ? data : [];
         }
 
         async function loadScholarships() {
             const { data, error } = await supabaseClient.from('scholarships').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل المنح:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل المنح:', error);
+                throw new Error('تعذر تحميل المنح. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            return Array.isArray(data) ? data : [];
         }
 
         async function loadSocials() {
             const { data, error } = await supabaseClient.from('settings').select('key, value');
-            if (error) { console.error('خطأ في تحميل الإعدادات:', error); return; }
+            if (error) {
+                console.error('خطأ في تحميل الإعدادات:', error);
+                throw new Error('تعذر تحميل إعدادات الموقع.');
+            }
             const map = {};
             (data || []).forEach(row => map[row.key] = row.value);
             socialsData.fb = map.fb || "#";
@@ -945,11 +954,22 @@
             const requestId = ++publicRenderRequestId;
             jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
             scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
-            const [loadedJobs, loadedScholarships] = await Promise.all([
-                loadJobs(),
-                loadScholarships(),
-                loadSocials()
-            ]);
+            let loadedJobs, loadedScholarships;
+            try {
+                [loadedJobs, loadedScholarships] = await Promise.all([
+                    loadJobs(),
+                    loadScholarships(),
+                    loadSocials()
+                ]);
+            } catch (error) {
+                if (requestId !== publicRenderRequestId) return;
+                const message = escapeHtml(error?.message || 'حدث خطأ أثناء تحميل البيانات.');
+                jobsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
+                scholarshipsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
+                document.getElementById('jobsCount').textContent = 'تعذر تحميل الوظائف';
+                document.getElementById('scholarshipsCount').textContent = 'تعذر تحميل المنح';
+                return;
+            }
             if (requestId !== publicRenderRequestId) return;
             jobsData = loadedJobs;
             scholarshipsData = loadedScholarships;
@@ -1066,9 +1086,13 @@
         }
 
         async function loadAdminData() {
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
+            const [loadedJobs, loadedScholarships] = await Promise.all([
+                loadJobs(),
+                loadScholarships(),
+                loadSocials()
+            ]);
+            jobsData = loadedJobs;
+            scholarshipsData = loadedScholarships;
             document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
             document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
             document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
@@ -1083,15 +1107,27 @@
             const tbody = document.getElementById('jobListTbody');
             tbody.innerHTML = jobsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
-                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button onclick="editJob('${j.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteJob('${j.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
         }
 
         function renderSchList() {
             const tbody = document.getElementById('schListTbody');
             tbody.innerHTML = scholarshipsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
-                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button onclick="editSch('${s.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteSch('${s.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-sch" data-id="${escapeHtml(s.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-sch" data-id="${escapeHtml(s.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
         }
+
+        document.addEventListener('click', function(event) {
+            const button = event.target.closest('button[data-admin-action]');
+            if (!button) return;
+            const id = button.dataset.id;
+            switch (button.dataset.adminAction) {
+                case 'edit-job': editJob(id); break;
+                case 'delete-job': deleteJob(id); break;
+                case 'edit-sch': editSch(id); break;
+                case 'delete-sch': deleteSch(id); break;
+            }
+        });
 
         function editJob(id) {
             const j = jobsData.find(x => String(x.id) === String(id));
