@@ -442,6 +442,8 @@
                     <strong id="jobsCount" class="listing-count">جاري تحميل الوظائف...</strong>
                     <select id="jobsCountryFilter" aria-label="تصفية الوظائف حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
                     <select id="jobsTypeFilter" aria-label="تصفية الوظائف حسب النوع" onchange="renderPublicData()"><option value="">كل أنواع الوظائف</option></select>
+                    <select id="jobsCityFilter" aria-label="تصفية الوظائف حسب المدينة" onchange="renderPublicData()"><option value="">كل المدن</option></select>
+                    <select id="jobsSpecialtyFilter" aria-label="تصفية الوظائف حسب التخصص" onchange="renderPublicData()"><option value="">كل التخصصات</option></select>
                     <select id="jobsDeadlineFilter" aria-label="تصفية الوظائف حسب موعد التقديم" onchange="renderPublicData()">
                         <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
                     </select>
@@ -957,6 +959,8 @@
         function updateListingFilterOptions() {
             fillFilterOptions('jobsCountryFilter', jobsData.map(x => x.location), 'كل الدول');
             fillFilterOptions('jobsTypeFilter', jobsData.map(x => x.type), 'كل أنواع الوظائف');
+            fillFilterOptions('jobsCityFilter', jobsData.map(x => getJobMeta(x.description).city), 'كل المدن');
+            fillFilterOptions('jobsSpecialtyFilter', jobsData.map(x => getJobMeta(x.description).specialty), 'كل التخصصات');
             fillFilterOptions('scholarshipsCountryFilter', scholarshipsData.map(x => x.location), 'كل الدول');
             fillFilterOptions('scholarshipsTypeFilter', scholarshipsData.map(x => x.type), 'كل أنواع التمويل');
         }
@@ -964,6 +968,8 @@
         function filterListing(items, prefix, query) {
             const country = document.getElementById(prefix + 'CountryFilter')?.value || '';
             const type = document.getElementById(prefix + 'TypeFilter')?.value || '';
+            const city = prefix === 'jobs' ? (document.getElementById('jobsCityFilter')?.value || '') : '';
+            const specialty = prefix === 'jobs' ? (document.getElementById('jobsSpecialtyFilter')?.value || '') : '';
             const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
             const today = new Date();
             today.setHours(0,0,0,0);
@@ -974,6 +980,8 @@
                 if (query && !searchable.includes(query)) return false;
                 if (country && String(item.location || '') !== country) return false;
                 if (type && String(item.type || '') !== type) return false;
+                if (city && String(jobMeta.city || '') !== city) return false;
+                if (specialty && String(jobMeta.specialty || '') !== specialty) return false;
                 if (deadlineMode && item.deadline) {
                     const deadline = new Date(String(item.deadline).slice(0,10) + 'T00:00:00');
                     const expired = !Number.isNaN(deadline.getTime()) && deadline < today;
@@ -987,7 +995,7 @@
         }
 
         function resetListingFilters(prefix) {
-            ['CountryFilter','TypeFilter','DeadlineFilter'].forEach(suffix => {
+            ['CountryFilter','TypeFilter','DeadlineFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : [])].forEach(suffix => {
                 const el = document.getElementById(prefix + suffix);
                 if (el) el.value = '';
             });
