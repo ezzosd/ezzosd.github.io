@@ -571,14 +571,17 @@
                     <div id="panel-job-add" class="admin-panel" style="display:block;">
                         <div class="admin-card">
                             <input type="hidden" id="jobEditId">
-                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" value="مدرس رياضيات"></div></div>
-                            <div class="form-row"><div class="form-label">الجهة / الشركة</div><div class="form-input"><input type="text" id="jobCompany" value="مدارس النيل"></div></div>
-                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><input type="text" id="jobLocation" value="القاهرة، مصر" placeholder="مثال: دبي، الإمارات"></div></div>
-                            <div class="form-row"><div class="form-label">نوع الدوام</div><div class="form-input"><input type="text" id="jobType" value="دوام كامل"></div></div>
-                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="jobDesc"></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
-                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="jobReq"></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr"></div></div>
+                            <div class="form-row"><div class="form-label">المدرسة / جهة العمل</div><div class="form-input"><input type="text" id="jobCompany" placeholder="اسم المدرسة أو جهة العمل" required></div></div>
+                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" placeholder="مثال: مدرس دراسات اجتماعية" required></div></div>
+                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="jobLocation" placeholder="مثال: الإمارات العربية المتحدة" required></div></div>
+                            <div class="form-row"><div class="form-label">المدينة</div><div class="form-input"><input type="text" id="jobCity" placeholder="مثال: دبي" required></div></div>
+                            <div class="form-row"><div class="form-label">التخصص</div><div class="form-input"><input type="text" id="jobSpecialty" placeholder="مثال: الدراسات الاجتماعية، التاريخ" required></div></div>
+                            <div class="form-row"><div class="form-label">المؤهلات المطلوبة</div><div class="form-input"><textarea id="jobReq" placeholder="المؤهل العلمي، الشهادات التربوية، سنوات الخبرة..." required></textarea></div></div>
+                            <div class="form-row"><div class="form-label">نوع الوظيفة</div><div class="form-input"><input type="text" id="jobType" placeholder="مثال: دوام كامل" required></div></div>
+                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr" placeholder="https://..." required></div></div>
+                            <div class="form-row"><div class="form-label">المصدر</div><div class="form-input"><input type="url" id="jobSource" dir="ltr" placeholder="رابط صفحة الوظيفة الأصلية"></div></div>
+                            <div class="form-row"><div class="form-label">وصف إضافي (اختياري)</div><div class="form-input"><textarea id="jobDesc" placeholder="تفاصيل إضافية عن الوظيفة..."></textarea></div></div>
+                            <div class="form-row"><div class="form-label">آخر موعد (اختياري)</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
                             <div class="form-actions">
                                 <button class="btn-primary-cls" onclick="saveJob()" id="jobSaveBtn">حفظ الوظيفة</button>
                                 <button class="btn-secondary-cls" onclick="loadPanel('job-list')">إلغاء</button>
@@ -589,7 +592,7 @@
                     <div id="panel-job-list" class="admin-panel" style="display:none;">
                         <div class="admin-card">
                             <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
+                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى الوظيفي</th><th style="padding:15px;text-align:right;">المدرسة / جهة العمل</th><th style="padding:15px;text-align:right;">الموقع</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
                                 <tbody id="jobListTbody"></tbody>
                             </table>
                         </div>
@@ -683,7 +686,8 @@
             <div id="modalMeta" style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px; color:#64748B; font-size:0.9rem;"></div>
             <div id="modalDesc" style="line-height:1.9; color:#1E293B; margin-bottom:20px;"></div>
             <div id="modalRequirements" style="background:#F8FAFC; padding:15px; border-radius:8px; margin-bottom:20px; display:none;"></div>
-            <a id="modalApplyBtn" href="#" target="_blank" class="btn-apply" style="background:#10B981; display:block; text-align:center;">تقديم الآن ↗</a>
+            <div id="modalSource" style="margin:0 0 18px;display:none;"></div>
+            <a id="modalApplyBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-apply" style="background:#10B981; display:block; text-align:center;">رابط التقديم ↗</a>
         </div>
     </div>
 
@@ -778,19 +782,45 @@
             socialsData.ig = map.ig || "#";
         }
 
+        const JOB_META_MARKER = '<!--TG_JOB_META:';
+        function getJobMeta(description) {
+            const match = String(description || '').match(/<!--TG_JOB_META:([A-Za-z0-9+/=]+)-->/);
+            if (!match) return {};
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(match[1]))));
+            } catch (_) {
+                return {};
+            }
+        }
+
+        function stripJobMeta(description) {
+            return String(description || '').replace(/<!--TG_JOB_META:[A-Za-z0-9+/=]+-->/g, '').trim();
+        }
+
+        function addJobMeta(description, meta) {
+            const cleanDescription = stripJobMeta(description);
+            const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(meta))));
+            return cleanDescription + (cleanDescription ? '\n' : '') + JOB_META_MARKER + encoded + '-->';
+        }
+
         function createCard(item, isJob) {
             const typeClass = isJob ? 'type-job' : 'type-scholarship';
             const badge = isJob ? 'وظيفة' : 'منحة';
+            const meta = isJob ? getJobMeta(item.description) : {};
+            const city = meta.city || '';
+            const specialty = meta.specialty || '';
             return `<div class="card">
                 <span class="card-type ${typeClass}">${badge}</span>
                 <h3>${escapeHtml(item.title)}</h3>
                 <div class="card-company"><i class="fas fa-building"></i> ${escapeHtml(item.company)}</div>
                 <div class="card-details">
-                    <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
+                    <span><i class="fas fa-globe"></i> ${escapeHtml(item.location || '-')}</span>
+                    ${isJob && city ? `<span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(city)}</span>` : ''}
+                    ${isJob && specialty ? `<span><i class="fas fa-book"></i> ${escapeHtml(specialty)}</span>` : ''}
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                     ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
-                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">تفاصيل والتقديم</a>
+                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">عرض التفاصيل والتقديم</a>
             </div>`;
         }
 
@@ -871,16 +901,32 @@
             badge.className = 'card-type ' + (item.isJob ? 'type-job' : 'type-scholarship');
             badge.style.position = 'static';
             document.getElementById('modalTitle').textContent = item.title;
-            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-building"></i> ' + escapeHtml(item.company);
-            document.getElementById('modalMeta').innerHTML = `
+            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-school"></i> المدرسة / جهة العمل: ' + escapeHtml(item.company);
+            const jobMeta = item.isJob ? getJobMeta(item.description) : {};
+            document.getElementById('modalMeta').innerHTML = item.isJob ? `
+                <span><i class="fas fa-globe"></i> الدولة: ${escapeHtml(item.location || '-')}</span>
+                <span><i class="fas fa-map-marker-alt"></i> المدينة: ${escapeHtml(jobMeta.city || '-')}</span>
+                <span><i class="fas fa-book"></i> التخصص: ${escapeHtml(jobMeta.specialty || '-')}</span>
+                <span><i class="fas fa-clock"></i> نوع الوظيفة: ${escapeHtml(item.type || '-')}</span>
+                ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}` : `
                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
                 <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                 ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}`;
-            document.getElementById('modalDesc').innerHTML = sanitizeRichText(item.description || 'لا يوجد وصف متاح.');
+            const cleanDescription = item.isJob ? stripJobMeta(item.description) : item.description;
+            document.getElementById('modalDesc').innerHTML = sanitizeRichText(cleanDescription || 'لا يوجد وصف إضافي.');
             document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
             const reqBox = document.getElementById('modalRequirements');
-            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>المتطلبات:</strong><br>' + escapeHtml(item.requirements); }
+            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>' + (item.isJob ? 'المؤهلات المطلوبة:' : 'المتطلبات:') + '</strong><br>' + escapeHtml(item.requirements).replace(/\n/g, '<br>'); }
             else { reqBox.style.display = 'none'; }
+            const sourceBox = document.getElementById('modalSource');
+            const safeSourceUrl = item.isJob ? safeHttpUrl(jobMeta.source) : '';
+            if (safeSourceUrl) {
+                sourceBox.innerHTML = '<strong>المصدر:</strong> <a href="' + escapeHtml(safeSourceUrl) + '" target="_blank" rel="noopener noreferrer">صفحة المصدر الأصلية ↗</a>';
+                sourceBox.style.display = 'block';
+            } else {
+                sourceBox.innerHTML = '';
+                sourceBox.style.display = 'none';
+            }
             const applyBtn = document.getElementById('modalApplyBtn');
             const safeApplyUrl = safeHttpUrl(item.apply_link);
             if (safeApplyUrl) {
@@ -922,7 +968,8 @@
             const today = new Date();
             today.setHours(0,0,0,0);
             return items.filter(item => {
-                const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements]
+                const jobMeta = getJobMeta(item.description);
+                const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements,jobMeta.city,jobMeta.specialty]
                     .map(v => String(v || '').toLocaleLowerCase('ar')).join(' ');
                 if (query && !searchable.includes(query)) return false;
                 if (country && String(item.location || '') !== country) return false;
@@ -1117,7 +1164,10 @@
                 ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل الوظائف. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
                 : jobsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
-                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
+                : jobsData.map(j => {
+                    const meta = getJobMeta(j.description);
+                    return `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;">${escapeHtml(j.location || '')}${meta.city ? '، ' + escapeHtml(meta.city) : ''}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`;
+                }).join('');
         }
 
         function renderSchList() {
@@ -1145,15 +1195,20 @@
             const j = jobsData.find(x => String(x.id) === String(id));
             if (!j) return;
             document.getElementById('jobEditId').value = j.id;
+            const meta = getJobMeta(j.description);
             document.getElementById('jobTitle').value = j.title || '';
             document.getElementById('jobCompany').value = j.company || '';
             document.getElementById('jobLocation').value = j.location || '';
+            document.getElementById('jobCity').value = meta.city || '';
+            document.getElementById('jobSpecialty').value = meta.specialty || '';
             document.getElementById('jobType').value = j.type || '';
             document.getElementById('jobDeadline').value = j.deadline || '';
             document.getElementById('jobReq').value = j.requirements || '';
             document.getElementById('jobLink').value = j.apply_link || '';
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(j.description || '');
-            else document.getElementById('jobDesc').value = j.description || '';
+            document.getElementById('jobSource').value = meta.source || '';
+            const cleanDescription = stripJobMeta(j.description);
+            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(cleanDescription);
+            else document.getElementById('jobDesc').value = cleanDescription;
             loadPanel('job-add');
             document.getElementById('panelTitle').textContent = 'تعديل الوظيفة';
         }
@@ -1178,28 +1233,49 @@
         async function saveJob() {
             const title = document.getElementById('jobTitle').value.trim();
             const company = document.getElementById('jobCompany').value.trim();
-            if (!title || !company) return alert("يرجى ملء المسمى والجهة.");
+            const country = document.getElementById('jobLocation').value.trim();
+            const city = document.getElementById('jobCity').value.trim();
+            const specialty = document.getElementById('jobSpecialty').value.trim();
+            const requirements = document.getElementById('jobReq').value.trim();
+            const type = document.getElementById('jobType').value.trim();
+            const applyLink = safeHttpUrl(document.getElementById('jobLink').value.trim());
+            const source = safeHttpUrl(document.getElementById('jobSource').value.trim());
+            if (!company || !title || !country || !city || !specialty || !requirements || !type || !applyLink) {
+                return alert("يرجى ملء المدرسة والمسمى والدولة والمدينة والتخصص والمؤهلات ونوع الوظيفة ورابط التقديم.");
+            }
+            if (document.getElementById('jobSource').value.trim() && !source) return alert("رابط المصدر غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://");
             const btn = document.getElementById('jobSaveBtn');
             btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
-            const data = {
-                title, company,
-                location: document.getElementById('jobLocation').value.trim(),
-                type: document.getElementById('jobType').value.trim(),
-                description: descContent,
-                deadline: document.getElementById('jobDeadline').value || null,
-                requirements: document.getElementById('jobReq').value.trim(),
-                apply_link: document.getElementById('jobLink').value.trim()
-            };
-            const id = document.getElementById('jobEditId').value;
-            const { error } = id ? await supabaseClient.from('jobs').update(data).eq('id', id) : await supabaseClient.from('jobs').insert([data]);
-            btn.disabled = false; btn.textContent = "حفظ الوظيفة";
-            if (error) return alert("خطأ: " + error.message);
-            document.getElementById('jobEditId').value = '';
-            ['jobTitle','jobCompany','jobLocation','jobType','jobDeadline','jobReq','jobLink'].forEach(f => document.getElementById(f).value = '');
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
-            await loadAdminData();
-            loadPanel('job-list');
+            try {
+                const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
+                const description = addJobMeta(descContent, { city, specialty, source });
+                const data = {
+                    title, company,
+                    location: country,
+                    type,
+                    description,
+                    deadline: document.getElementById('jobDeadline').value || null,
+                    requirements,
+                    apply_link: applyLink
+                };
+                const id = document.getElementById('jobEditId').value;
+                const result = id
+                    ? await supabaseClient.from('jobs').update(data).eq('id', id)
+                    : await supabaseClient.from('jobs').insert([data]);
+                if (result.error) throw result.error;
+                document.getElementById('jobEditId').value = '';
+                ['jobTitle','jobCompany','jobLocation','jobCity','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
+                if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
+                else document.getElementById('jobDesc').value = '';
+                await loadAdminData();
+                loadPanel('job-list');
+            } catch (error) {
+                console.error('تعذر حفظ الوظيفة:', error);
+                alert("تعذر حفظ الوظيفة: " + (error?.message || 'حدث خطأ غير معروف.'));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "حفظ الوظيفة";
+            }
         }
 
         async function saveScholarship() {
