@@ -1078,24 +1078,37 @@
             const btn = document.getElementById('loginBtn');
             if (!email || !pass) return alert("يرجى إدخال البريد وكلمة المرور.");
             btn.disabled = true; btn.textContent = "جاري الدخول...";
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-            btn.disabled = false; btn.textContent = "تسجيل الدخول";
-            if (error) { alert("خطأ في تسجيل الدخول: " + error.message); return; }
-            isLoggedIn = true;
-            sessionStorage.setItem('tb_admin_mode', '1');
-            hideAdsForAdmin();
-            document.getElementById('adminPass').value = "";
-            await showDashboard();
+            try {
+                const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+                if (error) throw error;
+                isLoggedIn = true;
+                sessionStorage.setItem('tb_admin_mode', '1');
+                hideAdsForAdmin();
+                document.getElementById('adminPass').value = "";
+                await showDashboard();
+            } catch (error) {
+                console.error('تعذر تسجيل الدخول:', error);
+                alert("تعذر تسجيل الدخول: " + (error?.message || 'تحقق من الاتصال وبيانات الدخول.'));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "تسجيل الدخول";
+            }
         }
 
         async function logout() {
-            await supabaseClient.auth.signOut();
-            isLoggedIn = false;
-            document.getElementById('adminEmail').value = "";
-            document.getElementById('adminPass').value = "";
-            sessionStorage.removeItem('tb_admin_mode');
-            document.documentElement.classList.remove('admin-mode');
-            window.location.reload();
+            try {
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) throw error;
+                isLoggedIn = false;
+                document.getElementById('adminEmail').value = "";
+                document.getElementById('adminPass').value = "";
+                sessionStorage.removeItem('tb_admin_mode');
+                document.documentElement.classList.remove('admin-mode');
+                window.location.reload();
+            } catch (error) {
+                console.error('تعذر تسجيل الخروج:', error);
+                alert("تعذر تسجيل الخروج. تحقق من الاتصال وحاول مرة أخرى.");
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1282,61 +1295,91 @@
             const title = document.getElementById('schTitle').value.trim();
             const company = document.getElementById('schCompany').value.trim();
             if (!title || !company) return alert("يرجى ملء اسم المنحة والجهة.");
+            const rawApplyLink = document.getElementById('schLink').value.trim();
+            const applyLink = rawApplyLink ? safeHttpUrl(rawApplyLink) : '';
+            if (rawApplyLink && !applyLink) return alert("رابط التقديم غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://");
             const btn = document.getElementById('schSaveBtn');
             btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) ? tinymce.get('schDesc').getContent() : document.getElementById('schDesc').value;
-            const data = {
-                title, company,
-                location: document.getElementById('schLocation').value.trim(),
-                type: document.getElementById('schType').value.trim(),
-                description: descContent,
-                deadline: document.getElementById('schDeadline').value || null,
-                requirements: document.getElementById('schReq').value.trim(),
-                apply_link: document.getElementById('schLink').value.trim()
-            };
-            const id = document.getElementById('schEditId').value;
-            const { error } = id ? await supabaseClient.from('scholarships').update(data).eq('id', id) : await supabaseClient.from('scholarships').insert([data]);
-            btn.disabled = false; btn.textContent = "حفظ المنحة";
-            if (error) return alert("خطأ: " + error.message);
-            document.getElementById('schEditId').value = '';
-            ['schTitle','schCompany','schLocation','schType','schDeadline','schReq','schLink'].forEach(f => document.getElementById(f).value = '');
-            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent('');
-            await loadAdminData();
-            loadPanel('sch-list');
+            try {
+                const descContent = (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) ? tinymce.get('schDesc').getContent() : document.getElementById('schDesc').value;
+                const data = {
+                    title, company,
+                    location: document.getElementById('schLocation').value.trim(),
+                    type: document.getElementById('schType').value.trim(),
+                    description: descContent,
+                    deadline: document.getElementById('schDeadline').value || null,
+                    requirements: document.getElementById('schReq').value.trim(),
+                    apply_link: applyLink
+                };
+                const id = document.getElementById('schEditId').value;
+                const result = id
+                    ? await supabaseClient.from('scholarships').update(data).eq('id', id)
+                    : await supabaseClient.from('scholarships').insert([data]);
+                if (result.error) throw result.error;
+                document.getElementById('schEditId').value = '';
+                ['schTitle','schCompany','schLocation','schType','schDeadline','schReq','schLink'].forEach(f => document.getElementById(f).value = '');
+                if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent('');
+                else document.getElementById('schDesc').value = '';
+                await loadAdminData();
+                loadPanel('sch-list');
+            } catch (error) {
+                console.error('تعذر حفظ المنحة:', error);
+                alert("تعذر حفظ المنحة: " + (error?.message || 'حدث خطأ غير معروف.'));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "حفظ المنحة";
+            }
         }
 
         async function deleteJob(id) {
             if (!confirm("هل أنت متأكد من حذف هذه الوظيفة؟")) return;
-            const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
-            if (error) { alert("خطأ في الحذف: " + error.message); return; }
-            await loadAdminData();
+            try {
+                const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
+                if (error) throw error;
+                await loadAdminData();
+            } catch (error) {
+                console.error('تعذر حذف الوظيفة:', error);
+                alert("تعذر حذف الوظيفة: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
+            }
         }
 
         async function deleteSch(id) {
             if (!confirm("هل أنت متأكد من حذف هذه المنحة؟")) return;
-            const { error } = await supabaseClient.from('scholarships').delete().eq('id', id);
-            if (error) { alert("خطأ في الحذف: " + error.message); return; }
-            await loadAdminData();
+            try {
+                const { error } = await supabaseClient.from('scholarships').delete().eq('id', id);
+                if (error) throw error;
+                await loadAdminData();
+            } catch (error) {
+                console.error('تعذر حذف المنحة:', error);
+                alert("تعذر حذف المنحة: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
+            }
         }
 
         async function saveSocials() {
-            const fb = document.getElementById('socFb').value.trim() || "#";
-            const li = document.getElementById('socLi').value.trim() || "#";
-            const wa = document.getElementById('socWa').value.trim() || "#";
-            const tg = document.getElementById('socTg').value.trim() || "#";
-            const bot = document.getElementById('socBot').value.trim() || "#";
-            const ig = document.getElementById('socIg').value.trim() || "#";
-            const { error } = await supabaseClient.from('settings').upsert([
-                {key:'fb',value:fb},
-                {key:'li',value:li},
-                {key:'wa',value:wa},
-                {key:'tg',value:tg},
-                {key:'bot',value:bot},
-                {key:'ig',value:ig}
-            ], { onConflict: 'key' });
-            if (error) { alert("خطأ: " + error.message); return; }
-            socialsData = { fb, li, wa, tg, bot, ig };
-            alert("تم حفظ روابط التواصل بنجاح!");
+            const fields = ['fb','li','wa','tg','bot','ig'];
+            const values = {};
+            for (const key of fields) {
+                const raw = document.getElementById('soc' + key[0].toUpperCase() + key.slice(1)).value.trim();
+                if (!raw || raw === '#') { values[key] = '#'; continue; }
+                const safeUrl = safeHttpUrl(raw);
+                if (!safeUrl) {
+                    alert('رابط ' + key + ' غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://');
+                    return;
+                }
+                values[key] = safeUrl;
+            }
+            try {
+                const { error } = await supabaseClient.from('settings').upsert(
+                    fields.map(key => ({ key, value: values[key] })),
+                    { onConflict: 'key' }
+                );
+                if (error) throw error;
+                socialsData = { ...values };
+                alert("تم حفظ روابط التواصل بنجاح!");
+            } catch (error) {
+                console.error('تعذر حفظ روابط التواصل:', error);
+                alert("تعذر حفظ روابط التواصل: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
+            }
         }
 
         function checkSecretUrlAccess() {
@@ -1383,16 +1426,24 @@
             }
         });
 
-        supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        supabaseClient.auth.getSession().then(({ data: { session }, error }) => {
+            if (error) throw error;
             if (session) {
                 isLoggedIn = true;
                 sessionStorage.setItem('tb_admin_mode', '1');
                 hideAdsForAdmin();
                 showDashboard();
             } else {
+                isLoggedIn = false;
+                sessionStorage.removeItem('tb_admin_mode');
                 showPublicSite();
                 checkSecretUrlAccess();
             }
+        }).catch(error => {
+            console.error('تعذر التحقق من جلسة الإدارة:', error);
+            isLoggedIn = false;
+            sessionStorage.removeItem('tb_admin_mode');
+            showPublicSite();
         });
 
         window.addEventListener('hashchange', checkSecretUrlAccess);
