@@ -400,6 +400,94 @@
         .listing-toolbar select,.listing-toolbar button { flex:1 1 100%; width:100%; }
       }
     </style>
+
+    <!-- TeachGrant mobile optimization -->
+    <style id="teachgrant-mobile-optimization">
+      @media (max-width: 768px) {
+        html, body { width:100%; max-width:100%; overflow-x:clip; }
+        .container { width:min(100% - 28px, 620px); }
+        header { position:sticky; top:0; }
+        .header-content {
+          display:grid; grid-template-columns:minmax(0,1fr) auto;
+          align-items:center; gap:8px 12px; padding:10px 0;
+        }
+        .logo { justify-self:start; margin:0; min-width:0; }
+        .logo img { height:46px !important; max-width: min(46vw,190px); }
+        .btn-post-job { justify-self:end; padding:9px 13px; font-size:.82rem; white-space:nowrap; border-radius:11px; }
+        nav { grid-column:1 / -1; width:100%; min-width:0; }
+        nav ul {
+          display:flex; flex-wrap:nowrap; justify-content:flex-start; gap:8px;
+          overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
+          padding:2px 0 5px; -webkit-overflow-scrolling:touch;
+        }
+        nav ul::-webkit-scrollbar { display:none; }
+        nav ul li { flex:0 0 auto; }
+        nav a { display:block; padding:8px 13px; border-radius:10px; background:#f1f5f9; font-size:.88rem; white-space:nowrap; }
+        nav a::after { display:none; }
+        nav a.active { background:#e8effa; color:#174b78; }
+        .hero { padding:42px 0 46px; text-align:center; }
+        .hero h1 { font-size:clamp(1.55rem,6vw,2rem); line-height:1.5; margin:0 auto 12px; }
+        .hero p { font-size:.94rem; line-height:1.9; margin:0 auto 22px; }
+        .search-box { width:100%; display:flex; flex-direction:column; padding:8px; gap:8px; border-radius:16px; }
+        .search-box input { width:100%; min-width:0; min-height:48px; padding:12px 14px; font-size:16px; border:1px solid #e5eaf1; }
+        .search-box button { width:100%; min-height:48px; padding:10px 16px; font-size:1rem; }
+        #jobs, #scholarships { padding:30px 0 !important; scroll-margin-top:150px; }
+        .section-title { font-size:1.45rem; margin-bottom:23px; }
+        .listing-toolbar {
+          display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:9px; margin:0 0 18px; padding:12px; border-radius:14px;
+        }
+        .listing-count { grid-column:1 / -1; width:100%; margin:0; text-align:center; font-size:.9rem; }
+        .listing-toolbar select, .listing-toolbar button {
+          width:100%; min-width:0; min-height:44px; padding:8px 10px;
+          font-size:.82rem; border-radius:10px;
+        }
+        .listing-toolbar button { grid-column:1 / -1; }
+        .grid-container { grid-template-columns:minmax(0,1fr); gap:13px; margin-bottom:30px; }
+        .card { min-width:0; padding:18px; border-radius:16px; }
+        .card h3 { font-size:1.08rem; line-height:1.65; padding-inline-end:0; overflow-wrap:anywhere; }
+        .card-company { font-size:.88rem; overflow-wrap:anywhere; }
+        .card-details { gap:8px 12px; font-size:.82rem; }
+        .btn-apply { min-height:46px; display:flex; align-items:center; justify-content:center; }
+        #extra-offers { padding:10px 0 35px !important; }
+        #extra-offers > div { grid-template-columns:1fr !important; gap:10px !important; }
+        footer { padding:36px 0 18px; }
+        .footer-grid { grid-template-columns:1fr; gap:22px; margin-bottom:25px; }
+        .footer-col h4 { margin-bottom:9px; }
+        .social-list { gap:8px; }
+        .social-list li a { padding:8px 11px; }
+        #offersFloatBtn { bottom:14px; right:12px; z-index:90; min-height:42px; }
+        .login-box { width:calc(100% - 28px); margin:45px auto; padding:24px 18px; }
+        .admin-layout { display:flex; flex-direction:column; min-height:100vh; }
+        .admin-sidebar { width:100%; max-height:38vh; overflow-y:auto; }
+        .admin-sidebar .brand { padding:13px; }
+        .admin-sidebar ul li a { min-height:44px; }
+        .admin-main { min-width:0; overflow:visible; }
+        .admin-topbar { padding:12px 14px; gap:10px; flex-wrap:wrap; font-size:.95rem; }
+        .admin-content { padding:14px; overflow:visible; }
+        .admin-card { padding:17px 13px; border-radius:13px; }
+        .form-row { display:flex; flex-direction:column; gap:7px; margin-bottom:15px; padding-bottom:15px; }
+        .form-label { width:100%; padding:0; margin:0; }
+        .form-input { width:100%; min-width:0; }
+        .form-input input, .form-input select, .form-input textarea { width:100%; max-width:100%; font-size:16px; }
+        .form-input textarea { min-height:120px; }
+        .form-actions { display:grid; grid-template-columns:1fr; gap:9px; padding:0; }
+        .form-actions button, .btn-primary-cls, .btn-secondary-cls { width:100%; min-height:44px; }
+        .admin-card table, .admin-content table { display:block; width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+        input, select, textarea, button { max-width:100%; }
+      }
+      @media (max-width: 420px) {
+        .container { width:calc(100% - 22px); }
+        .header-content { grid-template-columns:minmax(0,1fr) auto; gap:7px; }
+        .logo img { height:40px !important; }
+        .btn-post-job { padding:8px 10px; font-size:.76rem; }
+        .listing-toolbar { grid-template-columns:1fr; }
+        .listing-count, .listing-toolbar button { grid-column:1; }
+        .hero { padding:34px 0 38px; }
+        .card { padding:16px; }
+      }
+    </style>
+
 </head>
 <body>
 
