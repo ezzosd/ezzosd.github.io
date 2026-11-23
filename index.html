@@ -489,6 +489,22 @@
         .hero { padding:34px 0 38px; }
         .card { padding:16px; }
       }
+
+        .teachgrant-ad-slot {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 6px; width: 100%; max-width: 100%; min-height: 90px;
+            margin: 18px auto 24px; padding: 10px; box-sizing: border-box;
+            overflow: hidden; text-align: center;
+        }
+        .teachgrant-ad-slot .ad-label {
+            display: block; color: #888; font-size: 10px; line-height: 1.2;
+        }
+        .teachgrant-ad-banner { min-height: 270px; max-width: 320px; }
+        .teachgrant-ad-slot iframe { max-width: 100%; }
+        @media (max-width: 600px) {
+            .teachgrant-ad-slot { margin: 14px auto 20px; padding: 6px; }
+        }
+        .admin-mode .teachgrant-ad-slot { display: none !important; }
     </style>
 
 </head>
@@ -526,6 +542,10 @@
         </section>
 
         <div class="container">
+            <div class="teachgrant-ad-slot" id="tg-native-ad-slot" aria-label="مساحة إعلانية">
+                <span class="ad-label">إعلان</span>
+                <div id="container-080728f5ddcd0f54c7a204aebfbfd7b3"></div>
+            </div>
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
                 <div class="listing-toolbar" aria-label="تصفية الوظائف">
@@ -542,6 +562,9 @@
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
+            <div class="teachgrant-ad-slot teachgrant-ad-banner" id="tg-300x250-slot" aria-label="مساحة إعلانية">
+                <span class="ad-label">إعلان</span>
+            </div>
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="listing-toolbar" aria-label="تصفية المنح">
@@ -1454,6 +1477,38 @@
     </script>
 
 
+
+    <script>
+    (function () {
+        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+        // Adsterra Native Banner (Ad Unit 32436478)
+        var nativeSlot = document.getElementById('tg-native-ad-slot');
+        if (nativeSlot) {
+            var nativeScript = document.createElement('script');
+            nativeScript.async = true;
+            nativeScript.setAttribute('data-cfasync', 'false');
+            nativeScript.src = 'https://bauval.org/21/080728f5ddcd0f54c7a204aebfbfd7b3';
+            nativeSlot.appendChild(nativeScript);
+        }
+
+        // Adsterra 300x250 Banner (Ad Unit 32436480)
+        var bannerSlot = document.getElementById('tg-300x250-slot');
+        if (bannerSlot) {
+            window.atOptions = {
+                key: '78266c4832fe41249a5bd02e3f9ee8cd',
+                format: 'iframe',
+                height: 250,
+                width: 300,
+                params: {}
+            };
+            var bannerScript = document.createElement('script');
+            bannerScript.setAttribute('data-cfasync', 'false');
+            bannerScript.src = 'https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';
+            bannerSlot.appendChild(bannerScript);
+        }
+    })();
+    </script>
 
 
 
