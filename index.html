@@ -1551,40 +1551,30 @@
 
 
 
-    <!-- Monetag ad zones: new approved tags -->
+    <!-- Monetag: quiet test, one In-Page Push zone only (12269943) -->
     <script>
       (function () {
-        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+        // Do not show ads in the authenticated admin dashboard.
+        try {
+          if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+        } catch (_) {}
 
-        function addAdScript(src, zone, cfasync) {
+        // Prevent duplicate loading if this snippet is ever included twice.
+        if (window.__teachgrantMonetag12269943Loaded) return;
+        window.__teachgrantMonetag12269943Loaded = true;
+
+        function loadMonetagZone() {
           const script = document.createElement('script');
-          script.src = src;
-          script.dataset.zone = zone;
+          script.src = 'https://nap5k.com/tag.min.js';
+          script.dataset.zone = '12269943';
           script.async = true;
-          if (cfasync === false) script.dataset.cfasync = 'false';
           (document.body || document.documentElement).appendChild(script);
         }
 
-        function loadAds() {
-          // In-Page Push zones (medium)
-          addAdScript('https://nap5k.com/tag.min.js', '12269939');
-          addAdScript('https://nap5k.com/tag.min.js', '12269943');
-
-          // Vignette Banner zone (medium)
-          addAdScript('https://n6wxm.com/vignette.min.js', '12270017');
-
-          // Push Notifications zone (requires Monetag service worker at site root)
-          const pushScript = document.createElement('script');
-          pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=12270018';
-          pushScript.async = true;
-          pushScript.dataset.cfasync = 'false';
-          (document.body || document.documentElement).appendChild(pushScript);
-        }
-
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', loadAds, { once: true });
+          document.addEventListener('DOMContentLoaded', loadMonetagZone, { once: true });
         } else {
-          loadAds();
+          loadMonetagZone();
         }
       })();
     </script>
