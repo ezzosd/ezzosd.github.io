@@ -1596,5 +1596,18 @@
 
     <!-- Keep the service-worker registration available for Monetag Push Notifications. -->
 
+
+    <!-- Register the existing Monetag push-notification service worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js')
+            .catch(function (error) {
+              console.error('Push notification service worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+
 </body>
 </html>
