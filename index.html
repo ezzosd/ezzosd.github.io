@@ -1516,6 +1516,12 @@
     (function () {
         if (sessionStorage.getItem('tb_admin_mode') === '1') return;
 
+        // Adsterra Social Bar (Ad Unit 32436476)
+        var socialBarScript = document.createElement('script');
+        socialBarScript.async = true;
+        socialBarScript.src = 'https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';
+        document.head.appendChild(socialBarScript);
+
         // Load the three desktop banner units one at a time so each script
         // reads its own atOptions before the next unit replaces the global.
         var desktopAds = [
