@@ -538,6 +538,17 @@
             .teachgrant-side-ad { display: none !important; }
         }
         .admin-mode .teachgrant-side-ad { display: none !important; }
+        /* Visitor-controlled compact Adsterra widget */
+        #tg-visitor-ad{position:fixed;left:18px;bottom:18px;z-index:850;direction:rtl;font-family:inherit}
+        #tg-visitor-ad .tg-ad-toggle{display:flex;align-items:center;gap:8px;border:1px solid var(--border-color,#ddd);border-radius:24px;padding:9px 14px;background:var(--card-bg,#fff);color:var(--text-color,#222);box-shadow:0 3px 14px rgba(0,0,0,.12);cursor:pointer;font:inherit;font-size:13px}
+        #tg-visitor-ad .tg-ad-panel{display:none;position:absolute;left:0;bottom:48px;width:min(320px,calc(100vw - 36px));padding:10px;box-sizing:border-box;background:var(--card-bg,#fff);border:1px solid var(--border-color,#ddd);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+        #tg-visitor-ad.is-open .tg-ad-panel{display:block}
+        #tg-visitor-ad .tg-ad-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:#888;font-size:11px}
+        #tg-visitor-ad .tg-ad-close{width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;font-size:20px;line-height:1}
+        #tg-visitor-ad .tg-ad-content{min-height:250px;width:300px;max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        #tg-visitor-ad .tg-ad-content iframe{max-width:100%;border:0}
+        .admin-mode #tg-visitor-ad{display:none!important}
+        @media(max-width:480px){#tg-visitor-ad{left:10px;bottom:10px}#tg-visitor-ad .tg-ad-panel{bottom:46px}}
         .admin-mode .teachgrant-desktop-ad { display: none !important; }
         @media (max-width: 767px) {
             .teachgrant-desktop-ad { display: none !important; }
@@ -636,6 +647,14 @@
         <div class="teachgrant-desktop-ad" id="tg-ad-bottom" aria-label="إعلان">
             <span class="ad-label">إعلان</span>
             
+        </div>
+
+        <div id="tg-visitor-ad" aria-label="إعلان اختياري">
+            <div class="tg-ad-panel" id="tg-visitor-ad-panel" aria-hidden="true">
+                <div class="tg-ad-panel-head"><span>إعلان</span><button type="button" class="tg-ad-close" id="tg-visitor-ad-close" aria-label="إغلاق الإعلان">×</button></div>
+                <div class="tg-ad-content" id="tg-visitor-ad-content"></div>
+            </div>
+            <button type="button" class="tg-ad-toggle" id="tg-visitor-ad-toggle" aria-expanded="false" aria-controls="tg-visitor-ad-panel"><span>إعلان</span><span aria-hidden="true">＋</span></button>
         </div>
 
         <footer>
@@ -1534,6 +1553,19 @@
     </script>
 
 
+
+    <script>
+    (function(){
+      if(sessionStorage.getItem('tb_admin_mode')==='1')return;
+      var w=document.getElementById('tg-visitor-ad'),t=document.getElementById('tg-visitor-ad-toggle'),x=document.getElementById('tg-visitor-ad-close'),p=document.getElementById('tg-visitor-ad-panel'),c=document.getElementById('tg-visitor-ad-content');
+      if(!w||!t||!x||!p||!c)return;
+      try{if(sessionStorage.getItem('tg_visitor_ad_closed')==='1'){w.style.display='none';return;}}catch(e){}
+      var loaded=false;
+      function openAd(){w.classList.add('is-open');t.setAttribute('aria-expanded','true');p.setAttribute('aria-hidden','false');if(loaded)return;loaded=true;window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};var a=document.createElement('script');a.setAttribute('data-cfasync','false');a.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';c.appendChild(a);}
+      t.addEventListener('click',function(){if(w.classList.contains('is-open')){w.classList.remove('is-open');t.setAttribute('aria-expanded','false');p.setAttribute('aria-hidden','true');}else{openAd();}});
+      x.addEventListener('click',function(){w.style.display='none';try{sessionStorage.setItem('tg_visitor_ad_closed','1');}catch(e){}});
+    })();
+    </script>
 
     <script>
     (function () {
