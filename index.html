@@ -510,12 +510,15 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 4px; width: 100%; max-width: 100%; min-height: 66px;
             margin: 12px auto 18px; padding: 4px; box-sizing: border-box;
-            overflow: hidden; text-align: center;
+            overflow: visible; text-align: center;
         }
         .teachgrant-desktop-ad .ad-label {
             display: block; color: #888; font-size: 9px; line-height: 1.1;
         }
-        .teachgrant-desktop-ad iframe { max-width: 100%; }
+        .teachgrant-desktop-ad iframe {
+            display: block; border: 0; flex: 0 0 auto;
+            max-width: 100%; margin: 0 auto;
+        }
         #tg-ad-top { min-height: 96px; }
         #tg-ad-middle { min-height: 66px; }
         #tg-ad-bottom { min-height: 56px; margin-top: 14px; margin-bottom: 8px; }
@@ -566,8 +569,7 @@
             </div>
             <div class="teachgrant-desktop-ad" id="tg-ad-top" aria-label="إعلان">
                 <span class="ad-label">إعلان</span>
-                <script>atOptions = { 'key':'84072b8f7fcb8babdc4eafc32d11ee83', 'format':'iframe', 'height':90, 'width':728, 'params':{} };</script>
-                <script data-cfasync="false" src="https://bauval.org/22/84072b8f7fcb8babdc4eafc32d11ee83"></script>
+                
             </div>
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
@@ -590,8 +592,7 @@
             </div>
             <div class="teachgrant-desktop-ad" id="tg-ad-middle" aria-label="إعلان">
                 <span class="ad-label">إعلان</span>
-                <script>atOptions = { 'key':'76d1317c7ba136f5c70dd4fa335e2beb', 'format':'iframe', 'height':60, 'width':468, 'params':{} };</script>
-                <script data-cfasync="false" src="https://bauval.org/22/76d1317c7ba136f5c70dd4fa335e2beb"></script>
+                
             </div>
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
@@ -611,8 +612,7 @@
 
         <div class="teachgrant-desktop-ad" id="tg-ad-bottom" aria-label="إعلان">
             <span class="ad-label">إعلان</span>
-            <script>atOptions = { 'key':'46faab192c449aa12daeec954acec581', 'format':'iframe', 'height':50, 'width':320, 'params':{} };</script>
-            <script data-cfasync="false" src="https://bauval.org/22/46faab192c449aa12daeec954acec581"></script>
+            
         </div>
 
         <footer>
@@ -1515,6 +1515,38 @@
     <script>
     (function () {
         if (sessionStorage.getItem('tb_admin_mode') === '1') return;
+
+        // Load the three desktop banner units one at a time so each script
+        // reads its own atOptions before the next unit replaces the global.
+        var desktopAds = [
+            { id: 'tg-ad-top', key: '84072b8f7fcb8babdc4eafc32d11ee83', width: 728, height: 90, src: 'https://bauval.org/22/84072b8f7fcb8babdc4eafc32d11ee83' },
+            { id: 'tg-ad-middle', key: '76d1317c7ba136f5c70dd4fa335e2beb', width: 468, height: 60, src: 'https://bauval.org/22/76d1317c7ba136f5c70dd4fa335e2beb' },
+            { id: 'tg-ad-bottom', key: '46faab192c449aa12daeec954acec581', width: 320, height: 50, src: 'https://bauval.org/22/46faab192c449aa12daeec954acec581' }
+        ];
+        var desktopIndex = 0;
+        function loadNextDesktopAd() {
+            if (desktopIndex >= desktopAds.length) return;
+            var ad = desktopAds[desktopIndex++];
+            var slot = document.getElementById(ad.id);
+            if (!slot || window.innerWidth <= 767) {
+                loadNextDesktopAd();
+                return;
+            }
+            window.atOptions = {
+                key: ad.key,
+                format: 'iframe',
+                height: ad.height,
+                width: ad.width,
+                params: {}
+            };
+            var script = document.createElement('script');
+            script.setAttribute('data-cfasync', 'false');
+            script.src = ad.src;
+            script.onload = loadNextDesktopAd;
+            script.onerror = loadNextDesktopAd;
+            slot.appendChild(script);
+        }
+        loadNextDesktopAd();
 
         // Adsterra Native Banner (Ad Unit 32436478)
         var nativeSlot = document.getElementById('tg-native-ad-slot');
