@@ -505,6 +505,24 @@
             .teachgrant-ad-slot { margin: 14px auto 20px; padding: 6px; }
         }
         .admin-mode .teachgrant-ad-slot { display: none !important; }
+
+        .teachgrant-desktop-ad {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 4px; width: 100%; max-width: 100%; min-height: 66px;
+            margin: 12px auto 18px; padding: 4px; box-sizing: border-box;
+            overflow: hidden; text-align: center;
+        }
+        .teachgrant-desktop-ad .ad-label {
+            display: block; color: #888; font-size: 9px; line-height: 1.1;
+        }
+        .teachgrant-desktop-ad iframe { max-width: 100%; }
+        #tg-ad-top { min-height: 96px; }
+        #tg-ad-middle { min-height: 66px; }
+        #tg-ad-bottom { min-height: 56px; margin-top: 14px; margin-bottom: 8px; }
+        .admin-mode .teachgrant-desktop-ad { display: none !important; }
+        @media (max-width: 767px) {
+            .teachgrant-desktop-ad { display: none !important; }
+        }
     </style>
 
 </head>
@@ -546,6 +564,11 @@
                 <span class="ad-label">إعلان</span>
                 <div id="container-080728f5ddcd0f54c7a204aebfbfd7b3"></div>
             </div>
+            <div class="teachgrant-desktop-ad" id="tg-ad-top" aria-label="إعلان">
+                <span class="ad-label">إعلان</span>
+                <script>atOptions = { 'key':'84072b8f7fcb8babdc4eafc32d11ee83', 'format':'iframe', 'height':90, 'width':728, 'params':{} };</script>
+                <script data-cfasync="false" src="https://bauval.org/22/84072b8f7fcb8babdc4eafc32d11ee83"></script>
+            </div>
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
                 <div class="listing-toolbar" aria-label="تصفية الوظائف">
@@ -565,6 +588,11 @@
             <div class="teachgrant-ad-slot teachgrant-ad-banner" id="tg-300x250-slot" aria-label="مساحة إعلانية">
                 <span class="ad-label">إعلان</span>
             </div>
+            <div class="teachgrant-desktop-ad" id="tg-ad-middle" aria-label="إعلان">
+                <span class="ad-label">إعلان</span>
+                <script>atOptions = { 'key':'76d1317c7ba136f5c70dd4fa335e2beb', 'format':'iframe', 'height':60, 'width':468, 'params':{} };</script>
+                <script data-cfasync="false" src="https://bauval.org/22/76d1317c7ba136f5c70dd4fa335e2beb"></script>
+            </div>
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
                 <div class="listing-toolbar" aria-label="تصفية المنح">
@@ -579,6 +607,12 @@
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
+        </div>
+
+        <div class="teachgrant-desktop-ad" id="tg-ad-bottom" aria-label="إعلان">
+            <span class="ad-label">إعلان</span>
+            <script>atOptions = { 'key':'46faab192c449aa12daeec954acec581', 'format':'iframe', 'height':50, 'width':320, 'params':{} };</script>
+            <script data-cfasync="false" src="https://bauval.org/22/46faab192c449aa12daeec954acec581"></script>
         </div>
 
         <footer>
