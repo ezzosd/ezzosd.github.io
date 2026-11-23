@@ -19,9 +19,11 @@
         }
 
         function loadAds() {
-          // In-Page Push: test zone 12269943 only.
-          // Keep 12269939 as the fallback; do not load both zones together.
+          // Existing In-Page Push zone (kept active).
           addAdScript('https://nap5k.com/tag.min.js', '12269943');
+
+          // New Monetag In-Page Push zone 12332936.
+          addAdScript('https://nap5k.com/tag.min.js', '12332936');
 
           // Vignette Banner zone (medium)
           addAdScript('https://n6wxm.com/vignette.min.js', '12270017');
