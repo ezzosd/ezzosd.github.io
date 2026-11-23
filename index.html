@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- Monetag In-Page Push: zone 12269939 -->
+    <script>
+    (function(s){
+      s.dataset.zone='12269939';
+      s.src='https://nap5k.com/tag.min.js';
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1551,33 +1559,7 @@
 
 
 
-    <!-- Monetag: quiet test, one In-Page Push zone only (12269939) -->
-    <script>
-      (function () {
-        // Do not show ads in the authenticated admin dashboard.
-        try {
-          if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-        } catch (_) {}
 
-        // Prevent duplicate loading if this snippet is ever included twice.
-        if (window.__teachgrantMonetag12269939Loaded) return;
-        window.__teachgrantMonetag12269939Loaded = true;
-
-        function loadMonetagZone() {
-          const script = document.createElement('script');
-          script.src = 'https://nap5k.com/tag.min.js';
-          script.dataset.zone = '12269939';
-          script.async = true;
-          (document.body || document.documentElement).appendChild(script);
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', loadMonetagZone, { once: true });
-        } else {
-          loadMonetagZone();
-        }
-      })();
-    </script>
 
     <!-- Keep the service-worker registration available for Monetag Push Notifications. -->
 
