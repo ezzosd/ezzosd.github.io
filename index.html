@@ -4,46 +4,6 @@
 
 
 
-    <!-- Monetag ad zones: new approved tags -->
-    <script>
-      (function () {
-        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-
-        function addAdScript(src, zone, cfasync) {
-          const script = document.createElement('script');
-          script.src = src;
-          script.dataset.zone = zone;
-          script.async = true;
-          if (cfasync === false) script.dataset.cfasync = 'false';
-          (document.body || document.documentElement).appendChild(script);
-        }
-
-        function loadAds() {
-          // Existing In-Page Push zone (kept active).
-          addAdScript('https://nap5k.com/tag.min.js', '12269943');
-
-          // New Monetag In-Page Push zone 12332936.
-          addAdScript('https://nap5k.com/tag.min.js', '12332936');
-
-          // Vignette Banner zone (medium)
-          addAdScript('https://n6wxm.com/vignette.min.js', '12270017');
-
-          // Push Notifications zone (requires Monetag service worker at site root)
-          const pushScript = document.createElement('script');
-          pushScript.src = 'https://5gvci.com/act/files/tag.min.js?z=12270018';
-          pushScript.async = true;
-          pushScript.dataset.cfasync = 'false';
-          (document.body || document.documentElement).appendChild(pushScript);
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', loadAds, { once: true });
-        } else {
-          loadAds();
-        }
-      })();
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1595,21 +1555,6 @@
 
 
 
-
-    <!-- Keep the service-worker registration available for Monetag Push Notifications. -->
-
-
-    <!-- Register the existing Monetag push-notification service worker -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js')
-            .catch(function (error) {
-              console.error('Push notification service worker registration failed:', error);
-            });
-        });
-      }
-    </script>
 
 </body>
 </html>
