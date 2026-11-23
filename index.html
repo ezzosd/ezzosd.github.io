@@ -522,6 +522,22 @@
         #tg-ad-top { min-height: 96px; }
         #tg-ad-middle { min-height: 66px; }
         #tg-ad-bottom { min-height: 56px; margin-top: 14px; margin-bottom: 8px; }
+        .teachgrant-side-ad {
+            position: fixed; top: 150px; z-index: 80; width: 160px;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            box-sizing: border-box; overflow: visible; text-align: center;
+        }
+        .teachgrant-side-ad .ad-label { color: #888; font-size: 9px; line-height: 1.1; }
+        .teachgrant-side-ad iframe { display: block; border: 0; max-width: 100%; }
+        #tg-ad-side-tall { left: 12px; min-height: 600px; }
+        #tg-ad-side-short { right: 12px; min-height: 300px; }
+        @media (min-width: 1440px) {
+            #publicSite .container { width: min(1080px, calc(100% - 360px)); }
+        }
+        @media (max-width: 1439px) {
+            .teachgrant-side-ad { display: none !important; }
+        }
+        .admin-mode .teachgrant-side-ad { display: none !important; }
         .admin-mode .teachgrant-desktop-ad { display: none !important; }
         @media (max-width: 767px) {
             .teachgrant-desktop-ad { display: none !important; }
@@ -532,6 +548,13 @@
 <body>
 
     <div id="publicSite">
+        <div class="teachgrant-side-ad" id="tg-ad-side-tall" aria-label="إعلان جانبي">
+            <span class="ad-label">إعلان</span>
+        </div>
+        <div class="teachgrant-side-ad" id="tg-ad-side-short" aria-label="إعلان جانبي">
+            <span class="ad-label">إعلان</span>
+        </div>
+
         <header>
             <div class="container header-content">
 
@@ -1527,7 +1550,9 @@
         var desktopAds = [
             { id: 'tg-ad-top', key: '84072b8f7fcb8babdc4eafc32d11ee83', width: 728, height: 90, src: 'https://bauval.org/22/84072b8f7fcb8babdc4eafc32d11ee83' },
             { id: 'tg-ad-middle', key: '76d1317c7ba136f5c70dd4fa335e2beb', width: 468, height: 60, src: 'https://bauval.org/22/76d1317c7ba136f5c70dd4fa335e2beb' },
-            { id: 'tg-ad-bottom', key: '46faab192c449aa12daeec954acec581', width: 320, height: 50, src: 'https://bauval.org/22/46faab192c449aa12daeec954acec581' }
+            { id: 'tg-ad-bottom', key: '46faab192c449aa12daeec954acec581', width: 320, height: 50, src: 'https://bauval.org/22/46faab192c449aa12daeec954acec581' },
+            { id: 'tg-ad-side-tall', key: 'b132299f94ef9a508c7201e514ae00c6', width: 160, height: 600, src: 'https://bauval.org/22/b132299f94ef9a508c7201e514ae00c6' },
+            { id: 'tg-ad-side-short', key: 'dddd64204e927f142f0f71ce24880aa2', width: 160, height: 300, src: 'https://bauval.org/22/dddd64204e927f142f0f71ce24880aa2' }
         ];
         var desktopIndex = 0;
         function loadNextDesktopAd() {
