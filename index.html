@@ -926,7 +926,7 @@
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                     ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
-                ${isJob ? `<a href="#" class="btn-apply" data-id="${item.id}" data-type="job">عرض التفاصيل والتقديم</a>` : `<a href="/scholarship.html?id=${encodeURIComponent(item.id)}" class="btn-apply">تفاصيل المنحة والتقديم</a>`}
+                ${isJob ? `<a href="/job.html?id=${encodeURIComponent(item.id)}" class="btn-apply">تفاصيل الوظيفة والتقديم</a>` : `<a href="/scholarship.html?id=${encodeURIComponent(item.id)}" class="btn-apply">تفاصيل المنحة والتقديم</a>`}
             </div>`;
         }
 
