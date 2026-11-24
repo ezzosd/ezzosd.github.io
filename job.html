@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#102b46">
+  <meta name="description" content="تفاصيل الوظيفة التعليمية وشروطها ومؤهلاتها ورابط التقديم الرسمي عبر TeachGrant.">
+  <link rel="canonical" href="https://teachgrant.tech/job.html">
+  <link rel="icon" href="/teachgrant-banner.png?v=2">
+  <title>تفاصيل الوظيفة التعليمية | TeachGrant</title>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TeachGrant">
+  <meta property="og:title" content="تفاصيل الوظيفة التعليمية | TeachGrant">
+  <meta property="og:description" content="تعرف على تفاصيل الوظيفة وشروط التقديم عبر TeachGrant.">
+  <meta property="og:url" content="https://teachgrant.tech/job.html">
+  <meta property="og:image" content="https://teachgrant.tech/teachgrant-banner.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Cairo,Arial,sans-serif;background:#f3f6fb;color:#172b43;line-height:1.9}
+    a{color:inherit;text-decoration:none}.top{background:#102b46;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{font-size:1.35rem;font-weight:900;color:#f0c36b}.top a:last-child{background:#d9a441;color:#172b43;padding:8px 16px;border-radius:10px;font-weight:800}
+    main{width:min(900px,92%);margin:38px auto}.crumb{color:#64748b;font-size:.92rem;margin-bottom:18px}
+    article{background:#fff;border:1px solid #e3eaf3;border-radius:20px;padding:clamp(22px,5vw,48px);box-shadow:0 12px 34px rgba(16,43,70,.07)}
+    .tag{display:inline-block;background:#eaf2ff;color:#1d5cc2;padding:5px 14px;border-radius:30px;font-size:.85rem;font-weight:800}
+    h1{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.5;margin:14px 0;color:#102b46}
+    .org{color:#64748b;font-weight:700;margin-bottom:24px}.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:22px 0}
+    .fact{background:#f5f8fc;border:1px solid #e3eaf3;padding:14px;border-radius:12px}.fact b{display:block;color:#64748b;font-size:.83rem}.fact span{font-weight:800}
+    h2{font-size:1.2rem;color:#102b46;margin:28px 0 10px}.copy{overflow-wrap:anywhere}.copy p{margin:0 0 12px}.copy ul,.copy ol{padding-right:24px}
+    .apply{display:block;text-align:center;background:#0f9f75;color:#fff;padding:14px 20px;border-radius:12px;font-weight:900;margin-top:28px}
+    .source{display:inline-block;margin-top:15px;color:#2563eb;font-weight:700}.muted{color:#64748b;text-align:center;padding:45px 10px}footer{text-align:center;color:#64748b;padding:20px;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <header class="top"><a class="brand" href="/">TeachGrant</a><a href="/#jobs">جميع الوظائف</a></header>
+  <main>
+    <div class="crumb"><a href="/">الرئيسية</a> / <a href="/#jobs">الوظائف</a> / التفاصيل</div>
+    <article id="content"><div class="muted">جاري تحميل تفاصيل الوظيفة...</div></article>
+  </main>
+  <footer>TeachGrant — فرص تعليمية ومنح دراسية حول العالم</footer>
+<script>
+(function(){
+ const SUPABASE_URL='https://dutpuwqybdzhjbiwrvcc.supabase.co';
+ const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX';
+ const client=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ const root=document.getElementById('content');
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
+ function cleanRichText(value){
+   const template=document.createElement('template');template.innerHTML=String(value||'');
+   const allowed=new Set(['P','BR','STRONG','B','EM','I','U','UL','OL','LI','H2','H3','H4','BLOCKQUOTE','A','SPAN','DIV']);
+   const forbidden=new Set(['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','FORM','INPUT','BUTTON','SVG','MATH']);
+   function clean(parent){Array.from(parent.childNodes).forEach(node=>{
+     if(node.nodeType===Node.TEXT_NODE)return;
+     if(node.nodeType!==Node.ELEMENT_NODE){node.remove();return}
+     if(forbidden.has(node.tagName)){node.remove();return}
+     clean(node);
+     if(!allowed.has(node.tagName)){node.replaceWith(...Array.from(node.childNodes));return}
+     const href=node.tagName==='A'?node.getAttribute('href'):null;
+     Array.from(node.attributes).forEach(a=>node.removeAttribute(a.name));
+     if(node.tagName==='A'){const url=safeUrl(href);if(url){node.setAttribute('href',url);node.setAttribute('target','_blank');node.setAttribute('rel','noopener noreferrer')}}
+   })}
+   clean(template.content);return template.innerHTML;
+ }
+ const params=new URLSearchParams(window.location.search),rawId=params.get('id'),id=Number(rawId);
+ if(!rawId||!Number.isFinite(id)||id<=0){
+   root.innerHTML='<div class="muted"><strong>تعذر قراءة رقم الوظيفة من الرابط.</strong><br>الرابط: <code>'+esc(window.location.href)+'</code><br><a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return;
+ }
+ client.from('jobs').select('*').eq('id',id).maybeSingle().then(({data,error})=>{
+   if(error){console.error('TeachGrant job query failed:',error);root.innerHTML='<div class="muted"><strong>تعذر تحميل بيانات الوظيفة.</strong><br>رمز الخطأ: '+esc(error.code||'غير معروف')+'<br>التفاصيل: '+esc(error.message||'لم تصل تفاصيل الخطأ')+'<br><a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return}
+   if(!data){root.innerHTML='<div class="muted">لم يتم العثور على وظيفة بهذا الرقم ('+esc(id)+'). <a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return}
+   const j=data,title=j.title||'وظيفة تعليمية';
+   const marker=String(j.description||'').match(/<!--TG_JOB_META:([A-Za-z0-9+/=]+)-->/);
+   let meta={};if(marker){try{meta=JSON.parse(decodeURIComponent(escape(atob(marker[1]))))}catch(e){}}
+   const description=String(j.description||'').replace(/<!--TG_JOB_META:[A-Za-z0-9+/=]+-->/g,'').trim();
+   document.title=title+' | الشروط وطريقة التقديم | TeachGrant';
+   const plain=String(description.replace(/<[^>]*>/g,' ').replace(/\s+/g,' '));
+   const desc=plain.slice(0,155)||('وظيفة لدى '+(j.company||'جهة العمل')+' عبر TeachGrant.');
+   document.querySelector('meta[name="description"]').content=desc;
+   document.querySelector('meta[property="og:title"]').content=title+' | TeachGrant';
+   document.querySelector('meta[property="og:description"]').content=desc;
+   const canonical=location.origin+location.pathname+'?id='+encodeURIComponent(j.id);
+   document.querySelector('link[rel="canonical"]').href=canonical;
+   document.querySelector('meta[property="og:url"]').content=canonical;
+   const apply=safeUrl(j.apply_link),source=safeUrl(meta.source);
+   root.innerHTML='<span class="tag">وظيفة تعليمية</span><h1>'+esc(title)+'</h1><div class="org">'+esc(j.company||'جهة العمل غير محددة')+'</div>'+
+    '<div class="facts"><div class="fact"><b>الدولة</b><span>'+esc(j.location||'غير محددة')+'</span></div><div class="fact"><b>المدينة</b><span>'+esc(meta.city||'غير محددة')+'</span></div><div class="fact"><b>التخصص</b><span>'+esc(meta.specialty||'غير محدد')+'</span></div><div class="fact"><b>نوع الوظيفة</b><span>'+esc(j.type||'غير محدد')+'</span></div><div class="fact"><b>آخر موعد للتقديم</b><span>'+esc(j.deadline||'راجع جهة العمل')+'</span></div></div>'+
+    '<h2>وصف الوظيفة</h2><div class="copy">'+(cleanRichText(description)||'لم تتم إضافة وصف تفصيلي لهذه الوظيفة بعد.')+'</div>'+
+    '<h2>المؤهلات والمتطلبات</h2><div class="copy">'+(cleanRichText(j.requirements)||'يرجى مراجعة شروط جهة العمل عبر رابط التقديم الرسمي.')+'</div>'+
+    (source?'<a class="source" href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">عرض المصدر الأصلي للإعلان ↗</a>':'')+
+    (apply?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم عبر الموقع الرسمي ↗</a>':'<p class="muted">لم يتم إضافة رابط التقديم بعد.</p>');
+   const schema={'@context':'https://schema.org','@type':'JobPosting','title':title,'description':description||desc,'hiringOrganization':{'@type':'Organization','name':j.company||'جهة العمل'},'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':meta.city||undefined,'addressCountry':j.location||undefined}},'url':canonical};
+   if(j.deadline)schema.validThrough=j.deadline;
+   if(j.created_at)schema.datePosted=String(j.created_at).slice(0,10);
+   if(apply)schema.directApply=true;
+   const ld=document.createElement('script');ld.type='application/ld+json';ld.textContent=JSON.stringify(schema);document.head.appendChild(ld);
+ });
+})();
+</script>
+</body>
+</html>
