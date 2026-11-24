@@ -33,6 +33,10 @@
     .apply{display:block;text-align:center;background:#0f9f75;color:#fff;padding:14px 20px;border-radius:12px;font-weight:900;margin-top:28px}
     .muted{color:#64748b;text-align:center;padding:45px 10px}footer{text-align:center;color:#64748b;padding:20px;font-size:.9rem}
   </style>
+
+<style>
+.tg-page-ad{direction:rtl;text-align:center;margin:24px auto;padding:12px 10px;border:1px solid #e7edf3;border-radius:14px;background:#f8fafc;max-width:100%;overflow:hidden}.tg-page-ad-label{display:block;color:#8492a1;font-size:11px;margin-bottom:8px}.tg-page-ad-slot{width:300px;max-width:100%;min-height:250px;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}.tg-page-ad-slot iframe{max-width:100%}
+</style>
 </head>
 <body>
   <header class="top"><a class="brand" href="/">TeachGrant</a><a href="/#scholarships">جميع المنح</a></header>
@@ -80,10 +84,23 @@
     '<div class="facts"><div class="fact"><b>الدولة</b><span>'+esc(s.location||'غير محددة')+'</span></div><div class="fact"><b>نوع التمويل</b><span>'+esc(s.funding||s.type||'راجع التفاصيل')+'</span></div><div class="fact"><b>آخر موعد للتقديم</b><span>'+esc(s.deadline||'راجع الموقع الرسمي')+'</span></div></div>'+
     '<h2>نبذة عن المنحة</h2><div class="copy">'+esc(s.description||'لم تتم إضافة وصف تفصيلي لهذه المنحة بعد.')+'</div>'+
     '<h2>شروط ومتطلبات التقديم</h2><div class="copy">'+esc(s.requirements||'يرجى مراجعة شروط القبول المنشورة لدى الجهة المانحة.')+'</div>'+
+    '<div class="tg-page-ad" aria-label="مساحة إعلانية"><span class="tg-page-ad-label">إعلان</span><div class="tg-page-ad-slot" id="tg-page-ad-slot"></div></div>'+
     (apply?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم عبر الموقع الرسمي ↗</a>':'<p class="muted">لم يتم إضافة رابط التقديم بعد.</p>');
    const schema={'@context':'https://schema.org','@type':'EducationalOccupationalProgram','name':title,'description':desc,'provider':{'@type':'Organization','name':s.company||'TeachGrant'},'url':canonical};
    const ld=document.createElement('script');ld.type='application/ld+json';ld.textContent=JSON.stringify(schema);document.head.appendChild(ld);
  });
+})();
+</script>
+
+<script>
+(function(){
+ if(sessionStorage.getItem('tb_admin_mode')==='1')return;
+ var slot=document.getElementById('tg-page-ad-slot');
+ if(!slot||slot.dataset.loaded==='1')return;
+ slot.dataset.loaded='1';
+ window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};
+ var s=document.createElement('script');s.setAttribute('data-cfasync','false');s.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';slot.appendChild(s);
+ var social=document.createElement('script');social.async=true;social.src='https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';document.head.appendChild(social);
 })();
 </script>
 </body>
