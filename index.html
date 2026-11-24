@@ -202,6 +202,16 @@
         .admin-sidebar { width: 260px; background: #1e1e2d; color: #a1a5b7; flex-shrink: 0; display: flex; flex-direction: column; transition: width 0.3s; overflow-y: auto; }
         .admin-sidebar .brand { padding: 20px; text-align: center; font-size: 1.2rem; font-weight: 700; color: #fff; border-bottom: 1px solid #2b2b40; }
         .admin-sidebar .nav-label { padding: 15px 20px 5px; font-size: 0.75rem; text-transform: uppercase; color: #565674; font-weight: 700; }
+        .admin-simple-nav { padding: 8px 12px !important; }
+        .admin-simple-nav > li { margin: 4px 0; }
+        .admin-simple-nav > li > a { border-radius: 9px; padding: 13px 15px !important; }
+        .admin-simple-nav > li.active > a { background: #2563eb !important; border-right-color: #d9a441 !important; }
+        .admin-simple-nav .main-icon { margin-left: 12px; }
+        @media (max-width: 900px) {
+            .admin-simple-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+            .admin-simple-nav > li { flex: 1 1 145px; margin: 0; }
+            .admin-simple-nav > li > a { justify-content: center !important; }
+        }
         .admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
         .admin-sidebar ul li a { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; color: #a1a5b7; text-decoration: none; font-size: 0.9rem; transition: 0.2s; border-right: 3px solid transparent; cursor: pointer; }
         .admin-sidebar ul li a:hover { background: #1b1b29; color: #fff; }
@@ -716,23 +726,13 @@
     <div id="dashboardView">
         <div class="admin-layout">
             <aside class="admin-sidebar">
-                <div class="brand">admin</div>
-                <div class="nav-label">Navigation</div>
-                <ul>
-                    <li id="menu-jobs">
-                        <a onclick="toggleMenu('jobs')"><span><i class="fas fa-briefcase main-icon"></i> الوظائف</span><i class="fas fa-chevron-down arrow"></i></a>
-                        <ul class="admin-submenu" id="submenu-jobs">
-                            <li><a onclick="loadPanel('job-add')">إضافة وظيفة</a></li>
-                            <li><a onclick="loadPanel('job-list')">عرض الوظائف</a></li>
-                        </ul>
-                    </li>
-                    <li id="menu-sch">
-                        <a onclick="toggleMenu('sch')"><span><i class="fas fa-graduation-cap main-icon"></i> المنح الدراسية</span><i class="fas fa-chevron-down arrow"></i></a>
-                        <ul class="admin-submenu" id="submenu-sch">
-                            <li><a onclick="loadPanel('sch-add')">إضافة منحة</a></li>
-                            <li><a onclick="loadPanel('sch-list')">عرض المنح</a></li>
-                        </ul>
-                    </li>
+                <div class="brand">TeachGrant | الإدارة</div>
+                <div class="nav-label">القائمة الرئيسية</div>
+                <ul class="admin-simple-nav">
+                    <li id="menu-job-add"><a onclick="loadPanel('job-add')"><span><i class="fas fa-plus-circle main-icon"></i> إضافة وظيفة</span></a></li>
+                    <li id="menu-job-list"><a onclick="loadPanel('job-list')"><span><i class="fas fa-list main-icon"></i> قائمة الوظائف</span></a></li>
+                    <li id="menu-sch-add"><a onclick="loadPanel('sch-add')"><span><i class="fas fa-plus-circle main-icon"></i> إضافة منحة</span></a></li>
+                    <li id="menu-sch-list"><a onclick="loadPanel('sch-list')"><span><i class="fas fa-list main-icon"></i> قائمة المنح</span></a></li>
                     <li id="menu-settings"><a onclick="loadPanel('settings')"><span><i class="fas fa-cog main-icon"></i> الإعدادات</span></a></li>
                 </ul>
                 <div style="margin-top:auto; padding:20px;">
@@ -1242,14 +1242,11 @@
             document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
             const target = document.getElementById('panel-' + name);
             if (target) target.style.display = 'block';
-            const titles = { 'job-add':'إضافة وظيفة جديدة','job-list':'قائمة الوظائف','sch-add':'إضافة منحة جديدة','sch-list':'قائمة المنح','settings':'إعدادات الموقع' };
-            document.getElementById('panelTitle').textContent = titles[name] || 'لوحة التحكم';
-            document.querySelectorAll('.admin-sidebar ul li').forEach(li => li.classList.remove('active'));
-            if (name.startsWith('job')) document.getElementById('menu-jobs').classList.add('active');
-            if (name.startsWith('sch')) document.getElementById('menu-sch').classList.add('active');
-            if (name === 'settings') {
-                document.getElementById('menu-settings').classList.add('active');
-            }
+            const titles = { 'job-add':'إضافة وظيفة','job-list':'قائمة الوظائف','sch-add':'إضافة منحة','sch-list':'قائمة المنح','settings':'إعدادات الموقع' };
+            document.getElementById('panelTitle').textContent = titles[name] || 'لوحة الإدارة';
+            document.querySelectorAll('.admin-simple-nav > li').forEach(li => li.classList.remove('active'));
+            const activeItem = document.getElementById('menu-' + name);
+            if (activeItem) activeItem.classList.add('active');
             if (name === 'job-list') renderJobList();
             if (name === 'sch-list') renderSchList();
         }
