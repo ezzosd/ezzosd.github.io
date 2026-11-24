@@ -562,6 +562,12 @@
         .admin-mode .teachgrant-desktop-ad { display: none !important; }
         @media (max-width: 767px) {
             .teachgrant-desktop-ad { display: none !important; }
+            /* Keep only the compact 320x50 banner available on phones. */
+            #tg-ad-bottom {
+                display: flex !important;
+                min-height: 56px;
+                margin: 12px auto 8px;
+            }
         }
     </style>
 
@@ -1618,7 +1624,15 @@
             if (desktopIndex >= desktopAds.length) return;
             var ad = desktopAds[desktopIndex++];
             var slot = document.getElementById(ad.id);
-            if (!slot || window.innerWidth <= 767) {
+            var isMobile = window.innerWidth <= 767;
+            var isWideDesktop = window.innerWidth >= 1440;
+            var isSideAd = ad.id.indexOf('tg-ad-side-') === 0;
+            // Phones get only the compact 320x50 unit; side units load only
+            // when their fixed-position containers are actually visible.
+            var shouldLoad = isMobile
+                ? ad.id === 'tg-ad-bottom'
+                : (!isSideAd || isWideDesktop);
+            if (!slot || !shouldLoad) {
                 loadNextDesktopAd();
                 return;
             }
