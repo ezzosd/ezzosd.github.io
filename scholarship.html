@@ -49,10 +49,19 @@
  const root=document.getElementById('content');
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
- const id=new URLSearchParams(location.search).get('id');
- if(!id){root.innerHTML='<div class="muted">لم يتم تحديد المنحة. <a href="/#scholarships">العودة إلى قائمة المنح</a></div>';return;}
- client.from('scholarships').select('id,title,company,location,type,deadline,description,requirements,apply_link,funding,link').eq('id',id).maybeSingle().then(({data,error})=>{
-   if(error||!data){root.innerHTML='<div class="muted">تعذر العثور على المنحة أو لم تعد متاحة. <a href="/#scholarships">العودة إلى قائمة المنح</a></div>';return;}
+ const rawId=new URLSearchParams(location.search).get('id');
+ const id=rawId && /^\\d+$/.test(rawId) ? Number(rawId) : null;
+ if(!id){root.innerHTML='<div class="muted">رابط المنحة غير صحيح. <a href="/#scholarships">العودة إلى قائمة المنح</a></div>';return;}
+ client.from('scholarships').select('*').eq('id',id).maybeSingle().then(({data,error})=>{
+   if(error){
+     console.error('TeachGrant scholarship query failed:',error);
+     root.innerHTML='<div class="muted"><strong>تعذر تحميل بيانات المنحة.</strong><br>رمز الخطأ: '+esc(error.code||'غير معروف')+'<br>التفاصيل: '+esc(error.message||'لم تصل تفاصيل الخطأ')+'<br><a href="/#scholarships">العودة إلى قائمة المنح</a></div>';
+     return;
+   }
+   if(!data){
+     root.innerHTML='<div class="muted">لم يتم العثور على منحة بهذا الرقم ('+esc(id)+'). <a href="/#scholarships">العودة إلى قائمة المنح</a></div>';
+     return;
+   }
    const s=data, title=s.title||'منحة دراسية';
    document.title=title+' | تفاصيل المنحة وشروط التقديم | TeachGrant';
    const desc=String(s.description||s.requirements||'تفاصيل وشروط التقديم للمنحة الدراسية عبر TeachGrant.').replace(/\s+/g,' ').slice(0,155);
