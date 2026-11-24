@@ -97,6 +97,17 @@
     (source?'<a class="source" href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">عرض المصدر الأصلي للإعلان ↗</a>':'')+
     '<div class="tg-page-ad" aria-label="مساحة إعلانية"><span class="tg-page-ad-label">إعلان</span><div class="tg-page-ad-slot" id="tg-page-ad-slot"></div></div>'+
     (apply?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم عبر الموقع الرسمي ↗</a>':'<p class="muted">لم يتم إضافة رابط التقديم بعد.</p>');
+   (function(){
+     if(sessionStorage.getItem('tb_admin_mode')==='1')return;
+     var slot=document.getElementById('tg-page-ad-slot');
+     if(!slot||slot.dataset.loaded==='1')return;
+     slot.dataset.loaded='1';
+     window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};
+     var adScript=document.createElement('script');
+     adScript.setAttribute('data-cfasync','false');
+     adScript.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';
+     slot.appendChild(adScript);
+   })();
    const schema={'@context':'https://schema.org','@type':'JobPosting','title':title,'description':description||desc,'hiringOrganization':{'@type':'Organization','name':j.company||'جهة العمل'},'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':meta.city||undefined,'addressCountry':j.location||undefined}},'url':canonical};
    if(j.deadline)schema.validThrough=j.deadline;
    if(j.created_at)schema.datePosted=String(j.created_at).slice(0,10);
@@ -106,16 +117,6 @@
 })();
 </script>
 
-<script>
-(function(){
- if(sessionStorage.getItem('tb_admin_mode')==='1')return;
- var slot=document.getElementById('tg-page-ad-slot');
- if(!slot||slot.dataset.loaded==='1')return;
- slot.dataset.loaded='1';
- window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};
- var s=document.createElement('script');s.setAttribute('data-cfasync','false');s.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';slot.appendChild(s);
- var social=document.createElement('script');social.async=true;social.src='https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';document.head.appendChild(social);
-})();
-</script>
+
 </body>
 </html>
