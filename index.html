@@ -748,6 +748,11 @@
                 </div>
 
                 <div class="admin-content">
+                    <section id="adminStats" aria-label="إحصائيات الموقع" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;">
+                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">إجمالي الوظائف</div><strong id="statJobs" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
+                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">إجمالي المنح</div><strong id="statScholarships" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
+                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">الفرص المتاحة حاليًا</div><strong id="statOpen" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
+                    </section>
                     <div id="panel-job-add" class="admin-panel" style="display:block;">
                         <div class="admin-card">
                             <input type="hidden" id="jobEditId">
@@ -1272,7 +1277,24 @@
                 console.error('تعذر تحميل بيانات لوحة الإدارة:', error);
                 alert(adminDataLoadError + ' لم يتم استبدال البيانات المعروضة ببيانات فارغة.');
             }
+            updateDashboardStats();
             renderJobList(); renderSchList();
+        }
+
+        function updateDashboardStats() {
+            const jobsEl = document.getElementById('statJobs');
+            const scholarshipsEl = document.getElementById('statScholarships');
+            const openEl = document.getElementById('statOpen');
+            if (!jobsEl || !scholarshipsEl || !openEl) return;
+            if (adminDataLoadError) {
+                jobsEl.textContent = scholarshipsEl.textContent = openEl.textContent = '—';
+                return;
+            }
+            const today = new Date().toISOString().slice(0, 10);
+            const isOpen = item => !item.deadline || String(item.deadline).slice(0, 10) >= today;
+            jobsEl.textContent = jobsData.length;
+            scholarshipsEl.textContent = scholarshipsData.length;
+            openEl.textContent = jobsData.filter(isOpen).length + scholarshipsData.filter(isOpen).length;
         }
 
         function renderJobList() {
@@ -1436,10 +1458,12 @@
         }
 
         async function deleteJob(id) {
-            if (!confirm("هل أنت متأكد من حذف هذه الوظيفة؟")) return;
+            const item = jobsData.find(x => String(x.id) === String(id));
+            if (!confirm("هل تريد حذف الوظيفة: " + (item?.title || id) + "؟ لا يمكن التراجع عن الحذف.")) return;
             try {
-                const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
+                const { data, error } = await supabaseClient.from('jobs').delete().eq('id', id).select('id');
                 if (error) throw error;
+                if (!data || data.length === 0) throw new Error('لم يتم حذف الوظيفة. تحقق من صلاحيات الحساب.');
                 await loadAdminData();
             } catch (error) {
                 console.error('تعذر حذف الوظيفة:', error);
@@ -1448,10 +1472,12 @@
         }
 
         async function deleteSch(id) {
-            if (!confirm("هل أنت متأكد من حذف هذه المنحة؟")) return;
+            const item = scholarshipsData.find(x => String(x.id) === String(id));
+            if (!confirm("هل تريد حذف المنحة: " + (item?.title || id) + "؟ لا يمكن التراجع عن الحذف.")) return;
             try {
-                const { error } = await supabaseClient.from('scholarships').delete().eq('id', id);
+                const { data, error } = await supabaseClient.from('scholarships').delete().eq('id', id).select('id');
                 if (error) throw error;
+                if (!data || data.length === 0) throw new Error('لم يتم حذف المنحة. تحقق من صلاحيات الحساب.');
                 await loadAdminData();
             } catch (error) {
                 console.error('تعذر حذف المنحة:', error);
