@@ -17,12 +17,17 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f8fc;color:#172b43;font-family:Cairo,Arial,sans-serif;line-height:1.8}.wrap{width:min(1050px,92%);margin:auto}header{background:#fff;border-bottom:1px solid #e4eaf1;padding:12px 0}header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}header img{height:48px;width:auto;object-fit:contain}.link{color:#075db7;text-decoration:none;font-weight:700}.hero{background:linear-gradient(130deg,#0a2540,#0875dc);color:#fff;padding:52px 0}.hero h1{font-size:clamp(26px,4vw,40px);line-height:1.4;margin:0 0 12px}.hero p{max-width:800px;margin:0;font-size:17px}.content{padding:30px 0}.panel{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:22px;margin-bottom:22px}.panel h2{margin:0 0 12px;color:#0a2540;font-size:22px}.topics{padding-right:22px;margin:8px 0 0}.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.job{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;display:flex;flex-direction:column}.job h3{margin:0 0 8px;font-size:18px;line-height:1.5}.muted{color:#64748b;font-size:14px}.apply{display:block;text-align:center;background:#0a2540;color:#fff;text-decoration:none;border-radius:9px;padding:10px;margin-top:14px;font-weight:700}.status{padding:18px;text-align:center;color:#64748b}.cta{display:inline-block;background:#e8f1fb;padding:10px 16px;border-radius:9px;margin-top:14px}.footer{padding:25px 0;text-align:center;color:#64748b;font-size:14px}@media(max-width:600px){header .wrap{align-items:flex-start;flex-direction:column}.hero{padding:38px 0}}
 </style>
+
+<style>
+.tg-page-ad{direction:rtl;text-align:center;margin:24px auto;padding:12px 10px;border:1px solid #e7edf3;border-radius:14px;background:#f8fafc;max-width:100%;overflow:hidden}.tg-page-ad-label{display:block;color:#8492a1;font-size:11px;margin-bottom:8px}.tg-page-ad-slot{width:300px;max-width:100%;min-height:250px;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}.tg-page-ad-slot iframe{max-width:100%}
+</style>
 </head>
 <body>
 <header><div class="wrap"><a href="/" aria-label="TeachGrant"><img src="/teachgrant-banner.png?v=2" alt="TeachGrant"></a><a class="link" href="/">العودة إلى الموقع الرئيسي</a></div></header>
 <section class="hero"><div class="wrap"><h1>وظائف المعلمين في الإمارات</h1><p>استكشف فرص التدريس في دولة الإمارات العربية المتحدة، وتابع الإعلانات التعليمية المتاحة للمعلمين والمعلمات. تعرض الصفحة الوظائف المنشورة في قاعدة بيانات TeachGrant فقط، مع بيانات الجهة والموقع ورابط التقديم عند توفره.</p><a class="cta link" href="/#jobs">تصفح جميع الوظائف</a></div></section>
 <main class="wrap content">
 <section class="panel"><h2>فرص التدريس في الإمارات</h2><p>ابحث عن وظائف المعلمين والمعلمات في الإمارات العربية المتحدة، وتابع فرص التدريس في المدارس والمؤسسات التعليمية حسب التخصص.</p><h2 style="font-size:18px;margin-top:16px">مجالات البحث الشائعة</h2><ul class="topics"><li>وظائف المعلمين في دبي وأبوظبي والشارقة</li><li>وظائف المدارس الدولية</li><li>فرص تخصصات اللغة الإنجليزية والرياضيات والعلوم</li></ul></section>
+<div class="tg-page-ad" aria-label="مساحة إعلانية"><span class="tg-page-ad-label">إعلان</span><div class="tg-page-ad-slot" id="tg-page-ad-slot"></div></div>
 <section class="panel"><h2>الوظائف التعليمية المنشورة في الإمارات</h2><p class="muted">تُجلب الإعلانات التالية من قاعدة بيانات TeachGrant. تحقق دائماً من تفاصيل الإعلان والجهة المعلنة قبل التقديم.</p><div id="jobs" class="jobs"><p class="status">جارٍ تحميل الوظائف...</p></div></section>
 <section class="panel"><h2>نصائح قبل التقديم</h2><ul class="topics"><li>اقرأ المؤهلات والخبرات المطلوبة بعناية.</li><li>جهّز سيرة ذاتية محدثة توضح خبرتك التعليمية والتخصص.</li><li>قدّم عبر رابط الجهة المعلنة، وتحقق من صحة الإعلان قبل مشاركة بياناتك.</li></ul></section>
 </main>
@@ -38,5 +43,17 @@ function clean(s){return String(s||"").replace(/<!--TG_JOB_META:[A-Za-z0-9+/=]+-
 function safeUrl(u){try{const x=new URL(u);return ["http:","https:"].includes(x.protocol)?x.href:"#"}catch(e){return "#"}}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 (async()=>{const box=document.getElementById("jobs");try{const {data,error}=await client.from("jobs").select("*").order("created_at",{ascending:false});if(error)throw error;const terms=aliases.map(x=>x.toLocaleLowerCase("ar"));const rows=(data||[]).filter(j=>terms.includes(String(j.location||"").trim().toLocaleLowerCase("ar")));if(!rows.length){box.innerHTML='<p class="status">لا توجد حالياً إعلانات وظائف مطابقة في قاعدة البيانات. تابع الصفحة لاحقاً أو تصفح جميع الفرص من الموقع الرئيسي.</p>';return}box.innerHTML=rows.map(j=>{const m=meta(j.description);const apply=safeUrl(j.apply_link||j.link||j.url);return '<article class="job"><h3>'+esc(j.title||"وظيفة تعليمية")+'</h3><p class="muted">'+esc(j.company||"جهة العمل غير محددة")+'</p><p>الدولة: '+esc(j.location||"")+'</p><p>المدينة: '+esc(m.city||"غير محددة")+'</p><p>التخصص: '+esc(m.specialty||"غير محدد")+'</p><p class="muted">'+esc(clean(j.description).slice(0,240))+'</p>'+(apply!=="#"?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم على الوظيفة ↗</a>':'')+'</article>'}).join("")}catch(e){console.error(e);box.innerHTML='<p class="status">تعذر تحميل الوظائف حالياً. يمكنك تصفح أحدث الفرص من الموقع الرئيسي.</p>'}})();
+</script>
+
+<script>
+(function(){
+ if(sessionStorage.getItem('tb_admin_mode')==='1')return;
+ var slot=document.getElementById('tg-page-ad-slot');
+ if(!slot||slot.dataset.loaded==='1')return;
+ slot.dataset.loaded='1';
+ window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};
+ var s=document.createElement('script');s.setAttribute('data-cfasync','false');s.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';slot.appendChild(s);
+ var social=document.createElement('script');social.async=true;social.src='https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';document.head.appendChild(social);
+})();
 </script>
 </body></html>
