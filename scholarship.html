@@ -49,9 +49,13 @@
  const root=document.getElementById('content');
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
- const rawId=new URLSearchParams(location.search).get('id');
- const id=rawId && /^\d+$/.test(rawId) ? Number(rawId) : null;
- if(!id){root.innerHTML='<div class="muted">رابط المنحة غير صحيح. <a href="/#scholarships">العودة إلى قائمة المنح</a></div>';return;}
+  const params=new URLSearchParams(window.location.search);
+  const rawId=params.get('id');
+  const id=Number(rawId);
+  if(!rawId || !Number.isFinite(id) || id<=0){
+    root.innerHTML='<div class="muted"><strong>تعذر قراءة رقم المنحة من الرابط.</strong><br>الرابط الذي وصل للصفحة: <code>'+esc(window.location.href)+'</code><br>بيانات الاستعلام: <code>'+esc(window.location.search||'(فارغ)')+'</code><br>القيمة المستخرجة للرقم: <code>'+esc(rawId??'(غير موجود)')+'</code><br><a href="/#scholarships">العودة إلى قائمة المنح</a></div>';
+    return;
+  }
  client.from('scholarships').select('*').eq('id',id).maybeSingle().then(({data,error})=>{
    if(error){
      console.error('TeachGrant scholarship query failed:',error);
