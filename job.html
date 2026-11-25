@@ -31,7 +31,7 @@
     .fact{background:#f5f8fc;border:1px solid #e3eaf3;padding:14px;border-radius:12px}.fact b{display:block;color:#64748b;font-size:.83rem}.fact span{font-weight:800}
     h2{font-size:1.2rem;color:#102b46;margin:28px 0 10px}.copy{overflow-wrap:anywhere}.copy p{margin:0 0 12px}.copy ul,.copy ol{padding-right:24px}
     .apply{display:block;text-align:center;background:#0f9f75;color:#fff;padding:14px 20px;border-radius:12px;font-weight:900;margin-top:28px}
-    .source{display:inline-block;margin-top:15px;color:#2563eb;font-weight:700}.muted{color:#64748b;text-align:center;padding:45px 10px}footer{text-align:center;color:#64748b;padding:20px;font-size:.9rem}
+    .source{display:inline-block;margin-top:15px;color:#2563eb;font-weight:700}.related{margin-top:30px;padding-top:18px;border-top:1px solid #e3eaf3}.related h2{margin-top:0}.related-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.related-item{display:block;background:#f5f8fc;border:1px solid #e3eaf3;border-radius:12px;padding:14px}.related-item strong{display:block;color:#102b46;line-height:1.6}.related-item span{display:block;color:#64748b;font-size:.85rem;margin-top:5px}.muted{color:#64748b;text-align:center;padding:45px 10px}footer{text-align:center;color:#64748b;padding:20px;font-size:.9rem}
   </style>
 
 <style>
@@ -53,6 +53,19 @@
  const root=document.getElementById('content');
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
+ function addJsonLd(value){const node=document.createElement('script');node.type='application/ld+json';node.textContent=JSON.stringify(value);document.head.appendChild(node)}
+ function addBreadcrumbs(title,url){addJsonLd({'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
+  {'@type':'ListItem','position':1,'name':'الرئيسية','item':'https://teachgrant.tech/'},
+  {'@type':'ListItem','position':2,'name':'الوظائف','item':'https://teachgrant.tech/#jobs'},
+  {'@type':'ListItem','position':3,'name':title,'item':url}
+ ]})}
+ function loadRelatedJobs(currentId){
+  client.from('jobs').select('id,title,company,location,created_at').neq('id',currentId).order('created_at',{ascending:false}).limit(3).then(({data,error})=>{
+   if(error||!data?.length)return;
+   const html=data.map(item=>'<a class="related-item" href="/job.html?id='+encodeURIComponent(item.id)+'"><strong>'+esc(item.title||'وظيفة تعليمية')+'</strong><span>'+esc(item.company||'جهة العمل')+' · '+esc(item.location||'')+'</span></a>').join('');
+   root.insertAdjacentHTML('beforeend','<section class="related" aria-label="وظائف أخرى"><h2>وظائف أخرى قد تهمك</h2><div class="related-list">'+html+'</div></section>');
+  });
+ }
  function cleanRichText(value){
    const template=document.createElement('template');template.innerHTML=String(value||'');
    const allowed=new Set(['P','BR','STRONG','B','EM','I','U','UL','OL','LI','H2','H3','H4','BLOCKQUOTE','A','SPAN','DIV']);
@@ -89,6 +102,7 @@
    const canonical=location.origin+location.pathname+'?id='+encodeURIComponent(j.id);
    document.querySelector('link[rel="canonical"]').href=canonical;
    document.querySelector('meta[property="og:url"]').content=canonical;
+   addBreadcrumbs(title,canonical);
    const apply=safeUrl(j.apply_link),source=safeUrl(meta.source);
    root.innerHTML='<span class="tag">وظيفة تعليمية</span><h1>'+esc(title)+'</h1><div class="org">'+esc(j.company||'جهة العمل غير محددة')+'</div>'+
     '<div class="facts"><div class="fact"><b>الدولة</b><span>'+esc(j.location||'غير محددة')+'</span></div><div class="fact"><b>المدينة</b><span>'+esc(meta.city||'غير محددة')+'</span></div><div class="fact"><b>التخصص</b><span>'+esc(meta.specialty||'غير محدد')+'</span></div><div class="fact"><b>نوع الوظيفة</b><span>'+esc(j.type||'غير محدد')+'</span></div><div class="fact"><b>آخر موعد للتقديم</b><span>'+esc(j.deadline||'راجع جهة العمل')+'</span></div></div>'+
@@ -97,6 +111,7 @@
     (source?'<a class="source" href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">عرض المصدر الأصلي للإعلان ↗</a>':'')+
     '<div class="tg-page-ad" aria-label="مساحة إعلانية"><span class="tg-page-ad-label">إعلان</span><div class="tg-page-ad-slot" id="tg-page-ad-slot"></div></div>'+
     (apply?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم عبر الموقع الرسمي ↗</a>':'<p class="muted">لم يتم إضافة رابط التقديم بعد.</p>');
+   loadRelatedJobs(j.id);
    (function(){
      if(sessionStorage.getItem('tb_admin_mode')==='1')return;
      var slot=document.getElementById('tg-page-ad-slot');
