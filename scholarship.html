@@ -31,6 +31,7 @@
     .fact{background:#f5f8fc;border:1px solid #e3eaf3;padding:14px;border-radius:12px}.fact b{display:block;color:#64748b;font-size:.83rem}.fact span{font-weight:800}
     h2{font-size:1.2rem;color:#102b46;margin:28px 0 10px}.copy{white-space:pre-wrap;overflow-wrap:anywhere}
     .apply{display:block;text-align:center;background:#0f9f75;color:#fff;padding:14px 20px;border-radius:12px;font-weight:900;margin-top:28px}
+    .related{margin-top:30px;padding-top:18px;border-top:1px solid #e3eaf3}.related h2{margin-top:0}.related-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.related-item{display:block;background:#f5f8fc;border:1px solid #e3eaf3;border-radius:12px;padding:14px}.related-item strong{display:block;color:#102b46;line-height:1.6}.related-item span{display:block;color:#64748b;font-size:.85rem;margin-top:5px}
     .muted{color:#64748b;text-align:center;padding:45px 10px}footer{text-align:center;color:#64748b;padding:20px;font-size:.9rem}
   </style>
 
@@ -53,6 +54,19 @@
  const root=document.getElementById('content');
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
+ function addJsonLd(value){const node=document.createElement('script');node.type='application/ld+json';node.textContent=JSON.stringify(value);document.head.appendChild(node)}
+ function addBreadcrumbs(title,url){addJsonLd({'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
+  {'@type':'ListItem','position':1,'name':'الرئيسية','item':'https://teachgrant.tech/'},
+  {'@type':'ListItem','position':2,'name':'المنح الدراسية','item':'https://teachgrant.tech/#scholarships'},
+  {'@type':'ListItem','position':3,'name':title,'item':url}
+ ]})}
+ function loadRelatedScholarships(currentId){
+  client.from('scholarships').select('id,title,company,country,location,funding,created_at').neq('id',currentId).order('created_at',{ascending:false}).limit(3).then(({data,error})=>{
+   if(error||!data?.length)return;
+   const html=data.map(item=>'<a class="related-item" href="/scholarship.html?id='+encodeURIComponent(item.id)+'"><strong>'+esc(item.title||'منحة دراسية')+'</strong><span>'+esc(item.company||'الجهة المانحة')+' · '+esc(item.country||item.location||'')+'</span></a>').join('');
+   root.insertAdjacentHTML('beforeend','<section class="related" aria-label="منح أخرى"><h2>منح أخرى قد تهمك</h2><div class="related-list">'+html+'</div></section>');
+  });
+ }
   const params=new URLSearchParams(window.location.search);
   const rawId=params.get('id');
   const id=Number(rawId);
@@ -79,6 +93,7 @@
    const canonical=location.origin+location.pathname+'?id='+encodeURIComponent(s.id);
    document.querySelector('link[rel="canonical"]').href=canonical;
    document.querySelector('meta[property="og:url"]').content=canonical;
+   addBreadcrumbs(title,canonical);
    const apply=safeUrl(s.apply_link||s.link);
    root.innerHTML='<span class="tag">منحة دراسية</span><h1>'+esc(title)+'</h1><div class="org">'+esc(s.company||'الجهة المانحة غير محددة')+'</div>'+
     '<div class="facts"><div class="fact"><b>الدولة</b><span>'+esc(s.location||'غير محددة')+'</span></div><div class="fact"><b>نوع التمويل</b><span>'+esc(s.funding||s.type||'راجع التفاصيل')+'</span></div><div class="fact"><b>آخر موعد للتقديم</b><span>'+esc(s.deadline||'راجع الموقع الرسمي')+'</span></div></div>'+
@@ -86,6 +101,7 @@
     '<h2>شروط ومتطلبات التقديم</h2><div class="copy">'+esc(s.requirements||'يرجى مراجعة شروط القبول المنشورة لدى الجهة المانحة.')+'</div>'+
     '<div class="tg-page-ad" aria-label="مساحة إعلانية"><span class="tg-page-ad-label">إعلان</span><div class="tg-page-ad-slot" id="tg-page-ad-slot"></div></div>'+
     (apply?'<a class="apply" href="'+esc(apply)+'" target="_blank" rel="noopener noreferrer">التقديم عبر الموقع الرسمي ↗</a>':'<p class="muted">لم يتم إضافة رابط التقديم بعد.</p>');
+   loadRelatedScholarships(s.id);
    (function(){
      if(sessionStorage.getItem('tb_admin_mode')==='1')return;
      var slot=document.getElementById('tg-page-ad-slot');
@@ -97,8 +113,7 @@
      adScript.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';
      slot.appendChild(adScript);
    })();
-   const schema={'@context':'https://schema.org','@type':'EducationalOccupationalProgram','name':title,'description':desc,'provider':{'@type':'Organization','name':s.company||'TeachGrant'},'url':canonical};
-   const ld=document.createElement('script');ld.type='application/ld+json';ld.textContent=JSON.stringify(schema);document.head.appendChild(ld);
+   addJsonLd({'@context':'https://schema.org','@type':'WebPage','name':title,'description':desc,'url':canonical,'inLanguage':'ar','isPartOf':{'@type':'WebSite','name':'TeachGrant','url':'https://teachgrant.tech/'}});
  });
 })();
 </script>
