@@ -108,7 +108,31 @@
      adScript.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';
      slot.appendChild(adScript);
    })();
-   const schema={'@context':'https://schema.org','@type':'JobPosting','title':title,'description':description||desc,'hiringOrganization':{'@type':'Organization','name':j.company||'جهة العمل'},'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':meta.city||undefined,'addressCountry':j.location||undefined}},'url':canonical};
+   const schema={'@context':'https://schema.org','@type':'JobPosting','title':title,'description':description||desc,'hiringOrganization':{'@type':'Organization','name':j.company||'جهة العمل'},'url':canonical};
+   const remoteCountries=Array.isArray(meta.remoteCountries)?meta.remoteCountries.filter(code=>/^[A-Z]{2}$/.test(String(code).toUpperCase())).map(code=>String(code).toUpperCase()):[];
+   if(meta.remote===true){
+     schema.jobLocationType='TELECOMMUTE';
+     if(remoteCountries.length)schema.applicantLocationRequirements=remoteCountries.map(country=>({'@type':'Country','name':country}));
+   }else{
+     const address={'@type':'PostalAddress'};
+     if(meta.city)address.addressLocality=meta.city;
+     if(j.location)address.addressCountry=j.location;
+     if(meta.addressRegion)address.addressRegion=meta.addressRegion;
+     if(meta.streetAddress)address.streetAddress=meta.streetAddress;
+     if(meta.postalCode)address.postalCode=meta.postalCode;
+     if(address.addressLocality||address.addressCountry||address.addressRegion||address.streetAddress||address.postalCode)schema.jobLocation={'@type':'Place','address':address};
+   }
+   const salaryMin=meta.salaryMin===null||meta.salaryMin===undefined||meta.salaryMin===''?null:Number(meta.salaryMin);
+   const salaryMax=meta.salaryMax===null||meta.salaryMax===undefined||meta.salaryMax===''?null:Number(meta.salaryMax);
+   const salaryCurrency=String(meta.salaryCurrency||'').toUpperCase();
+   const salaryUnit=String(meta.salaryUnit||'').toUpperCase();
+   const salaryUnits=new Set(['HOUR','DAY','WEEK','MONTH','YEAR']);
+   if(salaryCurrency&&salaryUnits.has(salaryUnit)&&((salaryMin!==null&&Number.isFinite(salaryMin)&&salaryMin>=0)||(salaryMax!==null&&Number.isFinite(salaryMax)&&salaryMax>=0))){
+     const value={'@type':'QuantitativeValue','unitText':salaryUnit};
+     if(salaryMin!==null&&Number.isFinite(salaryMin)&&salaryMin>=0)value.minValue=salaryMin;
+     if(salaryMax!==null&&Number.isFinite(salaryMax)&&salaryMax>=0)value.maxValue=salaryMax;
+     schema.baseSalary={'@type':'MonetaryAmount','currency':salaryCurrency,'value':value};
+   }
    if(j.deadline)schema.validThrough=j.deadline;
    if(j.created_at)schema.datePosted=String(j.created_at).slice(0,10);
    if(apply)schema.directApply=true;
