@@ -516,6 +516,32 @@
         }
         .admin-mode .teachgrant-ad-slot { display: none !important; }
 
+        /* إيقاف جميع وحدات الإعلانات داخل جلسة الإدارة فقط */
+        html.admin-mode .adsbygoogle,
+        html.admin-mode ins.adsbygoogle,
+        html.admin-mode .google-auto-placed,
+        html.admin-mode [data-ad-client],
+        html.admin-mode [id^="google_ads"],
+        html.admin-mode [id^="google_ads_iframe"],
+        html.admin-mode iframe[src*="googlesyndication.com"],
+        html.admin-mode iframe[src*="doubleclick.net"],
+        html.admin-mode iframe[src*="adservice.google.com"],
+        html.admin-mode .teachgrant-ad-slot,
+        html.admin-mode .teachgrant-desktop-ad,
+        html.admin-mode .teachgrant-side-ad,
+        html.admin-mode #tg-visitor-ad,
+        html.admin-mode #tgAdBtn {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            min-height: 0 !important;
+            max-height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+        }
+
+
         .teachgrant-desktop-ad {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 4px; width: 100%; max-width: 100%; min-height: 66px;
