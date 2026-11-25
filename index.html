@@ -157,7 +157,12 @@
         .social-list li a .fa-instagram { color: #E4405F; }
         .social-list li a .fa-robot { color: #10B981; }
 
-        .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
+        .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
+      .hero-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:9px 20px; border:1px solid rgba(255,255,255,.45); border-radius:12px; color:#fff; font-weight:700; transition:background .2s,transform .2s; }
+      .hero-actions a:first-child { background:#d9a441; border-color:#d9a441; color:#172b43; }
+      .hero-actions a:hover { background:rgba(255,255,255,.14); transform:translateY(-2px); }
+      .listing-toolbar input { min-width:150px; min-height:40px; padding:8px 11px; border:1px solid var(--border-color); border-radius:10px; font:inherit; color:var(--text-main); background:#fff; }
+      .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .card {
@@ -632,8 +637,12 @@
                 <h1>وظائف ومنح تعليمية حول العالم</h1>
                 <p>More Learning. Brighter Futures. ابحث عن فرصتك القادمة وابدأ رحلتك التعليمية.</p>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، منحة، أو دولة...">
-                    <button onclick="searchData()">بحث</button>
+                    <input type="search" id="searchInput" placeholder="ابحث عن وظيفة، منحة، تخصص، أو دولة..." aria-label="البحث في الوظائف والمنح">
+                    <button type="button" onclick="searchData()">بحث</button>
+                </div>
+                <div class="hero-actions" aria-label="انتقال سريع">
+                    <a href="#jobs">استكشف الوظائف</a>
+                    <a href="#scholarships">تصفح المنح الدراسية</a>
                 </div>
             </div>
         </section>
@@ -656,7 +665,10 @@
                     <select id="jobsCityFilter" aria-label="تصفية الوظائف حسب المدينة" onchange="renderPublicData()"><option value="">كل المدن</option></select>
                     <select id="jobsSpecialtyFilter" aria-label="تصفية الوظائف حسب التخصص" onchange="renderPublicData()"><option value="">كل التخصصات</option></select>
                     <select id="jobsDeadlineFilter" aria-label="تصفية الوظائف حسب موعد التقديم" onchange="renderPublicData()">
-                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                        <option value="">كل مواعيد التقديم</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <select id="jobsPublishedFilter" aria-label="تصفية الوظائف حسب تاريخ النشر" onchange="renderPublicData()">
+                        <option value="">كل تواريخ النشر</option><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option><option value="90">آخر 3 أشهر</option>
                     </select>
                     <button type="button" onclick="resetListingFilters('jobs')">إعادة ضبط</button>
                 </div>
@@ -676,8 +688,12 @@
                     <strong id="scholarshipsCount" class="listing-count">جاري تحميل المنح...</strong>
                     <select id="scholarshipsCountryFilter" aria-label="تصفية المنح حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
                     <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option></select>
+                    <input type="search" id="scholarshipsSpecialtyFilter" placeholder="مجال الدراسة أو التخصص..." aria-label="البحث في المنح حسب مجال الدراسة" oninput="renderPublicData()">
                     <select id="scholarshipsDeadlineFilter" aria-label="تصفية المنح حسب موعد التقديم" onchange="renderPublicData()">
-                        <option value="">كل المواعيد</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                        <option value="">كل مواعيد التقديم</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <select id="scholarshipsPublishedFilter" aria-label="تصفية المنح حسب تاريخ النشر" onchange="renderPublicData()">
+                        <option value="">كل تواريخ النشر</option><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option><option value="90">آخر 3 أشهر</option>
                     </select>
                     <button type="button" onclick="resetListingFilters('scholarships')">إعادة ضبط</button>
                 </div>
@@ -1119,9 +1135,12 @@
             const type = document.getElementById(prefix + 'TypeFilter')?.value || '';
             const city = prefix === 'jobs' ? (document.getElementById('jobsCityFilter')?.value || '') : '';
             const specialty = prefix === 'jobs' ? (document.getElementById('jobsSpecialtyFilter')?.value || '') : '';
+            const scholarshipSpecialty = prefix === 'scholarships' ? (document.getElementById('scholarshipsSpecialtyFilter')?.value || '').trim().toLocaleLowerCase('ar') : '';
             const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
+            const publishedMode = document.getElementById(prefix + 'PublishedFilter')?.value || '';
             const today = new Date();
             today.setHours(0,0,0,0);
+            const publishedAfter = publishedMode ? new Date(today.getTime() - Number(publishedMode) * 86400000) : null;
             return items.filter(item => {
                 const jobMeta = getJobMeta(item.description);
                 const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements,jobMeta.city,jobMeta.specialty]
@@ -1131,6 +1150,11 @@
                 if (type && String(item.type || '') !== type) return false;
                 if (city && String(jobMeta.city || '') !== city) return false;
                 if (specialty && String(jobMeta.specialty || '') !== specialty) return false;
+                if (scholarshipSpecialty && !searchable.includes(scholarshipSpecialty)) return false;
+                if (publishedAfter) {
+                    const publishedAt = item.created_at ? new Date(item.created_at) : null;
+                    if (!publishedAt || Number.isNaN(publishedAt.getTime()) || publishedAt < publishedAfter) return false;
+                }
                 if (deadlineMode && item.deadline) {
                     const deadline = new Date(String(item.deadline).slice(0,10) + 'T00:00:00');
                     const expired = !Number.isNaN(deadline.getTime()) && deadline < today;
@@ -1144,10 +1168,14 @@
         }
 
         function resetListingFilters(prefix) {
-            ['CountryFilter','TypeFilter','DeadlineFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : [])].forEach(suffix => {
+            ['CountryFilter','TypeFilter','DeadlineFilter','PublishedFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : [])].forEach(suffix => {
                 const el = document.getElementById(prefix + suffix);
                 if (el) el.value = '';
             });
+            if (prefix === 'scholarships') {
+                const specialtyInput = document.getElementById('scholarshipsSpecialtyFilter');
+                if (specialtyInput) specialtyInput.value = '';
+            }
             renderPublicData();
         }
 
@@ -1159,36 +1187,37 @@
             const requestId = ++publicRenderRequestId;
             jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
             scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
-            let loadedJobs, loadedScholarships;
-            try {
-                [loadedJobs, loadedScholarships] = await Promise.all([
-                    loadJobs(),
-                    loadScholarships(),
-                    loadSocials()
-                ]);
-            } catch (error) {
-                if (requestId !== publicRenderRequestId) return;
-                const message = escapeHtml(error?.message || 'حدث خطأ أثناء تحميل البيانات.');
-                jobsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
-                scholarshipsGrid.innerHTML = '<p class="loading-text" role="alert">' + message + ' أعد تحميل الصفحة للمحاولة مجدداً.</p>';
-                document.getElementById('jobsCount').textContent = 'تعذر تحميل الوظائف';
-                document.getElementById('scholarshipsCount').textContent = 'تعذر تحميل المنح';
-                return;
-            }
+            const [jobsResult, scholarshipsResult, socialsResult] = await Promise.allSettled([
+                loadJobs(), loadScholarships(), loadSocials()
+            ]);
             if (requestId !== publicRenderRequestId) return;
-            jobsData = loadedJobs;
-            scholarshipsData = loadedScholarships;
+            if (jobsResult.status === 'fulfilled') jobsData = jobsResult.value;
+            else {
+                jobsGrid.innerHTML = '<p class="loading-text" role="alert">تعذر تحميل الوظائف حاليًا. أعد تحميل الصفحة للمحاولة مجددًا.</p>';
+                document.getElementById('jobsCount').textContent = 'تعذر تحميل الوظائف';
+            }
+            if (scholarshipsResult.status === 'fulfilled') scholarshipsData = scholarshipsResult.value;
+            else {
+                scholarshipsGrid.innerHTML = '<p class="loading-text" role="alert">تعذر تحميل المنح حاليًا. أعد تحميل الصفحة للمحاولة مجددًا.</p>';
+                document.getElementById('scholarshipsCount').textContent = 'تعذر تحميل المنح';
+            }
+            if (socialsResult.status === 'rejected') console.warn('تعذر تحميل روابط التواصل:', socialsResult.reason);
             updateListingFilterOptions();
-            jobsGrid.innerHTML = ''; scholarshipsGrid.innerHTML = '';
             const q = String(filterText || '').toLocaleLowerCase('ar');
-            const fJobs = filterListing(jobsData, 'jobs', q);
-            const fSchs = filterListing(scholarshipsData, 'scholarships', q);
-            fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
-            fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
-            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق عوامل البحث والتصفية.</p>";
-            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
-            document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
-            document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
+            if (jobsResult.status === 'fulfilled') {
+                jobsGrid.innerHTML = '';
+                const fJobs = filterListing(jobsData, 'jobs', q);
+                fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
+                if (!fJobs.length) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق عوامل البحث والتصفية.</p>";
+                document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
+            }
+            if (scholarshipsResult.status === 'fulfilled') {
+                scholarshipsGrid.innerHTML = '';
+                const fSchs = filterListing(scholarshipsData, 'scholarships', q);
+                fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
+                if (!fSchs.length) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
+                document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
+            }
             setSocialLink('link-fb', socialsData.fb);
             setSocialLink('link-li', socialsData.li);
             setSocialLink('link-wa', socialsData.wa);
@@ -1198,7 +1227,10 @@
             bindCardEvents();
         }
 
-        function searchData() { renderPublicData(document.getElementById('searchInput').value.trim()); }
+        function searchData() {
+            renderPublicData(document.getElementById('searchInput').value.trim());
+            document.getElementById('jobs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         document.getElementById('searchInput').addEventListener('keypress', function (e) { if (e.key === 'Enter') searchData(); });
 
         function showLogin() {
