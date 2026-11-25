@@ -687,7 +687,11 @@
                 <div class="listing-toolbar" aria-label="تصفية المنح">
                     <strong id="scholarshipsCount" class="listing-count">جاري تحميل المنح...</strong>
                     <select id="scholarshipsCountryFilter" aria-label="تصفية المنح حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
-                    <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option></select>
+                    <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع البرنامج" onchange="renderPublicData()"><option value="">كل أنواع البرامج</option></select>
+                    <select id="scholarshipsLevelFilter" aria-label="تصفية المنح حسب المرحلة الدراسية" onchange="renderPublicData()"><option value="">كل المراحل الدراسية</option><option value="high_school">الثانوية العامة</option><option value="vocational">التعليم المهني</option><option value="bachelor">بكالوريوس</option><option value="masters">ماجستير</option><option value="phd">دكتوراه</option><option value="other">زمالة / أخرى</option></select>
+                    <select id="scholarshipsFundingFilter" aria-label="تصفية المنح حسب التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option><option value="fully_funded">ممولة بالكامل</option><option value="partially_funded">ممولة جزئيًا</option><option value="tuition_only">تغطية الرسوم الدراسية</option><option value="unfunded">بدون تمويل</option><option value="unknown">التمويل غير محدد</option></select>
+                    <select id="scholarshipsStatusFilter" aria-label="تصفية المنح حسب حالة التقديم" onchange="renderPublicData()"><option value="">كل الحالات</option><option value="open">مفتوحة الآن</option><option value="upcoming">قريبًا</option><option value="closed">مغلقة</option></select>
+                    <input type="search" id="scholarshipsEligibilityFilter" placeholder="الدول أو الجنسيات المؤهلة..." aria-label="البحث حسب أهلية الجنسية" oninput="renderPublicData()">
                     <input type="search" id="scholarshipsSpecialtyFilter" placeholder="مجال الدراسة أو التخصص..." aria-label="البحث في المنح حسب مجال الدراسة" oninput="renderPublicData()">
                     <select id="scholarshipsDeadlineFilter" aria-label="تصفية المنح حسب موعد التقديم" onchange="renderPublicData()">
                         <option value="">كل مواعيد التقديم</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
@@ -981,6 +985,12 @@
             const meta = isJob ? getJobMeta(item.description) : {};
             const city = meta.city || '';
             const specialty = meta.specialty || '';
+            const levelLabels = {high_school:'الثانوية العامة',vocational:'التعليم المهني',bachelor:'بكالوريوس',masters:'ماجستير',phd:'دكتوراه',other:'زمالة / أخرى'};
+            const fundingLabels = {fully_funded:'ممولة بالكامل',partially_funded:'ممولة جزئيًا',tuition_only:'تغطية الرسوم الدراسية',unfunded:'بدون تمويل',unknown:'التمويل غير محدد'};
+            const statusLabels = {open:'مفتوحة الآن',upcoming:'قريبًا',closed:'مغلقة'};
+            const today = new Date(); today.setHours(0,0,0,0);
+            const effectiveStatus = !isJob ? (item.status === 'closed' || (item.deadline && new Date(String(item.deadline).slice(0,10)+'T00:00:00') < today) ? 'closed' : (item.status || 'open')) : '';
+            const eligibleCountries = !isJob && Array.isArray(item.eligible_countries) ? item.eligible_countries : [];
             return `<div class="card">
                 <span class="card-type ${typeClass}">${badge}</span>
                 <h3>${escapeHtml(item.title)}</h3>
@@ -989,6 +999,10 @@
                     <span><i class="fas fa-globe"></i> ${escapeHtml(item.location || '-')}</span>
                     ${isJob && city ? `<span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(city)}</span>` : ''}
                     ${isJob && specialty ? `<span><i class="fas fa-book"></i> ${escapeHtml(specialty)}</span>` : ''}
+                    ${!isJob && item.study_level ? `<span><i class="fas fa-graduation-cap"></i> ${escapeHtml(levelLabels[item.study_level] || item.study_level)}</span>` : ''}
+                    ${!isJob && item.funding_type ? `<span><i class="fas fa-coins"></i> ${escapeHtml(fundingLabels[item.funding_type] || item.funding_type)}</span>` : ''}
+                    ${!isJob ? `<span><i class="fas fa-circle-info"></i> ${escapeHtml(statusLabels[effectiveStatus] || 'الحالة غير محددة')}</span>` : ''}
+                    ${!isJob && eligibleCountries.length ? `<span><i class="fas fa-globe"></i> الجنسيات المؤهلة: ${escapeHtml(eligibleCountries.join('، '))}</span>` : ''}
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                     ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
@@ -1141,6 +1155,10 @@
             const city = prefix === 'jobs' ? (document.getElementById('jobsCityFilter')?.value || '') : '';
             const specialty = prefix === 'jobs' ? (document.getElementById('jobsSpecialtyFilter')?.value || '') : '';
             const scholarshipSpecialty = prefix === 'scholarships' ? (document.getElementById('scholarshipsSpecialtyFilter')?.value || '').trim().toLocaleLowerCase('ar') : '';
+            const scholarshipLevel = prefix === 'scholarships' ? (document.getElementById('scholarshipsLevelFilter')?.value || '') : '';
+            const scholarshipFunding = prefix === 'scholarships' ? (document.getElementById('scholarshipsFundingFilter')?.value || '') : '';
+            const scholarshipStatus = prefix === 'scholarships' ? (document.getElementById('scholarshipsStatusFilter')?.value || '') : '';
+            const scholarshipEligibility = prefix === 'scholarships' ? (document.getElementById('scholarshipsEligibilityFilter')?.value || '').trim().toLocaleLowerCase('ar') : '';
             const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
             const publishedMode = document.getElementById(prefix + 'PublishedFilter')?.value || '';
             const today = new Date();
@@ -1153,6 +1171,14 @@
                 if (query && !searchable.includes(query)) return false;
                 if (country && String(item.location || '') !== country) return false;
                 if (type && String(item.type || '') !== type) return false;
+                if (prefix === 'scholarships') {
+                    if (scholarshipLevel && item.study_level !== scholarshipLevel) return false;
+                    if (scholarshipFunding && item.funding_type !== scholarshipFunding) return false;
+                    const effectiveStatus = item.status === 'closed' || (item.deadline && new Date(String(item.deadline).slice(0,10) + 'T00:00:00') < today) ? 'closed' : (item.status || 'open');
+                    if (scholarshipStatus && effectiveStatus !== scholarshipStatus) return false;
+                    const eligible = Array.isArray(item.eligible_countries) ? item.eligible_countries.join(' ').toLocaleLowerCase('ar') : '';
+                    if (scholarshipEligibility && !eligible.includes(scholarshipEligibility)) return false;
+                }
                 if (city && String(jobMeta.city || '') !== city) return false;
                 if (specialty && String(jobMeta.specialty || '') !== specialty) return false;
                 if (scholarshipSpecialty && !searchable.includes(scholarshipSpecialty)) return false;
@@ -1173,13 +1199,15 @@
         }
 
         function resetListingFilters(prefix) {
-            ['CountryFilter','TypeFilter','DeadlineFilter','PublishedFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : [])].forEach(suffix => {
+            ['CountryFilter','TypeFilter','DeadlineFilter','PublishedFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : ['LevelFilter','FundingFilter','StatusFilter','EligibilityFilter'])].forEach(suffix => {
                 const el = document.getElementById(prefix + suffix);
                 if (el) el.value = '';
             });
             if (prefix === 'scholarships') {
                 const specialtyInput = document.getElementById('scholarshipsSpecialtyFilter');
                 if (specialtyInput) specialtyInput.value = '';
+                const eligibilityInput = document.getElementById('scholarshipsEligibilityFilter');
+                if (eligibilityInput) eligibilityInput.value = '';
             }
             renderPublicData();
         }
