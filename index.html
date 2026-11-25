@@ -766,6 +766,12 @@
                             <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" placeholder="مثال: مدرس دراسات اجتماعية" required></div></div>
                             <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="jobLocation" placeholder="مثال: الإمارات العربية المتحدة" required></div></div>
                             <div class="form-row"><div class="form-label">المدينة</div><div class="form-input"><input type="text" id="jobCity" placeholder="مثال: دبي" required></div></div>
+                            <div class="form-row"><div class="form-label">المنطقة / المحافظة (اختياري)</div><div class="form-input"><input type="text" id="jobRegion" placeholder="مثال: الشارقة"></div></div>
+                            <div class="form-row"><div class="form-label">عنوان الشارع (اختياري)</div><div class="form-input"><input type="text" id="jobStreet" placeholder="يُترك فارغًا إذا لم يُعلن"></div></div>
+                            <div class="form-row"><div class="form-label">الرمز البريدي (اختياري)</div><div class="form-input"><input type="text" id="jobPostal" placeholder="الرمز البريدي"></div></div>
+                            <div class="form-row"><div class="form-label">الراتب (اختياري)</div><div class="form-input"><input type="number" id="jobSalaryMin" min="0" step="any" placeholder="الحد الأدنى"><input type="number" id="jobSalaryMax" min="0" step="any" placeholder="الحد الأعلى"><input type="text" id="jobSalaryCurrency" placeholder="العملة مثل AED أو USD"><select id="jobSalaryUnit"><option value="">دورية الراتب</option><option value="HOUR">بالساعة</option><option value="DAY">باليوم</option><option value="WEEK">بالأسبوع</option><option value="MONTH">بالشهر</option><option value="YEAR">بالسنة</option></select></div></div>
+                            <div class="form-row"><label><input type="checkbox" id="jobRemote"> وظيفة عن بُعد بالكامل</label></div>
+                            <div class="form-row"><div class="form-label">الدول المسموح بالتقديم منها (للوظائف عن بُعد، رموز الدول مفصولة بفواصل)</div><div class="form-input"><input type="text" id="jobRemoteCountries" placeholder="مثال: EG, SA, AE"></div></div>
                             <div class="form-row"><div class="form-label">التخصص</div><div class="form-input"><input type="text" id="jobSpecialty" placeholder="مثال: الدراسات الاجتماعية، التاريخ" required></div></div>
                             <div class="form-row"><div class="form-label">المؤهلات المطلوبة</div><div class="form-input"><textarea id="jobReq" placeholder="المؤهل العلمي، الشهادات التربوية، سنوات الخبرة..." required></textarea></div></div>
                             <div class="form-row"><div class="form-label">نوع الوظيفة</div><div class="form-input"><input type="text" id="jobType" placeholder="مثال: دوام كامل" required></div></div>
@@ -1345,6 +1351,15 @@
             document.getElementById('jobCompany').value = j.company || '';
             document.getElementById('jobLocation').value = j.location || '';
             document.getElementById('jobCity').value = meta.city || '';
+            document.getElementById('jobRegion').value = meta.addressRegion || '';
+            document.getElementById('jobStreet').value = meta.streetAddress || '';
+            document.getElementById('jobPostal').value = meta.postalCode || '';
+            document.getElementById('jobSalaryMin').value = meta.salaryMin ?? '';
+            document.getElementById('jobSalaryMax').value = meta.salaryMax ?? '';
+            document.getElementById('jobSalaryCurrency').value = meta.salaryCurrency || '';
+            document.getElementById('jobSalaryUnit').value = meta.salaryUnit || '';
+            document.getElementById('jobRemote').checked = meta.remote === true;
+            document.getElementById('jobRemoteCountries').value = Array.isArray(meta.remoteCountries) ? meta.remoteCountries.join(', ') : '';
             document.getElementById('jobSpecialty').value = meta.specialty || '';
             document.getElementById('jobType').value = j.type || '';
             document.getElementById('jobDeadline').value = j.deadline || '';
@@ -1393,7 +1408,23 @@
             btn.disabled = true; btn.textContent = "جاري الحفظ...";
             try {
                 const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
-                const description = addJobMeta(descContent, { city, specialty, source });
+                const salaryMinRaw = document.getElementById('jobSalaryMin').value.trim();
+                const salaryMaxRaw = document.getElementById('jobSalaryMax').value.trim();
+                const salaryCurrency = document.getElementById('jobSalaryCurrency').value.trim().toUpperCase();
+                const salaryUnit = document.getElementById('jobSalaryUnit').value;
+                const remote = document.getElementById('jobRemote').checked;
+                const remoteCountries = document.getElementById('jobRemoteCountries').value.split(',').map(v => v.trim().toUpperCase()).filter(v => /^[A-Z]{2}$/.test(v));
+                const salaryMin = salaryMinRaw === '' ? null : Number(salaryMinRaw);
+                const salaryMax = salaryMaxRaw === '' ? null : Number(salaryMaxRaw);
+                if ((salaryMinRaw || salaryMaxRaw) && (!salaryCurrency || !salaryUnit || (salaryMin !== null && (!Number.isFinite(salaryMin) || salaryMin < 0)) || (salaryMax !== null && (!Number.isFinite(salaryMax) || salaryMax < 0)) || (salaryMin !== null && salaryMax !== null && salaryMax < salaryMin))) return alert('أدخل الراتب المعلن بشكل صحيح مع العملة والدورية، وتأكد من أن الحد الأعلى ليس أقل من الأدنى.');
+                const description = addJobMeta(descContent, {
+                    city, specialty, source,
+                    addressRegion: document.getElementById('jobRegion').value.trim() || undefined,
+                    streetAddress: document.getElementById('jobStreet').value.trim() || undefined,
+                    postalCode: document.getElementById('jobPostal').value.trim() || undefined,
+                    salaryMin, salaryMax, salaryCurrency: salaryCurrency || undefined, salaryUnit: salaryUnit || undefined,
+                    remote, remoteCountries
+                });
                 const data = {
                     title, company,
                     location: country,
@@ -1409,7 +1440,7 @@
                     : await supabaseClient.from('jobs').insert([data]);
                 if (result.error) throw result.error;
                 document.getElementById('jobEditId').value = '';
-                ['jobTitle','jobCompany','jobLocation','jobCity','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
+                ['jobTitle','jobCompany','jobLocation','jobCity','jobRegion','jobStreet','jobPostal','jobSalaryMin','jobSalaryMax','jobSalaryCurrency','jobSalaryUnit','jobRemoteCountries','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
                 if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
                 else document.getElementById('jobDesc').value = '';
                 await loadAdminData();
