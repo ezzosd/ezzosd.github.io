@@ -1441,6 +1441,7 @@
                 if (result.error) throw result.error;
                 document.getElementById('jobEditId').value = '';
                 ['jobTitle','jobCompany','jobLocation','jobCity','jobRegion','jobStreet','jobPostal','jobSalaryMin','jobSalaryMax','jobSalaryCurrency','jobSalaryUnit','jobRemoteCountries','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
+                document.getElementById('jobRemote').checked = false;
                 if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
                 else document.getElementById('jobDesc').value = '';
                 await loadAdminData();
