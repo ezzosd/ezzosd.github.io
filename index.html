@@ -939,7 +939,15 @@
                 console.error('خطأ في تحميل المنح:', error);
                 throw new Error('تعذر تحميل المنح. تحقق من الاتصال وحاول مرة أخرى.');
             }
-            return Array.isArray(data) ? data : [];
+            const rows = Array.isArray(data) ? data : [];
+            const now = new Date();
+            const todayLocal = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+            return rows.filter(item =>
+                item.is_verified === true &&
+                item.eligibility_confirmed === true &&
+                item.status === 'open' &&
+                (!item.deadline || String(item.deadline).slice(0,10) >= todayLocal)
+            );
         }
 
         async function loadSocials() {
