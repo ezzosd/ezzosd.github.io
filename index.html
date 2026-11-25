@@ -889,7 +889,9 @@
         let scholarshipsData = [];
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
         let isLoggedIn = false;
-        let adminDataLoadError = '';
+        let adminJobsLoadError = '';
+        let adminScholarshipsLoadError = '';
+        let adminSocialsLoadError = '';
 
         function hideAdsForAdmin() {
             document.documentElement.classList.add('admin-mode');
@@ -1295,28 +1297,35 @@
         }
 
         async function loadAdminData() {
-            try {
-                const [loadedJobs, loadedScholarships] = await Promise.all([
-                    loadJobs(),
-                    loadScholarships(),
-                    loadSocials()
-                ]);
-                jobsData = loadedJobs;
-                scholarshipsData = loadedScholarships;
-                adminDataLoadError = '';
-                document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-                document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
-                document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
-                document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
-                document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
-                document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
-            } catch (error) {
-                adminDataLoadError = error?.message || 'تعذر تحميل بيانات لوحة الإدارة.';
-                console.error('تعذر تحميل بيانات لوحة الإدارة:', error);
-                alert(adminDataLoadError + ' لم يتم استبدال البيانات المعروضة ببيانات فارغة.');
+            const [jobsResult, scholarshipsResult, socialsResult] = await Promise.allSettled([
+                loadJobs(),
+                loadScholarships(),
+                loadSocials()
+            ]);
+
+            adminJobsLoadError = jobsResult.status === 'rejected' ? (jobsResult.reason?.message || 'تعذر تحميل الوظائف.') : '';
+            adminScholarshipsLoadError = scholarshipsResult.status === 'rejected' ? (scholarshipsResult.reason?.message || 'تعذر تحميل المنح.') : '';
+            adminSocialsLoadError = socialsResult.status === 'rejected' ? (socialsResult.reason?.message || 'تعذر تحميل إعدادات الموقع.') : '';
+
+            jobsData = jobsResult.status === 'fulfilled' ? jobsResult.value : [];
+            scholarshipsData = scholarshipsResult.status === 'fulfilled' ? scholarshipsResult.value : [];
+
+            if (adminSocialsLoadError) {
+                console.error('تعذر تحميل الإعدادات الاجتماعية:', socialsResult.reason);
+            }
+            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
+            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
+            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
+            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
+            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
+            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
+
+            if (adminJobsLoadError || adminScholarshipsLoadError) {
+                alert([adminJobsLoadError, adminScholarshipsLoadError].filter(Boolean).join('\n') + ' يمكنك إعادة تحميل الصفحة والمحاولة مرة أخرى.');
             }
             updateDashboardStats();
-            renderJobList(); renderSchList();
+            renderJobList();
+            renderSchList();
         }
 
         function updateDashboardStats() {
@@ -1324,20 +1333,19 @@
             const scholarshipsEl = document.getElementById('statScholarships');
             const openEl = document.getElementById('statOpen');
             if (!jobsEl || !scholarshipsEl || !openEl) return;
-            if (adminDataLoadError) {
-                jobsEl.textContent = scholarshipsEl.textContent = openEl.textContent = '—';
-                return;
-            }
+
             const today = new Date().toISOString().slice(0, 10);
             const isOpen = item => !item.deadline || String(item.deadline).slice(0, 10) >= today;
-            jobsEl.textContent = jobsData.length;
-            scholarshipsEl.textContent = scholarshipsData.length;
-            openEl.textContent = jobsData.filter(isOpen).length + scholarshipsData.filter(isOpen).length;
+            jobsEl.textContent = adminJobsLoadError ? 'غير متاح' : jobsData.length;
+            scholarshipsEl.textContent = adminScholarshipsLoadError ? 'غير متاح' : scholarshipsData.length;
+            openEl.textContent = adminJobsLoadError || adminScholarshipsLoadError
+                ? 'بيانات غير مكتملة'
+                : jobsData.filter(isOpen).length + scholarshipsData.filter(isOpen).length;
         }
 
         function renderJobList() {
             const tbody = document.getElementById('jobListTbody');
-            tbody.innerHTML = adminDataLoadError
+            tbody.innerHTML = adminJobsLoadError
                 ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل الوظائف. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
                 : jobsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
@@ -1349,7 +1357,7 @@
 
         function renderSchList() {
             const tbody = document.getElementById('schListTbody');
-            tbody.innerHTML = adminDataLoadError
+            tbody.innerHTML = adminScholarshipsLoadError
                 ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل المنح. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
                 : scholarshipsData.length === 0
                 ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
