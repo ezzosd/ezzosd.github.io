@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
 
     <meta name="description" content="TeachGrant — منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
@@ -36,7 +36,6 @@
     <title>TeachGrant | وظائف ومنح للمعلمين حول العالم</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1297,6 +1296,11 @@
             await loadAdminData();
             loadPanel('job-add');
             hideAdsForAdmin();
+            try {
+                await initAdminEditors();
+            } catch (error) {
+                console.warn('محرر النصوص غير متاح؛ يمكن استخدام حقول النص العادية:', error);
+            }
             window.scrollTo(0, 0);
         }
 
@@ -1339,16 +1343,34 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof tinymce !== 'undefined') {
-                tinymce.init({
-                    selector: '#jobDesc, #schDesc', height: 250, menubar: false,
-                    plugins: 'lists link image table code',
-                    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-                    directionality: 'rtl', skin: 'oxide'
-                });
-            }
-        });
+        // Load the rich-text editor only when an administrator opens the dashboard.
+        let tinyMCEReady = null;
+        function ensureTinyMCE() {
+            if (window.tinymce) return Promise.resolve();
+            if (tinyMCEReady) return tinyMCEReady;
+            tinyMCEReady = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js';
+                script.onload = resolve;
+                script.onerror = () => {
+                    tinyMCEReady = null;
+                    reject(new Error('تعذر تحميل محرر النصوص.'));
+                };
+                document.head.appendChild(script);
+            });
+            return tinyMCEReady;
+        }
+
+        async function initAdminEditors() {
+            await ensureTinyMCE();
+            if (!window.tinymce) return;
+            await window.tinymce.init({
+                selector: '#jobDesc, #schDesc', height: 250, menubar: false,
+                plugins: 'lists link image table code',
+                toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+                directionality: 'rtl', skin: 'oxide'
+            });
+        }
 
         function toggleMenu(menu) {
             const submenu = document.getElementById('submenu-' + menu);
