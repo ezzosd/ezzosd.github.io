@@ -120,8 +120,8 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         #offersFloatBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5); }
-        html.admin-mode #offersFloatBtn { display: none !important; }
-        html.admin-mode #extra-offers { display: none !important; }
+        html
+        html
 
         .social-list {
             display: flex;
@@ -189,51 +189,51 @@
         .footer-col ul a:hover { color: white; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.9rem; }
 
-        #dashboardView, #loginView { display: none; min-height: 100vh; background: var(--bg-color); padding: 40px 0; }
-        .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
-        .login-box h2 { color: var(--primary-dark); margin-bottom: 20px; }
-        .login-box input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; }
+        
+        
+        
+        
 
-        .btn-save { background: var(--success); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; font-family: inherit; transition: 0.3s; }
-        .btn-save:hover { background: #059669; }
-        .btn-save:disabled { background: #94A3B8; cursor: not-allowed; }
-        .btn-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-family: inherit; }
+        
+        
+        
+        
 
         .loading-text { text-align: center; color: var(--text-muted); padding: 20px; }
 
-        .admin-layout { display: flex; min-height: 100vh; background: #f5f5f9; font-family: 'Cairo', sans-serif; direction: rtl; }
-        .admin-sidebar { width: 260px; background: #1e1e2d; color: #a1a5b7; flex-shrink: 0; display: flex; flex-direction: column; transition: width 0.3s; overflow-y: auto; }
-        .admin-sidebar .brand { padding: 20px; text-align: center; font-size: 1.2rem; font-weight: 700; color: #fff; border-bottom: 1px solid #2b2b40; }
-        .admin-sidebar .nav-label { padding: 15px 20px 5px; font-size: 0.75rem; text-transform: uppercase; color: #565674; font-weight: 700; }
-        .admin-simple-nav { padding: 8px 12px !important; }
-        .admin-simple-nav > li { margin: 4px 0; }
-        .admin-simple-nav > li > a { border-radius: 9px; padding: 13px 15px !important; }
-        .admin-simple-nav > li.active > a { background: #2563eb !important; border-right-color: #d9a441 !important; }
-        .admin-simple-nav .main-icon { margin-left: 12px; }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         @media (max-width: 900px) {
-            .admin-simple-nav { display: flex; flex-wrap: wrap; gap: 6px; }
-            .admin-simple-nav > li { flex: 1 1 145px; margin: 0; }
-            .admin-simple-nav > li > a { justify-content: center !important; }
+            
+            
+            
         }
-        .admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
-        .admin-sidebar ul li a { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; color: #a1a5b7; text-decoration: none; font-size: 0.9rem; transition: 0.2s; border-right: 3px solid transparent; cursor: pointer; }
-        .admin-sidebar ul li a:hover { background: #1b1b29; color: #fff; }
-        .admin-sidebar ul li.active > a { background: #009ef7; color: #fff; }
-        .admin-sidebar ul li a i.main-icon { margin-left: 10px; width: 20px; text-align: center; }
-        .admin-sidebar ul li a i.arrow { font-size: 0.7rem; transition: transform 0.3s; }
-        .admin-sidebar ul li.active > a i.arrow { transform: rotate(180deg); }
+        
+        
+        
+        
+        
+        
+        
 
-        .admin-submenu { display: none; background: #1a1a27; padding-right: 20px; }
+        
         .admin-submenu.open { display: block; }
-        .admin-submenu li a { padding: 10px 20px 10px 30px; font-size: 0.85rem; border-right: 2px solid #3699ff; position: relative; }
-        .admin-submenu li a::before { content: '○'; position: absolute; right: 5px; color: #565674; font-size: 0.7rem; }
-        .admin-submenu li a:hover::before, .admin-submenu li.active a::before { color: #3699ff; }
+        
+        
+        .admin-submenu li a:hover::before, 
 
-        .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .admin-topbar { background: #1e1e2d; color: #fff; padding: 15px 30px; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-        .admin-topbar .btn-top { background: #009ef7; color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
-        .admin-content { padding: 30px; overflow-y: auto; flex: 1; }
-        .admin-card { background: #fff; border: 1px solid #e4e6ef; border-radius: 6px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.03); }
+        
+        
+        
+        
+        
 
         .form-row { display: flex; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
         .form-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -248,22 +248,6 @@
         .btn-primary-cls:hover { background: #0085d1; }
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
-        html.admin-mode #offersFloatBtn,
-        html.admin-mode #extra-offers {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-
-        @media (max-width: 900px) {
-            .admin-layout { flex-direction: column; }
-            .admin-sidebar { width: 100%; }
-            .form-row { flex-direction: column; }
-            .form-label { width: 100%; margin-bottom: 5px; padding-top: 0; }
-            .form-actions { padding-right: 0; }
-        }
-
         @media (max-width: 768px) {
             .header-content { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
             nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
@@ -361,13 +345,13 @@
       footer { background:linear-gradient(135deg,#102b46,#0b2035);padding:54px 0 20px; }
       .footer-col h4 { color:#e4b34e; }
       .footer-bottom { border-color:rgba(255,255,255,.14); }
-      #dashboardView, #loginView { background:#f3f6fb; }
-      .login-box { border:1px solid var(--border-color);border-radius:20px;box-shadow:var(--shadow); }
-      .admin-sidebar { background:#102b46; }
-      .admin-sidebar .brand { border-color:rgba(255,255,255,.1); }
-      .admin-sidebar ul li.active > a { background:#2563a6; }
-      .admin-topbar { background:#102b46; }
-      .admin-card { border:1px solid var(--border-color);border-radius:16px;box-shadow:0 8px 28px rgba(16,43,70,.05); }
+      
+      
+      
+      
+      
+      
+      
       .form-input input[type="text"], .form-input input[type="url"], .form-input input[type="date"], .form-input select,
       .form-input textarea { border-radius:10px; }
       button, a { -webkit-tap-highlight-color:transparent; }
@@ -473,15 +457,15 @@
         .social-list { gap:8px; }
         .social-list li a { padding:8px 11px; }
         #offersFloatBtn { bottom:14px; right:12px; z-index:90; min-height:42px; }
-        .login-box { width:calc(100% - 28px); margin:45px auto; padding:24px 18px; }
-        .admin-layout { display:flex; flex-direction:column; min-height:100vh; }
-        .admin-sidebar { width:100%; max-height:38vh; overflow-y:auto; }
-        .admin-sidebar .brand { padding:13px; }
-        .admin-sidebar ul li a { min-height:44px; }
-        .admin-main { min-width:0; overflow:visible; }
-        .admin-topbar { padding:12px 14px; gap:10px; flex-wrap:wrap; font-size:.95rem; }
-        .admin-content { padding:14px; overflow:visible; }
-        .admin-card { padding:17px 13px; border-radius:13px; }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         .form-row { display:flex; flex-direction:column; gap:7px; margin-bottom:15px; padding-bottom:15px; }
         .form-label { width:100%; padding:0; margin:0; }
         .form-input { width:100%; min-width:0; }
@@ -489,7 +473,7 @@
         .form-input textarea { min-height:120px; }
         .form-actions { display:grid; grid-template-columns:1fr; gap:9px; padding:0; }
         .form-actions button, .btn-primary-cls, .btn-secondary-cls { width:100%; min-height:44px; }
-        .admin-card table, .admin-content table { display:block; width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+        .admin-card table, 
         input, select, textarea, button { max-width:100%; }
       }
       @media (max-width: 420px) {
@@ -517,40 +501,10 @@
         @media (max-width: 600px) {
             .teachgrant-ad-slot { margin: 14px auto 20px; padding: 6px; }
         }
-        .admin-mode .teachgrant-ad-slot { display: none !important; }
+        
 
         /* إيقاف جميع وحدات الإعلانات داخل جلسة الإدارة فقط */
-        html.admin-mode .adsbygoogle,
-        html.admin-mode ins.adsbygoogle,
-        html.admin-mode .google-auto-placed,
-        html.admin-mode [data-ad-client],
-        html.admin-mode [id^="google_ads"],
-        html.admin-mode [id^="google_ads_iframe"],
-        html.admin-mode iframe[src*="googlesyndication.com"],
-        html.admin-mode iframe[src*="doubleclick.net"],
-        html.admin-mode iframe[src*="adservice.google.com"],
-        html.admin-mode .teachgrant-ad-slot,
-        html.admin-mode .teachgrant-desktop-ad,
-        html.admin-mode .teachgrant-side-ad,
-        html.admin-mode #tg-visitor-ad,
-        html.admin-mode #tgAdBtn {
-            display: none !important;
-            visibility: hidden !important;
-            height: 0 !important;
-            min-height: 0 !important;
-            max-height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow: hidden !important;
-        }
-
-
-        .teachgrant-desktop-ad {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 4px; width: 100%; max-width: 100%; min-height: 66px;
-            margin: 12px auto 18px; padding: 4px; box-sizing: border-box;
-            overflow: visible; text-align: center;
-        }
+        
         .teachgrant-desktop-ad .ad-label {
             display: block; color: #888; font-size: 9px; line-height: 1.1;
         }
@@ -576,7 +530,7 @@
         @media (max-width: 1439px) {
             .teachgrant-side-ad { display: none !important; }
         }
-        .admin-mode .teachgrant-side-ad { display: none !important; }
+        
         /* Visitor-controlled compact Adsterra widget */
         #tg-visitor-ad{position:fixed;left:18px;bottom:18px;z-index:850;direction:rtl;font-family:inherit}
         #tg-visitor-ad .tg-ad-toggle{display:flex;align-items:center;gap:8px;border:1px solid var(--border-color,#ddd);border-radius:24px;padding:9px 14px;background:var(--card-bg,#fff);color:var(--text-color,#222);box-shadow:0 3px 14px rgba(0,0,0,.12);cursor:pointer;font:inherit;font-size:13px}
@@ -586,9 +540,9 @@
         #tg-visitor-ad .tg-ad-close{width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;font-size:20px;line-height:1}
         #tg-visitor-ad .tg-ad-content{min-height:250px;width:300px;max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
         #tg-visitor-ad .tg-ad-content iframe{max-width:100%;border:0}
-        .admin-mode #tg-visitor-ad{display:none!important}
+        
         @media(max-width:480px){#tg-visitor-ad{left:10px;bottom:10px}#tg-visitor-ad .tg-ad-panel{bottom:46px}}
-        .admin-mode .teachgrant-desktop-ad { display: none !important; }
+        
         @media (max-width: 767px) {
             .teachgrant-desktop-ad { display: none !important; }
             /* Keep only the compact 320x50 banner available on phones. */
@@ -767,130 +721,6 @@
 
     </div>
 
-    <div id="loginView">
-        <div class="container">
-            <div class="login-box">
-                <h2><i class="fas fa-lock"></i> دخول الإدارة</h2>
-                <p style="margin-bottom: 20px; color: var(--text-muted);">سجل الدخول لإدارة محتوى الموقع</p>
-                <input type="email" id="adminEmail" placeholder="البريد الإلكتروني" dir="ltr">
-                <input type="password" id="adminPass" placeholder="كلمة المرور" dir="ltr">
-                <button class="btn-save" onclick="login()" id="loginBtn">تسجيل الدخول</button>
-                <br><br>
-                <button class="btn-logout" onclick="showPublicSite()" style="background: var(--text-muted);">العودة للموقع</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="dashboardView">
-        <div class="admin-layout">
-            <aside class="admin-sidebar">
-                <div class="brand">TeachGrant | الإدارة</div>
-                <div class="nav-label">القائمة الرئيسية</div>
-                <ul class="admin-simple-nav">
-                    <li id="menu-job-add"><a onclick="loadPanel('job-add')"><span><i class="fas fa-plus-circle main-icon"></i> إضافة وظيفة</span></a></li>
-                    <li id="menu-job-list"><a onclick="loadPanel('job-list')"><span><i class="fas fa-list main-icon"></i> قائمة الوظائف</span></a></li>
-                    <li id="menu-sch-add"><a onclick="loadPanel('sch-add')"><span><i class="fas fa-plus-circle main-icon"></i> إضافة منحة</span></a></li>
-                    <li id="menu-sch-list"><a onclick="loadPanel('sch-list')"><span><i class="fas fa-list main-icon"></i> قائمة المنح</span></a></li>
-                    <li id="menu-settings"><a onclick="loadPanel('settings')"><span><i class="fas fa-cog main-icon"></i> الإعدادات</span></a></li>
-                </ul>
-                <div style="margin-top:auto; padding:20px;">
-                    <button onclick="showPublicSite()" style="width:100%; padding:10px; background:#2b2b40; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-bottom:10px; font-family:inherit;"><i class="fas fa-eye"></i> عرض الموقع</button>
-                    <button onclick="logout()" style="width:100%; padding:10px; background:#f1416c; color:#fff; border:none; border-radius:4px; cursor:pointer; font-family:inherit;"><i class="fas fa-sign-out-alt"></i> خروج</button>
-                </div>
-            </aside>
-
-            <main class="admin-main">
-                <div class="admin-topbar">
-                    <span id="panelTitle">إضافة وظيفة</span>
-                    <button class="btn-top" onclick="showPublicSite()">معاينة الموقع</button>
-                </div>
-
-                <div class="admin-content">
-                    <section id="adminStats" aria-label="إحصائيات الموقع" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;">
-                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">إجمالي الوظائف</div><strong id="statJobs" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
-                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">إجمالي المنح</div><strong id="statScholarships" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
-                        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;"><div style="color:#64748b;font-size:13px;">الفرص المتاحة حاليًا</div><strong id="statOpen" style="display:block;font-size:25px;color:#0f172a;margin-top:5px;">—</strong></div>
-                    </section>
-                    <div id="panel-job-add" class="admin-panel" style="display:block;">
-                        <div class="admin-card">
-                            <input type="hidden" id="jobEditId">
-                            <div class="form-row"><div class="form-label">المدرسة / جهة العمل</div><div class="form-input"><input type="text" id="jobCompany" placeholder="اسم المدرسة أو جهة العمل" required></div></div>
-                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" placeholder="مثال: مدرس دراسات اجتماعية" required></div></div>
-                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="jobLocation" placeholder="مثال: الإمارات العربية المتحدة" required></div></div>
-                            <div class="form-row"><div class="form-label">المدينة</div><div class="form-input"><input type="text" id="jobCity" placeholder="مثال: دبي" required></div></div>
-                            <div class="form-row"><div class="form-label">المنطقة / المحافظة (اختياري)</div><div class="form-input"><input type="text" id="jobRegion" placeholder="مثال: الشارقة"></div></div>
-                            <div class="form-row"><div class="form-label">عنوان الشارع (اختياري)</div><div class="form-input"><input type="text" id="jobStreet" placeholder="يُترك فارغًا إذا لم يُعلن"></div></div>
-                            <div class="form-row"><div class="form-label">الرمز البريدي (اختياري)</div><div class="form-input"><input type="text" id="jobPostal" placeholder="الرمز البريدي"></div></div>
-                            <div class="form-row"><div class="form-label">الراتب (اختياري)</div><div class="form-input"><input type="number" id="jobSalaryMin" min="0" step="any" placeholder="الحد الأدنى"><input type="number" id="jobSalaryMax" min="0" step="any" placeholder="الحد الأعلى"><input type="text" id="jobSalaryCurrency" placeholder="العملة مثل AED أو USD"><select id="jobSalaryUnit"><option value="">دورية الراتب</option><option value="HOUR">بالساعة</option><option value="DAY">باليوم</option><option value="WEEK">بالأسبوع</option><option value="MONTH">بالشهر</option><option value="YEAR">بالسنة</option></select></div></div>
-                            <div class="form-row"><label><input type="checkbox" id="jobRemote"> وظيفة عن بُعد بالكامل</label></div>
-                            <div class="form-row"><div class="form-label">الدول المسموح بالتقديم منها (للوظائف عن بُعد، رموز الدول مفصولة بفواصل)</div><div class="form-input"><input type="text" id="jobRemoteCountries" placeholder="مثال: EG, SA, AE"></div></div>
-                            <div class="form-row"><div class="form-label">التخصص</div><div class="form-input"><input type="text" id="jobSpecialty" placeholder="مثال: الدراسات الاجتماعية، التاريخ" required></div></div>
-                            <div class="form-row"><div class="form-label">المؤهلات المطلوبة</div><div class="form-input"><textarea id="jobReq" placeholder="المؤهل العلمي، الشهادات التربوية، سنوات الخبرة..." required></textarea></div></div>
-                            <div class="form-row"><div class="form-label">نوع الوظيفة</div><div class="form-input"><input type="text" id="jobType" placeholder="مثال: دوام كامل" required></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr" placeholder="https://..." required></div></div>
-                            <div class="form-row"><div class="form-label">المصدر</div><div class="form-input"><input type="url" id="jobSource" dir="ltr" placeholder="رابط صفحة الوظيفة الأصلية"></div></div>
-                            <div class="form-row"><div class="form-label">وصف إضافي (اختياري)</div><div class="form-input"><textarea id="jobDesc" placeholder="تفاصيل إضافية عن الوظيفة..."></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد (اختياري)</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
-                            <div class="form-actions">
-                                <button class="btn-primary-cls" onclick="saveJob()" id="jobSaveBtn">حفظ الوظيفة</button>
-                                <button class="btn-secondary-cls" onclick="loadPanel('job-list')">إلغاء</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="panel-job-list" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى الوظيفي</th><th style="padding:15px;text-align:right;">المدرسة / جهة العمل</th><th style="padding:15px;text-align:right;">الموقع</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
-                                <tbody id="jobListTbody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="panel-sch-add" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <input type="hidden" id="schEditId">
-                            <div class="form-row"><div class="form-label">اسم المنحة</div><div class="form-input"><input type="text" id="schTitle"></div></div>
-                            <div class="form-row"><div class="form-label">الجهة المانحة</div><div class="form-input"><input type="text" id="schCompany"></div></div>
-                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="schLocation"></div></div>
-                            <div class="form-row"><div class="form-label">نوع التمويل</div><div class="form-input"><input type="text" id="schType"></div></div>
-                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="schDesc"></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="schDeadline"></div></div>
-                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="schReq"></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="schLink" dir="ltr"></div></div>
-                            <div class="form-actions">
-                                <button class="btn-primary-cls" onclick="saveScholarship()" id="schSaveBtn">حفظ المنحة</button>
-                                <button class="btn-secondary-cls" onclick="loadPanel('sch-list')">إلغاء</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="panel-sch-list" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">اسم المنحة</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
-                                <tbody id="schListTbody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="panel-settings" class="admin-panel" style="display:none;">
-                        <div class="admin-card" style="margin-bottom:20px;">
-                            <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr" placeholder="https://facebook.com/YourPage"></div></div>
-                            <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr" placeholder="https://linkedin.com/in/YourProfile"></div></div>
-                            <div class="form-row"><div class="form-label">رابط واتساب</div><div class="form-input"><input type="text" id="socWa" dir="ltr" placeholder="https://wa.me/201234567890"></div></div>
-                            <div class="form-row"><div class="form-label">رابط تيليجرام</div><div class="form-input"><input type="text" id="socTg" dir="ltr" placeholder="https://t.me/YourChannel"></div></div>
-                            <div class="form-row"><div class="form-label">رابط البوت</div><div class="form-input"><input type="text" id="socBot" dir="ltr" placeholder="https://t.me/YourBot_bot"></div></div>
-                            <div class="form-row"><div class="form-label">رابط إنستجرام</div><div class="form-input"><input type="text" id="socIg" dir="ltr" placeholder="https://instagram.com/YourAccount"></div></div>
-                            <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
-                        </div>
-
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
     <div id="detailsModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; padding:20px; align-items:center; justify-content:center;">
         <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; padding:30px; position:relative;">
             <button onclick="closeModal()" style="position:absolute; top:15px; left:15px; background:#EF4444; color:#fff; border:none; width:35px; height:35px; border-radius:50%; cursor:pointer; font-size:18px;">✕</button>
@@ -915,18 +745,7 @@
         let jobsData = [];
         let scholarshipsData = [];
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
-        let isLoggedIn = false;
-        let adminJobsLoadError = '';
-        let adminScholarshipsLoadError = '';
-        let adminSocialsLoadError = '';
-
-        function hideAdsForAdmin() {
-            document.documentElement.classList.add('admin-mode');
-            const tgBtn = document.getElementById('tgAdBtn');
-            if (tgBtn) tgBtn.style.display = 'none';
-        }
-
-        async function loadJobs() {
+async function loadJobs() {
             const { data, error } = await supabaseClient.from('jobs').select('*').order('created_at', { ascending: false });
             if (error) {
                 console.error('خطأ في تحميل الوظائف:', error);
@@ -1276,191 +1095,33 @@
         }
         document.getElementById('searchInput').addEventListener('keypress', function (e) { if (e.key === 'Enter') searchData(); });
 
-        function showLogin() {
-            document.getElementById('publicSite').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('loginView').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+        
 
-        function showPublicSite() {
-            document.getElementById('loginView').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('publicSite').style.display = 'block';
-            renderPublicData();
-            if (!isLoggedIn) document.documentElement.classList.remove('admin-mode');
-            window.scrollTo(0, 0);
-        }
+        
 
-        async function showDashboard() {
-            document.getElementById('loginView').style.display = 'none';
-            document.getElementById('publicSite').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'block';
-            await loadAdminData();
-            loadPanel('job-add');
-            hideAdsForAdmin();
-            try {
-                await initAdminEditors();
-            } catch (error) {
-                console.warn('محرر النصوص غير متاح؛ يمكن استخدام حقول النص العادية:', error);
-            }
-            window.scrollTo(0, 0);
-        }
+        
 
-        async function login() {
-            const email = document.getElementById('adminEmail').value.trim();
-            const pass = document.getElementById('adminPass').value;
-            const btn = document.getElementById('loginBtn');
-            if (!email || !pass) return alert("يرجى إدخال البريد وكلمة المرور.");
-            btn.disabled = true; btn.textContent = "جاري الدخول...";
-            try {
-                const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-                if (error) throw error;
-                isLoggedIn = true;
-                sessionStorage.setItem('tb_admin_mode', '1');
-                hideAdsForAdmin();
-                document.getElementById('adminPass').value = "";
-                await showDashboard();
-            } catch (error) {
-                console.error('تعذر تسجيل الدخول:', error);
-                alert("تعذر تسجيل الدخول: " + (error?.message || 'تحقق من الاتصال وبيانات الدخول.'));
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "تسجيل الدخول";
-            }
-        }
+        
 
-        async function logout() {
-            try {
-                const { error } = await supabaseClient.auth.signOut();
-                if (error) throw error;
-                isLoggedIn = false;
-                document.getElementById('adminEmail').value = "";
-                document.getElementById('adminPass').value = "";
-                sessionStorage.removeItem('tb_admin_mode');
-                document.documentElement.classList.remove('admin-mode');
-                window.location.reload();
-            } catch (error) {
-                console.error('تعذر تسجيل الخروج:', error);
-                alert("تعذر تسجيل الخروج. تحقق من الاتصال وحاول مرة أخرى.");
-            }
-        }
+        
 
         // Load the rich-text editor only when an administrator opens the dashboard.
         let tinyMCEReady = null;
-        function ensureTinyMCE() {
-            if (window.tinymce) return Promise.resolve();
-            if (tinyMCEReady) return tinyMCEReady;
-            tinyMCEReady = new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js';
-                script.onload = resolve;
-                script.onerror = () => {
-                    tinyMCEReady = null;
-                    reject(new Error('تعذر تحميل محرر النصوص.'));
-                };
-                document.head.appendChild(script);
-            });
-            return tinyMCEReady;
-        }
+        
 
-        async function initAdminEditors() {
-            await ensureTinyMCE();
-            if (!window.tinymce) return;
-            await window.tinymce.init({
-                selector: '#jobDesc, #schDesc', height: 250, menubar: false,
-                plugins: 'lists link image table code',
-                toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-                directionality: 'rtl', skin: 'oxide'
-            });
-        }
+        
 
-        function toggleMenu(menu) {
-            const submenu = document.getElementById('submenu-' + menu);
-            const parentLi = document.getElementById('menu-' + menu);
-            if (submenu) { submenu.classList.toggle('open'); parentLi.classList.toggle('active'); }
-        }
+        
 
-        function loadPanel(name) {
-            document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
-            const target = document.getElementById('panel-' + name);
-            if (target) target.style.display = 'block';
-            const titles = { 'job-add':'إضافة وظيفة','job-list':'قائمة الوظائف','sch-add':'إضافة منحة','sch-list':'قائمة المنح','settings':'إعدادات الموقع' };
-            document.getElementById('panelTitle').textContent = titles[name] || 'لوحة الإدارة';
-            document.querySelectorAll('.admin-simple-nav > li').forEach(li => li.classList.remove('active'));
-            const activeItem = document.getElementById('menu-' + name);
-            if (activeItem) activeItem.classList.add('active');
-            if (name === 'job-list') renderJobList();
-            if (name === 'sch-list') renderSchList();
-        }
+        
 
-        async function loadAdminData() {
-            const [jobsResult, scholarshipsResult, socialsResult] = await Promise.allSettled([
-                loadJobs(),
-                loadScholarships(),
-                loadSocials()
-            ]);
+        
 
-            adminJobsLoadError = jobsResult.status === 'rejected' ? (jobsResult.reason?.message || 'تعذر تحميل الوظائف.') : '';
-            adminScholarshipsLoadError = scholarshipsResult.status === 'rejected' ? (scholarshipsResult.reason?.message || 'تعذر تحميل المنح.') : '';
-            adminSocialsLoadError = socialsResult.status === 'rejected' ? (socialsResult.reason?.message || 'تعذر تحميل إعدادات الموقع.') : '';
+        
 
-            jobsData = jobsResult.status === 'fulfilled' ? jobsResult.value : [];
-            scholarshipsData = scholarshipsResult.status === 'fulfilled' ? scholarshipsResult.value : [];
+        
 
-            if (adminSocialsLoadError) {
-                console.error('تعذر تحميل الإعدادات الاجتماعية:', socialsResult.reason);
-            }
-            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
-            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
-            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
-            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
-            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
-
-            if (adminJobsLoadError || adminScholarshipsLoadError) {
-                alert([adminJobsLoadError, adminScholarshipsLoadError].filter(Boolean).join('\n') + ' يمكنك إعادة تحميل الصفحة والمحاولة مرة أخرى.');
-            }
-            updateDashboardStats();
-            renderJobList();
-            renderSchList();
-        }
-
-        function updateDashboardStats() {
-            const jobsEl = document.getElementById('statJobs');
-            const scholarshipsEl = document.getElementById('statScholarships');
-            const openEl = document.getElementById('statOpen');
-            if (!jobsEl || !scholarshipsEl || !openEl) return;
-
-            const today = new Date().toISOString().slice(0, 10);
-            const isOpen = item => !item.deadline || String(item.deadline).slice(0, 10) >= today;
-            jobsEl.textContent = adminJobsLoadError ? 'غير متاح' : jobsData.length;
-            scholarshipsEl.textContent = adminScholarshipsLoadError ? 'غير متاح' : scholarshipsData.length;
-            openEl.textContent = adminJobsLoadError || adminScholarshipsLoadError
-                ? 'بيانات غير مكتملة'
-                : jobsData.filter(isOpen).length + scholarshipsData.filter(isOpen).length;
-        }
-
-        function renderJobList() {
-            const tbody = document.getElementById('jobListTbody');
-            tbody.innerHTML = adminJobsLoadError
-                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل الوظائف. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
-                : jobsData.length === 0
-                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
-                : jobsData.map(j => {
-                    const meta = getJobMeta(j.description);
-                    return `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;">${escapeHtml(j.location || '')}${meta.city ? '، ' + escapeHtml(meta.city) : ''}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-job" data-id="${escapeHtml(j.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-job" data-id="${escapeHtml(j.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`;
-                }).join('');
-        }
-
-        function renderSchList() {
-            const tbody = document.getElementById('schListTbody');
-            tbody.innerHTML = adminScholarshipsLoadError
-                ? '<tr><td colspan="3" role="alert" style="text-align:center;padding:20px;color:#b45309;">تعذر تحميل المنح. تحقق من الاتصال ثم أعد فتح القائمة.</td></tr>'
-                : scholarshipsData.length === 0
-                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
-                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button type="button" data-admin-action="edit-sch" data-id="${escapeHtml(s.id)}" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button type="button" data-admin-action="delete-sch" data-id="${escapeHtml(s.id)}" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
-        }
+        
 
         document.addEventListener('click', function(event) {
             const button = event.target.closest('button[data-admin-action]');
@@ -1474,240 +1135,27 @@
             }
         });
 
-        function editJob(id) {
-            const j = jobsData.find(x => String(x.id) === String(id));
-            if (!j) return;
-            document.getElementById('jobEditId').value = j.id;
-            const meta = getJobMeta(j.description);
-            document.getElementById('jobTitle').value = j.title || '';
-            document.getElementById('jobCompany').value = j.company || '';
-            document.getElementById('jobLocation').value = j.location || '';
-            document.getElementById('jobCity').value = meta.city || '';
-            document.getElementById('jobRegion').value = meta.addressRegion || '';
-            document.getElementById('jobStreet').value = meta.streetAddress || '';
-            document.getElementById('jobPostal').value = meta.postalCode || '';
-            document.getElementById('jobSalaryMin').value = meta.salaryMin ?? '';
-            document.getElementById('jobSalaryMax').value = meta.salaryMax ?? '';
-            document.getElementById('jobSalaryCurrency').value = meta.salaryCurrency || '';
-            document.getElementById('jobSalaryUnit').value = meta.salaryUnit || '';
-            document.getElementById('jobRemote').checked = meta.remote === true;
-            document.getElementById('jobRemoteCountries').value = Array.isArray(meta.remoteCountries) ? meta.remoteCountries.join(', ') : '';
-            document.getElementById('jobSpecialty').value = meta.specialty || '';
-            document.getElementById('jobType').value = j.type || '';
-            document.getElementById('jobDeadline').value = j.deadline || '';
-            document.getElementById('jobReq').value = j.requirements || '';
-            document.getElementById('jobLink').value = j.apply_link || '';
-            document.getElementById('jobSource').value = meta.source || '';
-            const cleanDescription = stripJobMeta(j.description);
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(cleanDescription);
-            else document.getElementById('jobDesc').value = cleanDescription;
-            loadPanel('job-add');
-            document.getElementById('panelTitle').textContent = 'تعديل الوظيفة';
-        }
+        
 
-        function editSch(id) {
-            const s = scholarshipsData.find(x => String(x.id) === String(id));
-            if (!s) return;
-            document.getElementById('schEditId').value = s.id;
-            document.getElementById('schTitle').value = s.title || '';
-            document.getElementById('schCompany').value = s.company || '';
-            document.getElementById('schLocation').value = s.location || '';
-            document.getElementById('schType').value = s.type || '';
-            document.getElementById('schDeadline').value = s.deadline || '';
-            document.getElementById('schReq').value = s.requirements || '';
-            document.getElementById('schLink').value = s.apply_link || '';
-            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent(s.description || '');
-            else document.getElementById('schDesc').value = s.description || '';
-            loadPanel('sch-add');
-            document.getElementById('panelTitle').textContent = 'تعديل المنحة';
-        }
+        
 
-        async function saveJob() {
-            const title = document.getElementById('jobTitle').value.trim();
-            const company = document.getElementById('jobCompany').value.trim();
-            const country = document.getElementById('jobLocation').value.trim();
-            const city = document.getElementById('jobCity').value.trim();
-            const specialty = document.getElementById('jobSpecialty').value.trim();
-            const requirements = document.getElementById('jobReq').value.trim();
-            const type = document.getElementById('jobType').value.trim();
-            const applyLink = safeHttpUrl(document.getElementById('jobLink').value.trim());
-            const source = safeHttpUrl(document.getElementById('jobSource').value.trim());
-            if (!company || !title || !country || !city || !specialty || !requirements || !type || !applyLink) {
-                return alert("يرجى ملء المدرسة والمسمى والدولة والمدينة والتخصص والمؤهلات ونوع الوظيفة ورابط التقديم.");
-            }
-            if (document.getElementById('jobSource').value.trim() && !source) return alert("رابط المصدر غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://");
-            const btn = document.getElementById('jobSaveBtn');
-            btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            try {
-                const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
-                const salaryMinRaw = document.getElementById('jobSalaryMin').value.trim();
-                const salaryMaxRaw = document.getElementById('jobSalaryMax').value.trim();
-                const salaryCurrency = document.getElementById('jobSalaryCurrency').value.trim().toUpperCase();
-                const salaryUnit = document.getElementById('jobSalaryUnit').value;
-                const remote = document.getElementById('jobRemote').checked;
-                const remoteCountries = document.getElementById('jobRemoteCountries').value.split(',').map(v => v.trim().toUpperCase()).filter(v => /^[A-Z]{2}$/.test(v));
-                const salaryMin = salaryMinRaw === '' ? null : Number(salaryMinRaw);
-                const salaryMax = salaryMaxRaw === '' ? null : Number(salaryMaxRaw);
-                if ((salaryMinRaw || salaryMaxRaw) && (!salaryCurrency || !salaryUnit || (salaryMin !== null && (!Number.isFinite(salaryMin) || salaryMin < 0)) || (salaryMax !== null && (!Number.isFinite(salaryMax) || salaryMax < 0)) || (salaryMin !== null && salaryMax !== null && salaryMax < salaryMin))) return alert('أدخل الراتب المعلن بشكل صحيح مع العملة والدورية، وتأكد من أن الحد الأعلى ليس أقل من الأدنى.');
-                const description = addJobMeta(descContent, {
-                    city, specialty, source,
-                    addressRegion: document.getElementById('jobRegion').value.trim() || undefined,
-                    streetAddress: document.getElementById('jobStreet').value.trim() || undefined,
-                    postalCode: document.getElementById('jobPostal').value.trim() || undefined,
-                    salaryMin, salaryMax, salaryCurrency: salaryCurrency || undefined, salaryUnit: salaryUnit || undefined,
-                    remote, remoteCountries
-                });
-                const data = {
-                    title, company,
-                    location: country,
-                    type,
-                    description,
-                    deadline: document.getElementById('jobDeadline').value || null,
-                    requirements,
-                    apply_link: applyLink
-                };
-                const id = document.getElementById('jobEditId').value;
-                const result = id
-                    ? await supabaseClient.from('jobs').update(data).eq('id', id)
-                    : await supabaseClient.from('jobs').insert([data]);
-                if (result.error) throw result.error;
-                document.getElementById('jobEditId').value = '';
-                ['jobTitle','jobCompany','jobLocation','jobCity','jobRegion','jobStreet','jobPostal','jobSalaryMin','jobSalaryMax','jobSalaryCurrency','jobSalaryUnit','jobRemoteCountries','jobSpecialty','jobType','jobDeadline','jobReq','jobLink','jobSource'].forEach(f => document.getElementById(f).value = '');
-                document.getElementById('jobRemote').checked = false;
-                if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
-                else document.getElementById('jobDesc').value = '';
-                await loadAdminData();
-                loadPanel('job-list');
-            } catch (error) {
-                console.error('تعذر حفظ الوظيفة:', error);
-                alert("تعذر حفظ الوظيفة: " + (error?.message || 'حدث خطأ غير معروف.'));
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "حفظ الوظيفة";
-            }
-        }
+        
 
-        async function saveScholarship() {
-            const title = document.getElementById('schTitle').value.trim();
-            const company = document.getElementById('schCompany').value.trim();
-            if (!title || !company) return alert("يرجى ملء اسم المنحة والجهة.");
-            const rawApplyLink = document.getElementById('schLink').value.trim();
-            const applyLink = rawApplyLink ? safeHttpUrl(rawApplyLink) : '';
-            if (rawApplyLink && !applyLink) return alert("رابط التقديم غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://");
-            const btn = document.getElementById('schSaveBtn');
-            btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            try {
-                const descContent = (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) ? tinymce.get('schDesc').getContent() : document.getElementById('schDesc').value;
-                const data = {
-                    title, company,
-                    location: document.getElementById('schLocation').value.trim(),
-                    type: document.getElementById('schType').value.trim(),
-                    description: descContent,
-                    deadline: document.getElementById('schDeadline').value || null,
-                    requirements: document.getElementById('schReq').value.trim(),
-                    apply_link: applyLink
-                };
-                const id = document.getElementById('schEditId').value;
-                const result = id
-                    ? await supabaseClient.from('scholarships').update(data).eq('id', id)
-                    : await supabaseClient.from('scholarships').insert([data]);
-                if (result.error) throw result.error;
-                document.getElementById('schEditId').value = '';
-                ['schTitle','schCompany','schLocation','schType','schDeadline','schReq','schLink'].forEach(f => document.getElementById(f).value = '');
-                if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent('');
-                else document.getElementById('schDesc').value = '';
-                await loadAdminData();
-                loadPanel('sch-list');
-            } catch (error) {
-                console.error('تعذر حفظ المنحة:', error);
-                alert("تعذر حفظ المنحة: " + (error?.message || 'حدث خطأ غير معروف.'));
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "حفظ المنحة";
-            }
-        }
+        
 
-        async function deleteJob(id) {
-            const item = jobsData.find(x => String(x.id) === String(id));
-            if (!confirm("هل تريد حذف الوظيفة: " + (item?.title || id) + "؟ لا يمكن التراجع عن الحذف.")) return;
-            try {
-                const { data, error } = await supabaseClient.from('jobs').delete().eq('id', id).select('id');
-                if (error) throw error;
-                if (!data || data.length === 0) throw new Error('لم يتم حذف الوظيفة. تحقق من صلاحيات الحساب.');
-                await loadAdminData();
-            } catch (error) {
-                console.error('تعذر حذف الوظيفة:', error);
-                alert("تعذر حذف الوظيفة: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
-            }
-        }
+        
 
-        async function deleteSch(id) {
-            const item = scholarshipsData.find(x => String(x.id) === String(id));
-            if (!confirm("هل تريد حذف المنحة: " + (item?.title || id) + "؟ لا يمكن التراجع عن الحذف.")) return;
-            try {
-                const { data, error } = await supabaseClient.from('scholarships').delete().eq('id', id).select('id');
-                if (error) throw error;
-                if (!data || data.length === 0) throw new Error('لم يتم حذف المنحة. تحقق من صلاحيات الحساب.');
-                await loadAdminData();
-            } catch (error) {
-                console.error('تعذر حذف المنحة:', error);
-                alert("تعذر حذف المنحة: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
-            }
-        }
+        
 
-        async function saveSocials() {
-            const fields = ['fb','li','wa','tg','bot','ig'];
-            const values = {};
-            for (const key of fields) {
-                const raw = document.getElementById('soc' + key[0].toUpperCase() + key.slice(1)).value.trim();
-                if (!raw || raw === '#') { values[key] = '#'; continue; }
-                const safeUrl = safeHttpUrl(raw);
-                if (!safeUrl) {
-                    alert('رابط ' + key + ' غير صحيح. استخدم رابطاً يبدأ بـ https:// أو http://');
-                    return;
-                }
-                values[key] = safeUrl;
-            }
-            try {
-                const { error } = await supabaseClient.from('settings').upsert(
-                    fields.map(key => ({ key, value: values[key] })),
-                    { onConflict: 'key' }
-                );
-                if (error) throw error;
-                socialsData = { ...values };
-                alert("تم حفظ روابط التواصل بنجاح!");
-            } catch (error) {
-                console.error('تعذر حفظ روابط التواصل:', error);
-                alert("تعذر حفظ روابط التواصل: " + (error?.message || 'تحقق من الاتصال والصلاحيات.'));
-            }
-        }
+        
 
-        function checkSecretUrlAccess() {
-            const url = window.location.href.toLowerCase();
-            const hash = window.location.hash.toLowerCase();
-            if (url.includes('admin=1') || url.includes('admin=true') || hash === '#admin') showLogin();
-        }
+        
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && (e.code === 'KeyA' || e.key === 'A' || e.key === 'a')) {
-                e.preventDefault(); showLogin();
-            }
-        });
+        );
 
         let logoClicks = 0;
         let logoTimer = null;
-        document.addEventListener('DOMContentLoaded', function() {
-            const logo = document.getElementById('siteLogo');
-            if (logo) {
-                logo.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    logoClicks++;
-                    clearTimeout(logoTimer);
-                    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
-                    if (logoClicks >= 5) { logoClicks = 0; showLogin(); }
-                });
-            }
-        });
+        );
 
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1726,35 +1174,15 @@
             }
         });
 
-        supabaseClient.auth.getSession().then(({ data: { session }, error }) => {
-            if (error) throw error;
-            if (session) {
-                isLoggedIn = true;
-                sessionStorage.setItem('tb_admin_mode', '1');
-                hideAdsForAdmin();
-                showDashboard();
-            } else {
-                isLoggedIn = false;
-                sessionStorage.removeItem('tb_admin_mode');
-                showPublicSite();
-                checkSecretUrlAccess();
-            }
-        }).catch(error => {
-            console.error('تعذر التحقق من جلسة الإدارة:', error);
-            isLoggedIn = false;
-            sessionStorage.removeItem('tb_admin_mode');
-            showPublicSite();
-        });
-
-        window.addEventListener('hashchange', checkSecretUrlAccess);
+        renderPublicData();
+    
     </script>
 
 
 
     <script>
     (function(){
-      if(sessionStorage.getItem('tb_admin_mode')==='1')return;
-      var w=document.getElementById('tg-visitor-ad'),t=document.getElementById('tg-visitor-ad-toggle'),x=document.getElementById('tg-visitor-ad-close'),p=document.getElementById('tg-visitor-ad-panel'),c=document.getElementById('tg-visitor-ad-content');
+var w=document.getElementById('tg-visitor-ad'),t=document.getElementById('tg-visitor-ad-toggle'),x=document.getElementById('tg-visitor-ad-close'),p=document.getElementById('tg-visitor-ad-panel'),c=document.getElementById('tg-visitor-ad-content');
       if(!w||!t||!x||!p||!c)return;
       try{if(sessionStorage.getItem('tg_visitor_ad_closed')==='1'){w.style.display='none';return;}}catch(e){}
       var loaded=false;
@@ -1766,9 +1194,7 @@
 
     <script>
     (function () {
-        if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-
-        // Adsterra Social Bar (Ad Unit 32436476)
+// Adsterra Social Bar (Ad Unit 32436476)
         var socialBarScript = document.createElement('script');
         socialBarScript.async = true;
         socialBarScript.src = 'https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';
