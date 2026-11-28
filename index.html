@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
     <meta name="google-site-verification" content="6J_JWN9bIs5f9eDtOn371bBYhVLjU8qiuOJk9-7I0r0" />
 
     <meta name="description" content="TeachGrant — منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم. More Learning. Brighter Futures.">
@@ -13,9 +16,9 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://teachgrant.tech/">
 
-    <link rel="icon" type="image/png" href="/logo.png">
-    <link rel="apple-touch-icon" href="/logo.png">
-    <link rel="shortcut icon" href="/logo.png">
+    <link rel="icon" type="image/png" href="/teachgrant-banner.png?v=2">
+    <link rel="apple-touch-icon" href="/teachgrant-banner.png?v=2">
+    <link rel="shortcut icon" href="/teachgrant-banner.png?v=2">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
@@ -23,21 +26,16 @@
     <meta property="og:title" content="TeachGrant | وظائف ومنح للمعلمين حول العالم">
     <meta property="og:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
     <meta property="og:url" content="https://teachgrant.tech/">
-    <meta property="og:image" content="https://teachgrant.tech/logo.png">
+    <meta property="og:image" content="https://teachgrant.tech/teachgrant-banner.png?v=2">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="TeachGrant | وظائف ومنح للمعلمين حول العالم">
     <meta name="twitter:description" content="منصة تجمع أفضل الوظائف التعليمية والمنح الدراسية للمعلمين حول العالم.">
-    <meta name="twitter:image" content="https://teachgrant.tech/logo.png">
+    <meta name="twitter:image" content="https://teachgrant.tech/teachgrant-banner.png?v=2">
 
     <title>TeachGrant | وظائف ومنح للمعلمين حول العالم</title>
 
-    <!-- ✅ سكربت تيليجرام (Monetag SDK) -->
-    <script src='//libtl.com/sdk.js' data-zone='12120918' data-sdk='show_12120918'></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -101,30 +99,6 @@
         .search-box button { background-color: var(--primary-light); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s; font-family: inherit;}
         .search-box button:hover { background-color: var(--primary-dark); }
 
-        #tgAdBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
-            background: linear-gradient(135deg, #0088cc, #00aaff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #tgAdBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5); }
-        #tgAdBtn:active { transform: translateY(0); }
-        html.admin-mode #tgAdBtn { display: none !important; }
-
         #offersFloatBtn {
             display: flex;
             position: fixed;
@@ -146,9 +120,6 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         #offersFloatBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5); }
-        html.admin-mode #offersFloatBtn { display: none !important; }
-        html.admin-mode #extra-offers { display: none !important; }
-
         .social-list {
             display: flex;
             flex-wrap: wrap;
@@ -181,7 +152,12 @@
         .social-list li a .fa-instagram { color: #E4405F; }
         .social-list li a .fa-robot { color: #10B981; }
 
-        .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
+        .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
+      .hero-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:9px 20px; border:1px solid rgba(255,255,255,.45); border-radius:12px; color:#fff; font-weight:700; transition:background .2s,transform .2s; }
+      .hero-actions a:first-child { background:#d9a441; border-color:#d9a441; color:#172b43; }
+      .hero-actions a:hover { background:rgba(255,255,255,.14); transform:translateY(-2px); }
+      .listing-toolbar input { min-width:150px; min-height:40px; padding:8px 11px; border:1px solid var(--border-color); border-radius:10px; font:inherit; color:var(--text-main); background:#fff; }
+      .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: var(--primary-dark); position: relative; }
         .section-title::after { content: ''; display: block; width: 60px; height: 4px; background-color: var(--primary-light); margin: 10px auto 0; border-radius: 2px; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .card {
@@ -210,41 +186,51 @@
         .footer-col ul a:hover { color: white; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #94A3B8; font-size: 0.9rem; }
 
-        #dashboardView, #loginView { display: none; min-height: 100vh; background: var(--bg-color); padding: 40px 0; }
-        .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
-        .login-box h2 { color: var(--primary-dark); margin-bottom: 20px; }
-        .login-box input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; }
+        
+        
+        
+        
 
-        .btn-save { background: var(--success); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; font-family: inherit; transition: 0.3s; }
-        .btn-save:hover { background: #059669; }
-        .btn-save:disabled { background: #94A3B8; cursor: not-allowed; }
-        .btn-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-family: inherit; }
+        
+        
+        
+        
 
         .loading-text { text-align: center; color: var(--text-muted); padding: 20px; }
 
-        .admin-layout { display: flex; min-height: 100vh; background: #f5f5f9; font-family: 'Cairo', sans-serif; direction: rtl; }
-        .admin-sidebar { width: 260px; background: #1e1e2d; color: #a1a5b7; flex-shrink: 0; display: flex; flex-direction: column; transition: width 0.3s; overflow-y: auto; }
-        .admin-sidebar .brand { padding: 20px; text-align: center; font-size: 1.2rem; font-weight: 700; color: #fff; border-bottom: 1px solid #2b2b40; }
-        .admin-sidebar .nav-label { padding: 15px 20px 5px; font-size: 0.75rem; text-transform: uppercase; color: #565674; font-weight: 700; }
-        .admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
-        .admin-sidebar ul li a { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; color: #a1a5b7; text-decoration: none; font-size: 0.9rem; transition: 0.2s; border-right: 3px solid transparent; cursor: pointer; }
-        .admin-sidebar ul li a:hover { background: #1b1b29; color: #fff; }
-        .admin-sidebar ul li.active > a { background: #009ef7; color: #fff; }
-        .admin-sidebar ul li a i.main-icon { margin-left: 10px; width: 20px; text-align: center; }
-        .admin-sidebar ul li a i.arrow { font-size: 0.7rem; transition: transform 0.3s; }
-        .admin-sidebar ul li.active > a i.arrow { transform: rotate(180deg); }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        @media (max-width: 900px) {
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
 
-        .admin-submenu { display: none; background: #1a1a27; padding-right: 20px; }
+        
         .admin-submenu.open { display: block; }
-        .admin-submenu li a { padding: 10px 20px 10px 30px; font-size: 0.85rem; border-right: 2px solid #3699ff; position: relative; }
-        .admin-submenu li a::before { content: '○'; position: absolute; right: 5px; color: #565674; font-size: 0.7rem; }
-        .admin-submenu li a:hover::before, .admin-submenu li.active a::before { color: #3699ff; }
+        
+        
+        .admin-submenu li a:hover::before, 
 
-        .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .admin-topbar { background: #1e1e2d; color: #fff; padding: 15px 30px; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-        .admin-topbar .btn-top { background: #009ef7; color: #fff; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
-        .admin-content { padding: 30px; overflow-y: auto; flex: 1; }
-        .admin-card { background: #fff; border: 1px solid #e4e6ef; border-radius: 6px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.03); }
+        
+        
+        
+        
+        
 
         .form-row { display: flex; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
         .form-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -259,24 +245,6 @@
         .btn-primary-cls:hover { background: #0085d1; }
         .btn-secondary-cls { background: #f5f8fa; color: #5e6278; border: 1px solid #e4e6ef; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; }
         .btn-secondary-cls:hover { background: #e4e6ef; }
-
-        html.admin-mode #tgAdBtn,
-        html.admin-mode #offersFloatBtn,
-        html.admin-mode #extra-offers {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-
-        @media (max-width: 900px) {
-            .admin-layout { flex-direction: column; }
-            .admin-sidebar { width: 100%; }
-            .form-row { flex-direction: column; }
-            .form-label { width: 100%; margin-bottom: 5px; padding-top: 0; }
-            .form-actions { padding-right: 0; }
-        }
-
         @media (max-width: 768px) {
             .header-content { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
             nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
@@ -284,7 +252,6 @@
             .search-box { flex-direction: column; border-radius: 20px; }
             .search-box input, .search-box button { width: 100%; border-radius: 10px; }
             #offersFloatBtn { bottom: 20px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
-            #tgAdBtn { bottom: 80px; left: 15px; padding: 10px 16px; font-size: 0.85rem; }
         }
     </style>
 
@@ -375,13 +342,13 @@
       footer { background:linear-gradient(135deg,#102b46,#0b2035);padding:54px 0 20px; }
       .footer-col h4 { color:#e4b34e; }
       .footer-bottom { border-color:rgba(255,255,255,.14); }
-      #dashboardView, #loginView { background:#f3f6fb; }
-      .login-box { border:1px solid var(--border-color);border-radius:20px;box-shadow:var(--shadow); }
-      .admin-sidebar { background:#102b46; }
-      .admin-sidebar .brand { border-color:rgba(255,255,255,.1); }
-      .admin-sidebar ul li.active > a { background:#2563a6; }
-      .admin-topbar { background:#102b46; }
-      .admin-card { border:1px solid var(--border-color);border-radius:16px;box-shadow:0 8px 28px rgba(16,43,70,.05); }
+      
+      
+      
+      
+      
+      
+      
       .form-input input[type="text"], .form-input input[type="url"], .form-input input[type="date"], .form-input select,
       .form-input textarea { border-radius:10px; }
       button, a { -webkit-tap-highlight-color:transparent; }
@@ -406,58 +373,303 @@
       }
     </style>
 
+    <style id="teachgrant-listing-filters">
+      .listing-toolbar {
+        display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px;
+        margin:-12px auto 24px; padding:14px; max-width:100%;
+        background:#fff; border:1px solid var(--border-color); border-radius:16px;
+        box-shadow:0 6px 20px rgba(16,43,70,.045);
+      }
+      .listing-count { color:var(--primary-dark); margin-inline-end:auto; font-size:.95rem; }
+      .listing-toolbar select {
+        min-width:150px; max-width:100%; padding:10px 12px; border:1px solid var(--border-color);
+        border-radius:10px; background:#fff; color:var(--text-main); font:inherit; font-size:.88rem;
+      }
+      .listing-toolbar button {
+        border:0; border-radius:10px; padding:10px 14px; background:#eef3f9;
+        color:var(--primary-dark); font:inherit; font-weight:700; cursor:pointer;
+      }
+      .listing-toolbar button:hover { background:#e2ebf5; }
+      .card-deadline { color:#9a6513; font-weight:700; }
+      @media(max-width:700px) {
+        .listing-toolbar { justify-content:stretch; }
+        .listing-count { width:100%; margin:0 0 4px; text-align:center; }
+        .listing-toolbar select,.listing-toolbar button { flex:1 1 100%; width:100%; }
+      }
+    </style>
+
+    <!-- TeachGrant mobile optimization -->
+    <style id="teachgrant-mobile-optimization">
+      @media (max-width: 768px) {
+        html, body { width:100%; max-width:100%; overflow-x:clip; }
+        .container { width:min(100% - 28px, 620px); }
+        header { position:sticky; top:0; }
+        .header-content {
+          display:grid; grid-template-columns:minmax(0,1fr) auto;
+          align-items:center; gap:8px 12px; padding:10px 0;
+        }
+        .logo { justify-self:start; margin:0; min-width:0; }
+        .logo img { height:46px !important; max-width: min(46vw,190px); }
+        .btn-post-job { justify-self:end; padding:9px 13px; font-size:.82rem; white-space:nowrap; border-radius:11px; }
+        nav { grid-column:1 / -1; width:100%; min-width:0; }
+        nav ul {
+          display:flex; flex-wrap:nowrap; justify-content:flex-start; gap:8px;
+          overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
+          padding:2px 0 5px; -webkit-overflow-scrolling:touch;
+        }
+        nav ul::-webkit-scrollbar { display:none; }
+        nav ul li { flex:0 0 auto; }
+        nav a { display:block; padding:8px 13px; border-radius:10px; background:#f1f5f9; font-size:.88rem; white-space:nowrap; }
+        nav a::after { display:none; }
+        nav a.active { background:#e8effa; color:#174b78; }
+        .hero { padding:42px 0 46px; text-align:center; }
+        .hero h1 { font-size:clamp(1.55rem,6vw,2rem); line-height:1.5; margin:0 auto 12px; }
+        .hero p { font-size:.94rem; line-height:1.9; margin:0 auto 22px; }
+        .search-box { width:100%; display:flex; flex-direction:column; padding:8px; gap:8px; border-radius:16px; }
+        .search-box input { width:100%; min-width:0; min-height:48px; padding:12px 14px; font-size:16px; border:1px solid #e5eaf1; }
+        .search-box button { width:100%; min-height:48px; padding:10px 16px; font-size:1rem; }
+        #jobs, #scholarships { padding:30px 0 !important; scroll-margin-top:150px; }
+        .section-title { font-size:1.45rem; margin-bottom:23px; }
+        .listing-toolbar {
+          display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:9px; margin:0 0 18px; padding:12px; border-radius:14px;
+        }
+        .listing-count { grid-column:1 / -1; width:100%; margin:0; text-align:center; font-size:.9rem; }
+        .listing-toolbar select, .listing-toolbar button {
+          width:100%; min-width:0; min-height:44px; padding:8px 10px;
+          font-size:.82rem; border-radius:10px;
+        }
+        .listing-toolbar button { grid-column:1 / -1; }
+        .grid-container { grid-template-columns:minmax(0,1fr); gap:13px; margin-bottom:30px; }
+        .card { min-width:0; padding:18px; border-radius:16px; }
+        .card h3 { font-size:1.08rem; line-height:1.65; padding-inline-end:0; overflow-wrap:anywhere; }
+        .card-company { font-size:.88rem; overflow-wrap:anywhere; }
+        .card-details { gap:8px 12px; font-size:.82rem; }
+        .btn-apply { min-height:46px; display:flex; align-items:center; justify-content:center; }
+        #extra-offers { padding:10px 0 35px !important; }
+        #extra-offers > div { grid-template-columns:1fr !important; gap:10px !important; }
+        footer { padding:36px 0 18px; }
+        .footer-grid { grid-template-columns:1fr; gap:22px; margin-bottom:25px; }
+        .footer-col h4 { margin-bottom:9px; }
+        .social-list { gap:8px; }
+        .social-list li a { padding:8px 11px; }
+        #offersFloatBtn { bottom:14px; right:12px; z-index:90; min-height:42px; }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        .form-row { display:flex; flex-direction:column; gap:7px; margin-bottom:15px; padding-bottom:15px; }
+        .form-label { width:100%; padding:0; margin:0; }
+        .form-input { width:100%; min-width:0; }
+        .form-input input, .form-input select, .form-input textarea { width:100%; max-width:100%; font-size:16px; }
+        .form-input textarea { min-height:120px; }
+        .form-actions { display:grid; grid-template-columns:1fr; gap:9px; padding:0; }
+        .form-actions button, .btn-primary-cls, .btn-secondary-cls { width:100%; min-height:44px; }
+        .admin-card table, 
+        input, select, textarea, button { max-width:100%; }
+      }
+      @media (max-width: 420px) {
+        .container { width:calc(100% - 22px); }
+        .header-content { grid-template-columns:minmax(0,1fr) auto; gap:7px; }
+        .logo img { height:40px !important; }
+        .btn-post-job { padding:8px 10px; font-size:.76rem; }
+        .listing-toolbar { grid-template-columns:1fr; }
+        .listing-count, .listing-toolbar button { grid-column:1; }
+        .hero { padding:34px 0 38px; }
+        .card { padding:16px; }
+      }
+
+        .teachgrant-ad-slot {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 6px; width: 100%; max-width: 100%; min-height: 90px;
+            margin: 18px auto 24px; padding: 10px; box-sizing: border-box;
+            overflow: hidden; text-align: center;
+        }
+        .teachgrant-ad-slot .ad-label {
+            display: block; color: #888; font-size: 10px; line-height: 1.2;
+        }
+        .teachgrant-ad-banner { min-height: 270px; max-width: 320px; }
+        .teachgrant-ad-slot iframe { max-width: 100%; }
+        @media (max-width: 600px) {
+            .teachgrant-ad-slot { margin: 14px auto 20px; padding: 6px; }
+        }
+        
+
+        /* إيقاف جميع وحدات الإعلانات داخل جلسة الإدارة فقط */
+        
+        .teachgrant-desktop-ad .ad-label {
+            display: block; color: #888; font-size: 9px; line-height: 1.1;
+        }
+        .teachgrant-desktop-ad iframe {
+            display: block; border: 0; flex: 0 0 auto;
+            max-width: 100%; margin: 0 auto;
+        }
+        #tg-ad-top { min-height: 96px; }
+        #tg-ad-middle { min-height: 66px; }
+        #tg-ad-bottom { min-height: 56px; margin-top: 14px; margin-bottom: 8px; }
+        .teachgrant-side-ad {
+            position: fixed; top: 150px; z-index: 80; width: 160px;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            box-sizing: border-box; overflow: visible; text-align: center;
+        }
+        .teachgrant-side-ad .ad-label { color: #888; font-size: 9px; line-height: 1.1; }
+        .teachgrant-side-ad iframe { display: block; border: 0; max-width: 100%; }
+        #tg-ad-side-tall { left: 12px; min-height: 600px; }
+        #tg-ad-side-short { right: 12px; min-height: 300px; }
+        @media (min-width: 1440px) {
+            #publicSite .container { width: min(1080px, calc(100% - 360px)); }
+        }
+        @media (max-width: 1439px) {
+            .teachgrant-side-ad { display: none !important; }
+        }
+        
+        /* Visitor-controlled compact Adsterra widget */
+        #tg-visitor-ad{position:fixed;left:18px;bottom:18px;z-index:850;direction:rtl;font-family:inherit}
+        #tg-visitor-ad .tg-ad-toggle{display:flex;align-items:center;gap:8px;border:1px solid var(--border-color,#ddd);border-radius:24px;padding:9px 14px;background:var(--card-bg,#fff);color:var(--text-color,#222);box-shadow:0 3px 14px rgba(0,0,0,.12);cursor:pointer;font:inherit;font-size:13px}
+        #tg-visitor-ad .tg-ad-panel{display:none;position:absolute;left:0;bottom:48px;width:min(320px,calc(100vw - 36px));padding:10px;box-sizing:border-box;background:var(--card-bg,#fff);border:1px solid var(--border-color,#ddd);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+        #tg-visitor-ad.is-open .tg-ad-panel{display:block}
+        #tg-visitor-ad .tg-ad-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:#888;font-size:11px}
+        #tg-visitor-ad .tg-ad-close{width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;font-size:20px;line-height:1}
+        #tg-visitor-ad .tg-ad-content{min-height:250px;width:300px;max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden}
+        #tg-visitor-ad .tg-ad-content iframe{max-width:100%;border:0}
+        
+        @media(max-width:480px){#tg-visitor-ad{left:10px;bottom:10px}#tg-visitor-ad .tg-ad-panel{bottom:46px}}
+        
+        @media (max-width: 767px) {
+            .teachgrant-desktop-ad { display: none !important; }
+            /* Keep only the compact 320x50 banner available on phones. */
+            #tg-ad-bottom {
+                display: flex !important;
+                min-height: 56px;
+                margin: 12px auto 8px;
+            }
+        }
+    </style>
+
 </head>
 <body>
 
     <div id="publicSite">
+        <div class="teachgrant-side-ad" id="tg-ad-side-tall" aria-label="إعلان جانبي">
+            <span class="ad-label">إعلان</span>
+        </div>
+        <div class="teachgrant-side-ad" id="tg-ad-side-short" aria-label="إعلان جانبي">
+            <span class="ad-label">إعلان</span>
+        </div>
+
         <header>
             <div class="container header-content">
-                <a href="#" class="logo" id="siteLogo">
-                    <img src="logo.png" alt="شعار TeachGrant" style="max-width: 100%;">
+
+                <a href="/" class="logo" id="siteLogo">
+                    <img src="/teachgrant-banner.png?v=2"
+                         alt="شعار TeachGrant" width="240" height="60"
+                         style="height:60px; width:auto; object-fit:contain;">
                 </a>
+
                 <nav>
                     <ul>
-                        <li><a href="#" class="active">الرئيسية</a></li>
+                        <li><a href="/" class="active">الرئيسية</a></li>
                         <li><a href="#jobs">الوظائف</a></li>
                         <li><a href="#scholarships">المنح</a></li>
                     </ul>
                 </nav>
-                <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" class="btn-post-job">أضف إعلانك</a>
             </div>
         </header>
 
+        <main id="main-content">
         <section class="hero">
             <div class="container">
                 <h1>وظائف ومنح تعليمية حول العالم</h1>
                 <p>More Learning. Brighter Futures. ابحث عن فرصتك القادمة وابدأ رحلتك التعليمية.</p>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، منحة، أو دولة...">
-                    <button onclick="searchData()">بحث</button>
+                    <input type="search" id="searchInput" placeholder="ابحث عن وظيفة، منحة، تخصص، أو دولة..." aria-label="البحث في الوظائف والمنح">
+                    <button type="button" onclick="searchData()">بحث</button>
+                </div>
+                <div class="hero-actions" aria-label="انتقال سريع">
+                    <a href="#jobs">استكشف الوظائف</a>
+                    <a href="#scholarships">تصفح المنح الدراسية</a>
                 </div>
             </div>
         </section>
 
         <div class="container">
+            <div class="teachgrant-ad-slot" id="tg-native-ad-slot" aria-label="مساحة إعلانية">
+                <span class="ad-label">إعلان</span>
+                <div id="container-080728f5ddcd0f54c7a204aebfbfd7b3"></div>
+            </div>
+            <div class="teachgrant-desktop-ad" id="tg-ad-top" aria-label="إعلان">
+                <span class="ad-label">إعلان</span>
+                
+            </div>
             <section id="jobs" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث الوظائف التعليمية</h2>
+                <div class="listing-toolbar" aria-label="تصفية الوظائف">
+                    <strong id="jobsCount" class="listing-count">جاري تحميل الوظائف...</strong>
+                    <select id="jobsCountryFilter" aria-label="تصفية الوظائف حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="jobsTypeFilter" aria-label="تصفية الوظائف حسب النوع" onchange="renderPublicData()"><option value="">كل أنواع الوظائف</option></select>
+                    <select id="jobsCityFilter" aria-label="تصفية الوظائف حسب المدينة" onchange="renderPublicData()"><option value="">كل المدن</option></select>
+                    <select id="jobsSpecialtyFilter" aria-label="تصفية الوظائف حسب التخصص" onchange="renderPublicData()"><option value="">كل التخصصات</option></select>
+                    <select id="jobsDeadlineFilter" aria-label="تصفية الوظائف حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل مواعيد التقديم</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <select id="jobsPublishedFilter" aria-label="تصفية الوظائف حسب تاريخ النشر" onchange="renderPublicData()">
+                        <option value="">كل تواريخ النشر</option><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option><option value="90">آخر 3 أشهر</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('jobs')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="jobsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
+            <div class="teachgrant-ad-slot teachgrant-ad-banner" id="tg-300x250-slot" aria-label="مساحة إعلانية">
+                <span class="ad-label">إعلان</span>
+            </div>
+            <div class="teachgrant-desktop-ad" id="tg-ad-middle" aria-label="إعلان">
+                <span class="ad-label">إعلان</span>
+                
+            </div>
             <section id="scholarships" style="padding: 40px 0;">
                 <h2 class="section-title">أحدث المنح الدراسية</h2>
+                <div class="listing-toolbar" aria-label="تصفية المنح">
+                    <strong id="scholarshipsCount" class="listing-count">جاري تحميل المنح...</strong>
+                    <select id="scholarshipsCountryFilter" aria-label="تصفية المنح حسب الدولة" onchange="renderPublicData()"><option value="">كل الدول</option></select>
+                    <select id="scholarshipsTypeFilter" aria-label="تصفية المنح حسب نوع البرنامج" onchange="renderPublicData()"><option value="">كل أنواع البرامج</option></select>
+                    <select id="scholarshipsLevelFilter" aria-label="تصفية المنح حسب المرحلة الدراسية" onchange="renderPublicData()"><option value="">كل المراحل الدراسية</option><option value="high_school">الثانوية العامة</option><option value="vocational">التعليم المهني</option><option value="bachelor">بكالوريوس</option><option value="masters">ماجستير</option><option value="phd">دكتوراه</option><option value="other">زمالة / أخرى</option></select>
+                    <select id="scholarshipsFundingFilter" aria-label="تصفية المنح حسب التمويل" onchange="renderPublicData()"><option value="">كل أنواع التمويل</option><option value="fully_funded">ممولة بالكامل</option><option value="partially_funded">ممولة جزئيًا</option><option value="tuition_only">تغطية الرسوم الدراسية</option><option value="unfunded">بدون تمويل</option><option value="unknown">التمويل غير محدد</option></select>
+                    <select id="scholarshipsStatusFilter" aria-label="تصفية المنح حسب حالة التقديم" onchange="renderPublicData()"><option value="">كل الحالات</option><option value="open">مفتوحة الآن</option><option value="upcoming">قريبًا</option><option value="closed">مغلقة</option></select>
+                    <input type="search" id="scholarshipsEligibilityFilter" placeholder="الدول أو الجنسيات المؤهلة..." aria-label="البحث حسب أهلية الجنسية" oninput="renderPublicData()">
+                    <input type="search" id="scholarshipsSpecialtyFilter" placeholder="مجال الدراسة أو التخصص..." aria-label="البحث في المنح حسب مجال الدراسة" oninput="renderPublicData()">
+                    <select id="scholarshipsDeadlineFilter" aria-label="تصفية المنح حسب موعد التقديم" onchange="renderPublicData()">
+                        <option value="">كل مواعيد التقديم</option><option value="active">مواعيد سارية</option><option value="expired">مواعيد منتهية</option>
+                    </select>
+                    <select id="scholarshipsPublishedFilter" aria-label="تصفية المنح حسب تاريخ النشر" onchange="renderPublicData()">
+                        <option value="">كل تواريخ النشر</option><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option><option value="90">آخر 3 أشهر</option>
+                    </select>
+                    <button type="button" onclick="resetListingFilters('scholarships')">إعادة ضبط</button>
+                </div>
                 <div class="grid-container" id="scholarshipsGrid"><p class="loading-text">جاري التحميل...</p></div>
             </section>
 
-            <section id="extra-offers" style="padding: 20px 0 50px;">
-                <h2 class="section-title">🌟 فرص إضافية</h2>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:15px;">
-                    <a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" data-track-zone="12090630" class="btn-apply" style="background:linear-gradient(135deg,#0070F3,#0050C0);">🚀 فرصة مميزة</a>
-                    <a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" data-track-zone="12130004" class="btn-apply" style="background:linear-gradient(135deg,#10B981,#059669);">✨ اكتشف المزيد</a>
-                    <a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" data-track-zone="12096134" class="btn-apply" style="background:linear-gradient(135deg,#F59E0B,#D97706);">🎁 عرض خاص</a>
-                    <a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" data-track-zone="12094822" class="btn-apply" style="background:linear-gradient(135deg,#EF4444,#DC2626);">🔥 تفاصيل إضافية</a>
-                </div>
-            </section>
         </div>
+
+        <div class="teachgrant-desktop-ad" id="tg-ad-bottom" aria-label="إعلان">
+            <span class="ad-label">إعلان</span>
+            
+        </div>
+
+        <div id="tg-visitor-ad" aria-label="إعلان اختياري">
+            <div class="tg-ad-panel" id="tg-visitor-ad-panel" aria-hidden="true">
+                <div class="tg-ad-panel-head"><span>إعلان</span><button type="button" class="tg-ad-close" id="tg-visitor-ad-close" aria-label="إغلاق الإعلان">×</button></div>
+                <div class="tg-ad-content" id="tg-visitor-ad-content"></div>
+            </div>
+            <button type="button" class="tg-ad-toggle" id="tg-visitor-ad-toggle" aria-expanded="false" aria-controls="tg-visitor-ad-panel"><span>إعلان</span><span aria-hidden="true">＋</span></button>
+        </div>
+
+        </main>
 
         <footer>
             <div class="container">
@@ -471,26 +683,30 @@
                         <ul>
                             <li><a href="#jobs">الوظائف التعليمية</a></li>
                             <li><a href="#scholarships">المنح الدراسية</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>🌟 فرص إضافية</h4>
-                        <ul>
-                            <li><a href="https://uplcm.com/4/12090630" target="_blank" rel="noopener" data-track-zone="12090630">🚀 فرصة مميزة</a></li>
-                            <li><a href="https://uplcm.com/4/12130004" target="_blank" rel="noopener" data-track-zone="12130004">✨ اكتشف المزيد</a></li>
-                            <li><a href="https://uplcm.com/4/12096134" target="_blank" rel="noopener" data-track-zone="12096134">🎁 عرض خاص</a></li>
-                            <li><a href="https://uplcm.com/4/12094822" target="_blank" rel="noopener" data-track-zone="12094822">🔥 تفاصيل إضافية</a></li>
+                            <li><a href="/scholarships/">دليل جميع المنح</a></li>
+                            <li><a href="/scholarships/bachelor/">منح البكالوريوس</a></li>
+                            <li><a href="/scholarships/high-school/">منح الثانوية العامة</a></li>
+                            <li><a href="/scholarships/vocational/">منح التعليم المهني والتقني</a></li>
+                            <li><a href="/scholarships/masters/">منح الماجستير</a></li>
+                            <li><a href="/scholarships/fully-funded/">المنح الممولة بالكامل</a></li>
+                            <li><a href="/scholarships/bachelor/">منح البكالوريوس</a></li>
+                            <li><a href="/scholarships/masters/">منح الماجستير</a></li>
+                            <li><a href="/scholarships/fully-funded/">المنح الممولة بالكامل</a></li>
+                            <li><a href="/jobs/saudi-arabia/">وظائف تعليمية في السعودية</a></li>
+                            <li><a href="/jobs/uae/">وظائف تعليمية في الإمارات</a></li>
+                            <li><a href="/jobs/qatar/">وظائف تعليمية في قطر</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h4>تواصل معنا</h4>
                         <ul id="socialLinksFooter" class="social-list">
-                            <li><a href="#" id="link-fb" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a></li>
-                            <li><a href="#" id="link-li" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
-                            <li><a href="#" id="link-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتساب</a></li>
-                            <li><a href="#" id="link-tg" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> تيليجرام</a></li>
-                            <li><a href="#" id="link-bot" target="_blank" rel="noopener"><i class="fas fa-robot"></i> البوت</a></li>
-                            <li><a href="#" id="link-ig" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> إنستجرام</a></li>
+                            <li><a href="mailto:info@teachgrant.tech" aria-label="راسل TeachGrant عبر البريد الإلكتروني"><i class="fas fa-envelope"></i> <span dir="ltr">info@teachgrant.tech</span></a></li>
+                            <li><a id="link-fb" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a></li>
+                            <li><a id="link-li" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
+                            <li><a id="link-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتساب</a></li>
+                            <li><a id="link-tg" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> تيليجرام</a></li>
+                            <li><a id="link-bot" target="_blank" rel="noopener"><i class="fas fa-robot"></i> البوت</a></li>
+                            <li><a id="link-ig" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> إنستجرام</a></li>
                         </ul>
                     </div>
                 </div>
@@ -500,162 +716,6 @@
             </div>
         </footer>
 
-        <button id="offersFloatBtn" onclick="scrollToOffers()">🌟 عروض</button>
-    </div>
-
-    <div id="loginView">
-        <div class="container">
-            <div class="login-box">
-                <h2><i class="fas fa-lock"></i> دخول الإدارة</h2>
-                <p style="margin-bottom: 20px; color: var(--text-muted);">سجل الدخول لإدارة محتوى الموقع</p>
-                <input type="email" id="adminEmail" placeholder="البريد الإلكتروني" dir="ltr">
-                <input type="password" id="adminPass" placeholder="كلمة المرور" dir="ltr">
-                <button class="btn-save" onclick="login()" id="loginBtn">تسجيل الدخول</button>
-                <br><br>
-                <button class="btn-logout" onclick="showPublicSite()" style="background: var(--text-muted);">العودة للموقع</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="dashboardView">
-        <div class="admin-layout">
-            <aside class="admin-sidebar">
-                <div class="brand">admin</div>
-                <div class="nav-label">Navigation</div>
-                <ul>
-                    <li id="menu-jobs">
-                        <a onclick="toggleMenu('jobs')"><span><i class="fas fa-briefcase main-icon"></i> الوظائف</span><i class="fas fa-chevron-down arrow"></i></a>
-                        <ul class="admin-submenu" id="submenu-jobs">
-                            <li><a onclick="loadPanel('job-add')">إضافة وظيفة</a></li>
-                            <li><a onclick="loadPanel('job-list')">عرض الوظائف</a></li>
-                        </ul>
-                    </li>
-                    <li id="menu-sch">
-                        <a onclick="toggleMenu('sch')"><span><i class="fas fa-graduation-cap main-icon"></i> المنح الدراسية</span><i class="fas fa-chevron-down arrow"></i></a>
-                        <ul class="admin-submenu" id="submenu-sch">
-                            <li><a onclick="loadPanel('sch-add')">إضافة منحة</a></li>
-                            <li><a onclick="loadPanel('sch-list')">عرض المنح</a></li>
-                        </ul>
-                    </li>
-                    <li id="menu-settings"><a onclick="loadPanel('settings')"><span><i class="fas fa-cog main-icon"></i> الإعدادات</span></a></li>
-                </ul>
-                <div style="margin-top:auto; padding:20px;">
-                    <button onclick="showPublicSite()" style="width:100%; padding:10px; background:#2b2b40; color:#fff; border:none; border-radius:4px; cursor:pointer; margin-bottom:10px; font-family:inherit;"><i class="fas fa-eye"></i> عرض الموقع</button>
-                    <button onclick="logout()" style="width:100%; padding:10px; background:#f1416c; color:#fff; border:none; border-radius:4px; cursor:pointer; font-family:inherit;"><i class="fas fa-sign-out-alt"></i> خروج</button>
-                </div>
-            </aside>
-
-            <main class="admin-main">
-                <div class="admin-topbar">
-                    <span id="panelTitle">إضافة وظيفة</span>
-                    <button class="btn-top" onclick="showPublicSite()">معاينة الموقع</button>
-                </div>
-
-                <div class="admin-content">
-                    <div id="panel-job-add" class="admin-panel" style="display:block;">
-                        <div class="admin-card">
-                            <input type="hidden" id="jobEditId">
-                            <div class="form-row"><div class="form-label">المسمى الوظيفي</div><div class="form-input"><input type="text" id="jobTitle" value="مدرس رياضيات"></div></div>
-                            <div class="form-row"><div class="form-label">الجهة / الشركة</div><div class="form-input"><input type="text" id="jobCompany" value="مدارس النيل"></div></div>
-                            <div class="form-row"><div class="form-label">الموقع</div><div class="form-input"><select id="jobLocation"><option value="القاهرة، مصر">القاهرة، مصر</option><option value="الرياض، السعودية">الرياض، السعودية</option><option value="دبي، الإمارات">دبي، الإمارات</option></select></div></div>
-                            <div class="form-row"><div class="form-label">نوع الدوام</div><div class="form-input"><input type="text" id="jobType" value="دوام كامل"></div></div>
-                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="jobDesc"></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="jobDeadline"></div></div>
-                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="jobReq"></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="jobLink" dir="ltr"></div></div>
-                            <div class="form-actions">
-                                <button class="btn-primary-cls" onclick="saveJob()" id="jobSaveBtn">حفظ الوظيفة</button>
-                                <button class="btn-secondary-cls" onclick="loadPanel('job-list')">إلغاء</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="panel-job-list" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">المسمى</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
-                                <tbody id="jobListTbody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="panel-sch-add" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <input type="hidden" id="schEditId">
-                            <div class="form-row"><div class="form-label">اسم المنحة</div><div class="form-input"><input type="text" id="schTitle"></div></div>
-                            <div class="form-row"><div class="form-label">الجهة المانحة</div><div class="form-input"><input type="text" id="schCompany"></div></div>
-                            <div class="form-row"><div class="form-label">الدولة</div><div class="form-input"><input type="text" id="schLocation"></div></div>
-                            <div class="form-row"><div class="form-label">نوع التمويل</div><div class="form-input"><input type="text" id="schType"></div></div>
-                            <div class="form-row"><div class="form-label">الوصف</div><div class="form-input"><textarea id="schDesc"></textarea></div></div>
-                            <div class="form-row"><div class="form-label">آخر موعد</div><div class="form-input"><input type="date" id="schDeadline"></div></div>
-                            <div class="form-row"><div class="form-label">المتطلبات</div><div class="form-input"><input type="text" id="schReq"></div></div>
-                            <div class="form-row"><div class="form-label">رابط التقديم</div><div class="form-input"><input type="url" id="schLink" dir="ltr"></div></div>
-                            <div class="form-actions">
-                                <button class="btn-primary-cls" onclick="saveScholarship()" id="schSaveBtn">حفظ المنحة</button>
-                                <button class="btn-secondary-cls" onclick="loadPanel('sch-list')">إلغاء</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="panel-sch-list" class="admin-panel" style="display:none;">
-                        <div class="admin-card">
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;"><th style="padding:15px;text-align:right;">اسم المنحة</th><th style="padding:15px;text-align:right;">الجهة</th><th style="padding:15px;text-align:right;">إجراءات</th></tr></thead>
-                                <tbody id="schListTbody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="panel-settings" class="admin-panel" style="display:none;">
-                        <div class="admin-card" style="margin-bottom:20px;">
-                            <div class="form-row"><div class="form-label">رابط فيسبوك</div><div class="form-input"><input type="text" id="socFb" dir="ltr" placeholder="https://facebook.com/YourPage"></div></div>
-                            <div class="form-row"><div class="form-label">رابط لينكد إن</div><div class="form-input"><input type="text" id="socLi" dir="ltr" placeholder="https://linkedin.com/in/YourProfile"></div></div>
-                            <div class="form-row"><div class="form-label">رابط واتساب</div><div class="form-input"><input type="text" id="socWa" dir="ltr" placeholder="https://wa.me/201234567890"></div></div>
-                            <div class="form-row"><div class="form-label">رابط تيليجرام</div><div class="form-input"><input type="text" id="socTg" dir="ltr" placeholder="https://t.me/YourChannel"></div></div>
-                            <div class="form-row"><div class="form-label">رابط البوت</div><div class="form-input"><input type="text" id="socBot" dir="ltr" placeholder="https://t.me/YourBot_bot"></div></div>
-                            <div class="form-row"><div class="form-label">رابط إنستجرام</div><div class="form-input"><input type="text" id="socIg" dir="ltr" placeholder="https://instagram.com/YourAccount"></div></div>
-                            <div class="form-actions"><button class="btn-primary-cls" onclick="saveSocials()">حفظ الإعدادات</button></div>
-                        </div>
-
-                        <div class="admin-card">
-                            <h3 style="margin-bottom:20px; color:#0A2540;">📊 إحصائيات النقرات — فرص إضافية</h3>
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead><tr style="border-bottom:2px solid #e4e6ef;">
-                                    <th style="padding:12px; text-align:right;">الرابط</th>
-                                    <th style="padding:12px; text-align:right;">عدد النقرات</th>
-                                    <th style="padding:12px; text-align:right;">إجراء</th>
-                                </tr></thead>
-                                <tbody>
-                                    <tr style="border-bottom:1px solid #f0f0f0;">
-                                        <td style="padding:12px;">🚀 فرصة مميزة <small style="color:#94A3B8;">(12090630)</small></td>
-                                        <td style="padding:12px; font-weight:700; color:#0070F3;" id="stat-12090630">0</td>
-                                        <td style="padding:12px;"><button onclick="resetClickStat('12090630')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
-                                    </tr>
-                                    <tr style="border-bottom:1px solid #f0f0f0;">
-                                        <td style="padding:12px;">✨ اكتشف المزيد <small style="color:#94A3B8;">(12130004)</small></td>
-                                        <td style="padding:12px; font-weight:700; color:#10B981;" id="stat-12130004">0</td>
-                                        <td style="padding:12px;"><button onclick="resetClickStat('12130004')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
-                                    </tr>
-                                    <tr style="border-bottom:1px solid #f0f0f0;">
-                                        <td style="padding:12px;">🎁 عرض خاص <small style="color:#94A3B8;">(12096134)</small></td>
-                                        <td style="padding:12px; font-weight:700; color:#F59E0B;" id="stat-12096134">0</td>
-                                        <td style="padding:12px;"><button onclick="resetClickStat('12096134')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
-                                    </tr>
-                                    <tr style="border-bottom:1px solid #f0f0f0;">
-                                        <td style="padding:12px;">🔥 تفاصيل إضافية <small style="color:#94A3B8;">(12094822)</small></td>
-                                        <td style="padding:12px; font-weight:700; color:#EF4444;" id="stat-12094822">0</td>
-                                        <td style="padding:12px;"><button onclick="resetClickStat('12094822')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:0.8rem;">تصفير</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p style="margin-top:15px; font-size:0.85rem; color:#64748B;">
-                                ⚠️ الإحصائيات محفوظة محليًا في المتصفح (localStorage) — كل جهاز له أرقامه المنفصلة.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
     </div>
 
     <div id="detailsModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; padding:20px; align-items:center; justify-content:center;">
@@ -667,135 +727,53 @@
             <div id="modalMeta" style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px; color:#64748B; font-size:0.9rem;"></div>
             <div id="modalDesc" style="line-height:1.9; color:#1E293B; margin-bottom:20px;"></div>
             <div id="modalRequirements" style="background:#F8FAFC; padding:15px; border-radius:8px; margin-bottom:20px; display:none;"></div>
-            <a id="modalApplyBtn" href="#" target="_blank" class="btn-apply" style="background:#10B981; display:block; text-align:center;">تقديم الآن ↗</a>
+            <div id="modalSource" style="margin:0 0 18px;display:none;"></div>
+            <a id="modalApplyBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-apply" style="background:#10B981; display:block; text-align:center;">رابط التقديم ↗</a>
         </div>
     </div>
 
-    <button id="tgAdBtn" onclick="watchTgAd()">
-        🎬 شاهد إعلانًا وادعم الموقع
-    </button>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = "https://dutpuwqybdzhjbiwrvcc.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1dHB1d3F5YmR6aGpiaXdydmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1ODU3MjYsImV4cCI6MjEwODE2MTcyNn0.tePW-I7gioA6O-0SSu0nohl7vUBS8N1vIq-F9R3HLcw";
+        const SUPABASE_ANON_KEY = "sb_publishable_oB9EVKpBUfRJMKMtF60D4Q_cDFKwtFk";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let jobsData = [];
         let scholarshipsData = [];
         let socialsData = { fb: "#", li: "#", wa: "#", tg: "#", bot: "#", ig: "#" };
-        let isLoggedIn = false;
-
-        function trackExtraClick(zoneId) {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-            const key = 'tb_click_' + zoneId;
-            const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
-            localStorage.setItem(key, count);
-            console.log('📊 Click tracked: zone ' + zoneId + ' → ' + count + ' total');
-        }
-
-        function updateClickStats() {
-            const zones = ['12090630', '12130004', '12096134', '12094822'];
-            zones.forEach(z => {
-                const el = document.getElementById('stat-' + z);
-                if (el) el.textContent = localStorage.getItem('tb_click_' + z) || '0';
-            });
-        }
-
-        function resetClickStat(zoneId) {
-            if (!confirm('هل تريد تصفير عداد النقرات لهذا الرابط؟')) return;
-            localStorage.removeItem('tb_click_' + zoneId);
-            updateClickStats();
-        }
-
-        function bindExtraOfferTracking() {
-            document.querySelectorAll('[data-track-zone]').forEach(el => {
-                if (el.dataset.tracked === '1') return;
-                el.dataset.tracked = '1';
-                el.addEventListener('click', function() {
-                    trackExtraClick(this.dataset.trackZone);
-                });
-            });
-        }
-
-        function scrollToOffers() {
-            const el = document.getElementById('extra-offers');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // ✅ دالة عرض إعلان تيليجرام (مُحسّنة)
-        function watchTgAd() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') return;
-            
-            if (typeof show_12120918 !== 'function') {
-                alert('الإعلانات متاحة فقط داخل تطبيق تيليجرام 📱');
-                return;
-            }
-            
-            try {
-                const result = show_12120918();
-                
-                if (result && typeof result.then === 'function') {
-                    result.then(() => {
-                        console.log('✅ تم مشاهدة الإعلان بنجاح');
-                        alert('شكرًا لدعمك! ❤️');
-                    }).catch(err => {
-                        console.warn('⚠️ تم إغلاق الإعلان أو حدث خطأ:', err);
-                    });
-                } else {
-                    console.log('✅ تم فتح الإعلان (بدون Promise)');
-                }
-            } catch (e) {
-                console.error('❌ خطأ في عرض الإعلان:', e);
-                alert('تعذر عرض الإعلان حاليًا. حاول لاحقًا.');
-            }
-        }
-
-        // ✅ التحكم في إظهار زر الإعلان (مُحسّن)
-        function updateTgAdButton() {
-            const btn = document.getElementById('tgAdBtn');
-            if (!btn) return;
-            
-            const hasTelegram = !!(window.Telegram && window.Telegram.WebApp);
-            const hasInitData = !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData);
-            const sdkReady = typeof show_12120918 === 'function';
-            
-            if (hasInitData && !document.documentElement.classList.contains('admin-mode')) {
-                btn.style.display = 'flex';
-            } else {
-                btn.style.display = 'none';
-            }
-            
-            console.log('🔍 حالة زر الإعلان:', {
-                telegram: hasTelegram,
-                initData: hasInitData,
-                sdkReady: sdkReady,
-                visible: btn.style.display === 'flex'
-            });
-        }
-
-        function hideAdsForAdmin() {
-            document.documentElement.classList.add('admin-mode');
-            const tgBtn = document.getElementById('tgAdBtn');
-            if (tgBtn) tgBtn.style.display = 'none';
-            const offerBtn = document.getElementById('offersFloatBtn');
-            if (offerBtn) offerBtn.style.display = 'none';
-        }
-
-        async function loadJobs() {
+async function loadJobs() {
             const { data, error } = await supabaseClient.from('jobs').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل الوظائف:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل الوظائف:', error);
+                throw new Error('تعذر تحميل الوظائف. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            return Array.isArray(data) ? data : [];
         }
 
         async function loadScholarships() {
             const { data, error } = await supabaseClient.from('scholarships').select('*').order('created_at', { ascending: false });
-            if (error) { console.error('خطأ في تحميل المنح:', error); return []; }
-            return data || [];
+            if (error) {
+                console.error('خطأ في تحميل المنح:', error);
+                throw new Error('تعذر تحميل المنح. تحقق من الاتصال وحاول مرة أخرى.');
+            }
+            const rows = Array.isArray(data) ? data : [];
+            const now = new Date();
+            const todayLocal = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+            return rows.filter(item =>
+                item.is_verified === true &&
+                item.eligibility_confirmed === true &&
+                item.status === 'open' &&
+                (!item.deadline || String(item.deadline).slice(0,10) >= todayLocal)
+            );
         }
 
         async function loadSocials() {
             const { data, error } = await supabaseClient.from('settings').select('key, value');
-            if (error) { console.error('خطأ في تحميل الإعدادات:', error); return; }
+            if (error) {
+                console.error('خطأ في تحميل الإعدادات:', error);
+                throw new Error('تعذر تحميل إعدادات الموقع.');
+            }
             const map = {};
             (data || []).forEach(row => map[row.key] = row.value);
             socialsData.fb = map.fb || "#";
@@ -806,18 +784,55 @@
             socialsData.ig = map.ig || "#";
         }
 
+        const JOB_META_MARKER = '<!--TG_JOB_META:';
+        function getJobMeta(description) {
+            const match = String(description || '').match(/<!--TG_JOB_META:([A-Za-z0-9+/=]+)-->/);
+            if (!match) return {};
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(match[1]))));
+            } catch (_) {
+                return {};
+            }
+        }
+
+        function stripJobMeta(description) {
+            return String(description || '').replace(/<!--TG_JOB_META:[A-Za-z0-9+/=]+-->/g, '').trim();
+        }
+
+        function addJobMeta(description, meta) {
+            const cleanDescription = stripJobMeta(description);
+            const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(meta))));
+            return cleanDescription + (cleanDescription ? '\n' : '') + JOB_META_MARKER + encoded + '-->';
+        }
+
         function createCard(item, isJob) {
             const typeClass = isJob ? 'type-job' : 'type-scholarship';
             const badge = isJob ? 'وظيفة' : 'منحة';
+            const meta = isJob ? getJobMeta(item.description) : {};
+            const city = meta.city || '';
+            const specialty = meta.specialty || '';
+            const levelLabels = {high_school:'الثانوية العامة',vocational:'التعليم المهني',bachelor:'بكالوريوس',masters:'ماجستير',phd:'دكتوراه',other:'زمالة / أخرى'};
+            const fundingLabels = {fully_funded:'ممولة بالكامل',partially_funded:'ممولة جزئيًا',tuition_only:'تغطية الرسوم الدراسية',unfunded:'بدون تمويل',unknown:'التمويل غير محدد'};
+            const statusLabels = {open:'مفتوحة الآن',upcoming:'قريبًا',closed:'مغلقة'};
+            const today = new Date(); today.setHours(0,0,0,0);
+            const effectiveStatus = !isJob ? (item.status === 'closed' || (item.deadline && new Date(String(item.deadline).slice(0,10)+'T00:00:00') < today) ? 'closed' : (item.status || 'open')) : '';
+            const eligibleCountries = !isJob && Array.isArray(item.eligible_countries) ? item.eligible_countries : [];
             return `<div class="card">
                 <span class="card-type ${typeClass}">${badge}</span>
                 <h3>${escapeHtml(item.title)}</h3>
                 <div class="card-company"><i class="fas fa-building"></i> ${escapeHtml(item.company)}</div>
                 <div class="card-details">
-                    <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
+                    <span><i class="fas fa-globe"></i> ${escapeHtml(item.location || '-')}</span>
+                    ${isJob && city ? `<span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(city)}</span>` : ''}
+                    ${isJob && specialty ? `<span><i class="fas fa-book"></i> ${escapeHtml(specialty)}</span>` : ''}
+                    ${!isJob && item.study_level ? `<span><i class="fas fa-graduation-cap"></i> ${escapeHtml(levelLabels[item.study_level] || item.study_level)}</span>` : ''}
+                    ${!isJob && item.funding_type ? `<span><i class="fas fa-coins"></i> ${escapeHtml(fundingLabels[item.funding_type] || item.funding_type)}</span>` : ''}
+                    ${!isJob ? `<span><i class="fas fa-circle-info"></i> ${escapeHtml(statusLabels[effectiveStatus] || 'الحالة غير محددة')}</span>` : ''}
+                    ${!isJob && eligibleCountries.length ? `<span><i class="fas fa-globe"></i> الجنسيات المؤهلة: ${escapeHtml(eligibleCountries.join('، '))}</span>` : ''}
                     <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
+                    ${item.deadline ? `<span class="card-deadline"><i class="fas fa-calendar-alt"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}
                 </div>
-                <a href="#" class="btn-apply" data-id="${item.id}" data-type="${isJob ? 'job' : 'sch'}">تفاصيل والتقديم</a>
+                ${isJob ? `<a href="/job.html?id=${encodeURIComponent(item.id)}" class="btn-apply">تفاصيل الوظيفة والتقديم</a>` : `<a href="/scholarship.html?id=${encodeURIComponent(item.id)}" class="btn-apply">تفاصيل المنحة والتقديم</a>`}
             </div>`;
         }
 
@@ -838,324 +853,287 @@
             });
         }
 
+        function safeHttpUrl(value) {
+            try {
+                const parsed = new URL(String(value || '').trim(), window.location.origin);
+                return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : '';
+            } catch (_) {
+                return '';
+            }
+        }
+
+        function sanitizeRichText(value) {
+            const template = document.createElement('template');
+            template.innerHTML = String(value || '');
+            const allowed = new Set(['P','BR','STRONG','B','EM','I','U','UL','OL','LI','H2','H3','H4','BLOCKQUOTE','A','SPAN','DIV']);
+            const forbidden = new Set(['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','FORM','INPUT','BUTTON','SVG','MATH','TEMPLATE']);
+            function clean(parent) {
+                Array.from(parent.childNodes).forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE) return;
+                    if (node.nodeType !== Node.ELEMENT_NODE) { node.remove(); return; }
+                    if (forbidden.has(node.tagName)) { node.remove(); return; }
+                    clean(node);
+                    if (!allowed.has(node.tagName)) {
+                        node.replaceWith(...Array.from(node.childNodes));
+                        return;
+                    }
+                    const originalHref = node.tagName === 'A' ? node.getAttribute('href') : null;
+                    Array.from(node.attributes).forEach(attr => node.removeAttribute(attr.name));
+                    if (node.tagName === 'A') {
+                        const safeHref = safeHttpUrl(originalHref);
+                        if (safeHref) {
+                            node.setAttribute('href', safeHref);
+                            node.setAttribute('target', '_blank');
+                            node.setAttribute('rel', 'noopener noreferrer');
+                        }
+                    }
+                });
+            }
+            clean(template.content);
+            return template.innerHTML;
+        }
+
+        function setSocialLink(id, value) {
+            const link = document.getElementById(id);
+            if (!link) return;
+            const safeUrl = safeHttpUrl(value);
+            if (!safeUrl) {
+                link.removeAttribute('href');
+                link.style.display = 'none';
+                return;
+            }
+            link.href = safeUrl;
+            link.rel = 'noopener noreferrer';
+            link.style.display = '';
+        }
+
         function openModal(item) {
             const badge = document.getElementById('modalBadge');
             badge.textContent = item.isJob ? 'وظيفة' : 'منحة';
             badge.className = 'card-type ' + (item.isJob ? 'type-job' : 'type-scholarship');
             badge.style.position = 'static';
             document.getElementById('modalTitle').textContent = item.title;
-            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-building"></i> ' + escapeHtml(item.company);
-            document.getElementById('modalMeta').innerHTML = `
+            document.getElementById('modalCompany').innerHTML = '<i class="fas fa-school"></i> المدرسة / جهة العمل: ' + escapeHtml(item.company);
+            const jobMeta = item.isJob ? getJobMeta(item.description) : {};
+            document.getElementById('modalMeta').innerHTML = item.isJob ? `
+                <span><i class="fas fa-globe"></i> الدولة: ${escapeHtml(item.location || '-')}</span>
+                <span><i class="fas fa-map-marker-alt"></i> المدينة: ${escapeHtml(jobMeta.city || '-')}</span>
+                <span><i class="fas fa-book"></i> التخصص: ${escapeHtml(jobMeta.specialty || '-')}</span>
+                <span><i class="fas fa-clock"></i> نوع الوظيفة: ${escapeHtml(item.type || '-')}</span>
+                ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}` : `
                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(item.location || '-')}</span>
                 <span><i class="fas fa-clock"></i> ${escapeHtml(item.type || '-')}</span>
                 ${item.deadline ? `<span><i class="fas fa-calendar"></i> آخر موعد: ${escapeHtml(item.deadline)}</span>` : ''}`;
-            document.getElementById('modalDesc').innerHTML = item.description || 'لا يوجد وصف متاح.';
+            const cleanDescription = item.isJob ? stripJobMeta(item.description) : item.description;
+            document.getElementById('modalDesc').innerHTML = sanitizeRichText(cleanDescription || 'لا يوجد وصف إضافي.');
             document.getElementById('modalDesc').style.whiteSpace = 'pre-line';
             const reqBox = document.getElementById('modalRequirements');
-            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>المتطلبات:</strong><br>' + escapeHtml(item.requirements); }
+            if (item.requirements) { reqBox.style.display = 'block'; reqBox.innerHTML = '<strong>' + (item.isJob ? 'المؤهلات المطلوبة:' : 'المتطلبات:') + '</strong><br>' + escapeHtml(item.requirements).replace(/\n/g, '<br>'); }
             else { reqBox.style.display = 'none'; }
+            const sourceBox = document.getElementById('modalSource');
+            const safeSourceUrl = item.isJob ? safeHttpUrl(jobMeta.source) : '';
+            if (safeSourceUrl) {
+                sourceBox.innerHTML = '<strong>المصدر:</strong> <a href="' + escapeHtml(safeSourceUrl) + '" target="_blank" rel="noopener noreferrer">صفحة المصدر الأصلية ↗</a>';
+                sourceBox.style.display = 'block';
+            } else {
+                sourceBox.innerHTML = '';
+                sourceBox.style.display = 'none';
+            }
             const applyBtn = document.getElementById('modalApplyBtn');
-            if (item.apply_link && item.apply_link !== '#') { applyBtn.href = item.apply_link; applyBtn.style.display = 'block'; }
-            else { applyBtn.style.display = 'none'; }
+            const safeApplyUrl = safeHttpUrl(item.apply_link);
+            if (safeApplyUrl) {
+                applyBtn.href = safeApplyUrl;
+                applyBtn.rel = 'noopener noreferrer';
+                applyBtn.style.display = 'block';
+            } else {
+                applyBtn.removeAttribute('href');
+                applyBtn.style.display = 'none';
+            }
             document.getElementById('detailsModal').style.display = 'flex';
         }
 
         function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
         document.getElementById('detailsModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
 
-        async function renderPublicData(filterText = "") {
+        function fillFilterOptions(selectId, values, emptyLabel) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            const previous = select.value;
+            const unique = [...new Set(values.filter(Boolean).map(v => String(v).trim()).filter(Boolean))]
+                .sort((a,b) => a.localeCompare(b, 'ar'));
+            select.innerHTML = '<option value="">'+ escapeHtml(emptyLabel) +'</option>' +
+                unique.map(value => '<option value="'+ escapeHtml(value) +'">'+ escapeHtml(value) +'</option>').join('');
+            if (unique.includes(previous)) select.value = previous;
+        }
+
+        function updateListingFilterOptions() {
+            fillFilterOptions('jobsCountryFilter', jobsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('jobsTypeFilter', jobsData.map(x => x.type), 'كل أنواع الوظائف');
+            fillFilterOptions('jobsCityFilter', jobsData.map(x => getJobMeta(x.description).city), 'كل المدن');
+            fillFilterOptions('jobsSpecialtyFilter', jobsData.map(x => getJobMeta(x.description).specialty), 'كل التخصصات');
+            fillFilterOptions('scholarshipsCountryFilter', scholarshipsData.map(x => x.location), 'كل الدول');
+            fillFilterOptions('scholarshipsTypeFilter', scholarshipsData.map(x => x.type), 'كل أنواع التمويل');
+        }
+
+        function filterListing(items, prefix, query) {
+            const country = document.getElementById(prefix + 'CountryFilter')?.value || '';
+            const type = document.getElementById(prefix + 'TypeFilter')?.value || '';
+            const city = prefix === 'jobs' ? (document.getElementById('jobsCityFilter')?.value || '') : '';
+            const specialty = prefix === 'jobs' ? (document.getElementById('jobsSpecialtyFilter')?.value || '') : '';
+            const scholarshipSpecialty = prefix === 'scholarships' ? (document.getElementById('scholarshipsSpecialtyFilter')?.value || '').trim().toLocaleLowerCase('ar') : '';
+            const scholarshipLevel = prefix === 'scholarships' ? (document.getElementById('scholarshipsLevelFilter')?.value || '') : '';
+            const scholarshipFunding = prefix === 'scholarships' ? (document.getElementById('scholarshipsFundingFilter')?.value || '') : '';
+            const scholarshipStatus = prefix === 'scholarships' ? (document.getElementById('scholarshipsStatusFilter')?.value || '') : '';
+            const scholarshipEligibility = prefix === 'scholarships' ? (document.getElementById('scholarshipsEligibilityFilter')?.value || '').trim().toLocaleLowerCase('ar') : '';
+            const deadlineMode = document.getElementById(prefix + 'DeadlineFilter')?.value || '';
+            const publishedMode = document.getElementById(prefix + 'PublishedFilter')?.value || '';
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            const publishedAfter = publishedMode ? new Date(today.getTime() - Number(publishedMode) * 86400000) : null;
+            return items.filter(item => {
+                const jobMeta = getJobMeta(item.description);
+                const searchable = [item.title,item.company,item.location,item.type,item.description,item.requirements,jobMeta.city,jobMeta.specialty]
+                    .map(v => String(v || '').toLocaleLowerCase('ar')).join(' ');
+                if (query && !searchable.includes(query)) return false;
+                if (country && String(item.location || '') !== country) return false;
+                if (type && String(item.type || '') !== type) return false;
+                if (prefix === 'scholarships') {
+                    if (scholarshipLevel && item.study_level !== scholarshipLevel) return false;
+                    if (scholarshipFunding && item.funding_type !== scholarshipFunding) return false;
+                    const effectiveStatus = item.status === 'closed' || (item.deadline && new Date(String(item.deadline).slice(0,10) + 'T00:00:00') < today) ? 'closed' : (item.status || 'open');
+                    if (scholarshipStatus && effectiveStatus !== scholarshipStatus) return false;
+                    const eligible = Array.isArray(item.eligible_countries) ? item.eligible_countries.join(' ').toLocaleLowerCase('ar') : '';
+                    if (scholarshipEligibility && !eligible.includes(scholarshipEligibility)) return false;
+                }
+                if (city && String(jobMeta.city || '') !== city) return false;
+                if (specialty && String(jobMeta.specialty || '') !== specialty) return false;
+                if (scholarshipSpecialty && !searchable.includes(scholarshipSpecialty)) return false;
+                if (publishedAfter) {
+                    const publishedAt = item.created_at ? new Date(item.created_at) : null;
+                    if (!publishedAt || Number.isNaN(publishedAt.getTime()) || publishedAt < publishedAfter) return false;
+                }
+                if (deadlineMode && item.deadline) {
+                    const deadline = new Date(String(item.deadline).slice(0,10) + 'T00:00:00');
+                    const expired = !Number.isNaN(deadline.getTime()) && deadline < today;
+                    if (deadlineMode === 'active' && expired) return false;
+                    if (deadlineMode === 'expired' && !expired) return false;
+                } else if (deadlineMode === 'expired' && !item.deadline) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function resetListingFilters(prefix) {
+            ['CountryFilter','TypeFilter','DeadlineFilter','PublishedFilter', ...(prefix === 'jobs' ? ['CityFilter','SpecialtyFilter'] : ['LevelFilter','FundingFilter','StatusFilter','EligibilityFilter'])].forEach(suffix => {
+                const el = document.getElementById(prefix + suffix);
+                if (el) el.value = '';
+            });
+            if (prefix === 'scholarships') {
+                const specialtyInput = document.getElementById('scholarshipsSpecialtyFilter');
+                if (specialtyInput) specialtyInput.value = '';
+                const eligibilityInput = document.getElementById('scholarshipsEligibilityFilter');
+                if (eligibilityInput) eligibilityInput.value = '';
+            }
+            renderPublicData();
+        }
+
+        let publicRenderRequestId = 0;
+
+        async function renderPublicData(filterText = document.getElementById('searchInput')?.value.trim() || '') {
             const jobsGrid = document.getElementById('jobsGrid');
             const scholarshipsGrid = document.getElementById('scholarshipsGrid');
-            jobsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
-            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
-            jobsGrid.innerHTML = ""; scholarshipsGrid.innerHTML = "";
-            const q = filterText.toLowerCase();
-            const fJobs = jobsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
-            const fSchs = scholarshipsData.filter(i => (i.title||'').toLowerCase().includes(q) || (i.company||'').toLowerCase().includes(q) || (i.location||'').toLowerCase().includes(q));
-            fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
-            fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
-            if (fJobs.length === 0) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق بحثك.</p>";
-            if (fSchs.length === 0) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق بحثك.</p>";
-            document.getElementById('link-fb').href = socialsData.fb || "#";
-            document.getElementById('link-li').href = socialsData.li || "#";
-            document.getElementById('link-wa').href = socialsData.wa || "#";
-            document.getElementById('link-tg').href = socialsData.tg || "#";
-            document.getElementById('link-bot').href = socialsData.bot || "#";
-            document.getElementById('link-ig').href = socialsData.ig || "#";
+            const requestId = ++publicRenderRequestId;
+            jobsGrid.innerHTML = '<p class="loading-text">جاري تحميل الوظائف...</p>';
+            scholarshipsGrid.innerHTML = '<p class="loading-text">جاري تحميل المنح...</p>';
+            const [jobsResult, scholarshipsResult, socialsResult] = await Promise.allSettled([
+                loadJobs(), loadScholarships(), loadSocials()
+            ]);
+            if (requestId !== publicRenderRequestId) return;
+            if (jobsResult.status === 'fulfilled') jobsData = jobsResult.value;
+            else {
+                jobsGrid.innerHTML = '<p class="loading-text" role="alert">تعذر تحميل الوظائف حاليًا. أعد تحميل الصفحة للمحاولة مجددًا.</p>';
+                document.getElementById('jobsCount').textContent = 'تعذر تحميل الوظائف';
+            }
+            if (scholarshipsResult.status === 'fulfilled') scholarshipsData = scholarshipsResult.value;
+            else {
+                scholarshipsGrid.innerHTML = '<p class="loading-text" role="alert">تعذر تحميل المنح حاليًا. أعد تحميل الصفحة للمحاولة مجددًا.</p>';
+                document.getElementById('scholarshipsCount').textContent = 'تعذر تحميل المنح';
+            }
+            if (socialsResult.status === 'rejected') console.warn('تعذر تحميل روابط التواصل:', socialsResult.reason);
+            updateListingFilterOptions();
+            const q = String(filterText || '').toLocaleLowerCase('ar');
+            if (jobsResult.status === 'fulfilled') {
+                jobsGrid.innerHTML = '';
+                const fJobs = filterListing(jobsData, 'jobs', q);
+                fJobs.forEach(j => jobsGrid.innerHTML += createCard(j, true));
+                if (!fJobs.length) jobsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد وظائف تطابق عوامل البحث والتصفية.</p>";
+                document.getElementById('jobsCount').textContent = 'عرض ' + fJobs.length + ' من أصل ' + jobsData.length + ' وظيفة';
+            }
+            if (scholarshipsResult.status === 'fulfilled') {
+                scholarshipsGrid.innerHTML = '';
+                const fSchs = filterListing(scholarshipsData, 'scholarships', q);
+                fSchs.forEach(s => scholarshipsGrid.innerHTML += createCard(s, false));
+                if (!fSchs.length) scholarshipsGrid.innerHTML = "<p style='text-align:center;width:100%;color:gray;'>لا توجد منح تطابق عوامل البحث والتصفية.</p>";
+                document.getElementById('scholarshipsCount').textContent = 'عرض ' + fSchs.length + ' من أصل ' + scholarshipsData.length + ' منحة';
+            }
+            setSocialLink('link-fb', socialsData.fb);
+            setSocialLink('link-li', socialsData.li);
+            setSocialLink('link-wa', socialsData.wa);
+            setSocialLink('link-tg', socialsData.tg);
+            setSocialLink('link-bot', socialsData.bot);
+            setSocialLink('link-ig', socialsData.ig);
             bindCardEvents();
-            bindExtraOfferTracking();
         }
 
-        function searchData() { renderPublicData(document.getElementById('searchInput').value.trim()); }
+        function searchData() {
+            renderPublicData(document.getElementById('searchInput').value.trim());
+            document.getElementById('jobs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         document.getElementById('searchInput').addEventListener('keypress', function (e) { if (e.key === 'Enter') searchData(); });
 
-        function showLogin() {
-            document.getElementById('publicSite').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('loginView').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+        
 
-        function showPublicSite() {
-            document.getElementById('loginView').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'none';
-            document.getElementById('publicSite').style.display = 'block';
-            renderPublicData();
-            bindExtraOfferTracking();
-            if (!isLoggedIn) document.documentElement.classList.remove('admin-mode');
-            window.scrollTo(0, 0);
-        }
+        
 
-        async function showDashboard() {
-            document.getElementById('loginView').style.display = 'none';
-            document.getElementById('publicSite').style.display = 'none';
-            document.getElementById('dashboardView').style.display = 'block';
-            await loadAdminData();
-            loadPanel('job-add');
-            hideAdsForAdmin();
-            window.scrollTo(0, 0);
-        }
+        
 
-        async function login() {
-            const email = document.getElementById('adminEmail').value.trim();
-            const pass = document.getElementById('adminPass').value;
-            const btn = document.getElementById('loginBtn');
-            if (!email || !pass) return alert("يرجى إدخال البريد وكلمة المرور.");
-            btn.disabled = true; btn.textContent = "جاري الدخول...";
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-            btn.disabled = false; btn.textContent = "تسجيل الدخول";
-            if (error) { alert("خطأ في تسجيل الدخول: " + error.message); return; }
-            isLoggedIn = true;
-            sessionStorage.setItem('tb_admin_mode', '1');
-            hideAdsForAdmin();
-            document.getElementById('adminPass').value = "";
-            await showDashboard();
-        }
+        
 
-        async function logout() {
-            await supabaseClient.auth.signOut();
-            isLoggedIn = false;
-            document.getElementById('adminEmail').value = "";
-            document.getElementById('adminPass').value = "";
-            sessionStorage.removeItem('tb_admin_mode');
-            document.documentElement.classList.remove('admin-mode');
-            window.location.reload();
-        }
+        
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof tinymce !== 'undefined') {
-                tinymce.init({
-                    selector: '#jobDesc, #schDesc', height: 250, menubar: false,
-                    plugins: 'lists link image table code',
-                    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
-                    directionality: 'rtl', skin: 'oxide'
-                });
-            }
-            bindExtraOfferTracking();
-        });
+        // Load the rich-text editor only when an administrator opens the dashboard.
+        let tinyMCEReady = null;
+        
 
-        function toggleMenu(menu) {
-            const submenu = document.getElementById('submenu-' + menu);
-            const parentLi = document.getElementById('menu-' + menu);
-            if (submenu) { submenu.classList.toggle('open'); parentLi.classList.toggle('active'); }
-        }
+        
 
-        function loadPanel(name) {
-            document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
-            const target = document.getElementById('panel-' + name);
-            if (target) target.style.display = 'block';
-            const titles = { 'job-add':'إضافة وظيفة جديدة','job-list':'قائمة الوظائف','sch-add':'إضافة منحة جديدة','sch-list':'قائمة المنح','settings':'إعدادات الموقع' };
-            document.getElementById('panelTitle').textContent = titles[name] || 'لوحة التحكم';
-            document.querySelectorAll('.admin-sidebar ul li').forEach(li => li.classList.remove('active'));
-            if (name.startsWith('job')) document.getElementById('menu-jobs').classList.add('active');
-            if (name.startsWith('sch')) document.getElementById('menu-sch').classList.add('active');
-            if (name === 'settings') {
-                document.getElementById('menu-settings').classList.add('active');
-                updateClickStats();
-            }
-            if (name === 'job-list') renderJobList();
-            if (name === 'sch-list') renderSchList();
-        }
+        
 
-        async function loadAdminData() {
-            jobsData = await loadJobs();
-            scholarshipsData = await loadScholarships();
-            await loadSocials();
-            document.getElementById('socFb').value = socialsData.fb !== "#" ? socialsData.fb : "";
-            document.getElementById('socLi').value = socialsData.li !== "#" ? socialsData.li : "";
-            document.getElementById('socWa').value = socialsData.wa !== "#" ? socialsData.wa : "";
-            document.getElementById('socTg').value = socialsData.tg !== "#" ? socialsData.tg : "";
-            document.getElementById('socBot').value = socialsData.bot !== "#" ? socialsData.bot : "";
-            document.getElementById('socIg').value = socialsData.ig !== "#" ? socialsData.ig : "";
-            renderJobList(); renderSchList();
-            updateClickStats();
-        }
+        
 
-        function renderJobList() {
-            const tbody = document.getElementById('jobListTbody');
-            tbody.innerHTML = jobsData.length === 0
-                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد وظائف بعد</td></tr>'
-                : jobsData.map(j => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(j.title)}</td><td style="padding:15px;">${escapeHtml(j.company)}</td><td style="padding:15px;"><button onclick="editJob('${j.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteJob('${j.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
-        }
+        
 
-        function renderSchList() {
-            const tbody = document.getElementById('schListTbody');
-            tbody.innerHTML = scholarshipsData.length === 0
-                ? '<tr><td colspan="3" style="text-align:center;padding:20px;color:#999;">لا توجد منح بعد</td></tr>'
-                : scholarshipsData.map(s => `<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:15px;">${escapeHtml(s.title)}</td><td style="padding:15px;">${escapeHtml(s.company)}</td><td style="padding:15px;"><button onclick="editSch('${s.id}')" style="background:#009ef7;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;margin-left:5px;font-family:inherit;">تعديل</button><button onclick="deleteSch('${s.id}')" style="background:#f1416c;color:#fff;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:inherit;">حذف</button></td></tr>`).join('');
-        }
+        
 
-        function editJob(id) {
-            const j = jobsData.find(x => String(x.id) === String(id));
-            if (!j) return;
-            document.getElementById('jobEditId').value = j.id;
-            document.getElementById('jobTitle').value = j.title || '';
-            document.getElementById('jobCompany').value = j.company || '';
-            document.getElementById('jobLocation').value = j.location || '';
-            document.getElementById('jobType').value = j.type || '';
-            document.getElementById('jobDeadline').value = j.deadline || '';
-            document.getElementById('jobReq').value = j.requirements || '';
-            document.getElementById('jobLink').value = j.apply_link || '';
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent(j.description || '');
-            else document.getElementById('jobDesc').value = j.description || '';
-            loadPanel('job-add');
-            document.getElementById('panelTitle').textContent = 'تعديل الوظيفة';
-        }
+        
 
-        function editSch(id) {
-            const s = scholarshipsData.find(x => String(x.id) === String(id));
-            if (!s) return;
-            document.getElementById('schEditId').value = s.id;
-            document.getElementById('schTitle').value = s.title || '';
-            document.getElementById('schCompany').value = s.company || '';
-            document.getElementById('schLocation').value = s.location || '';
-            document.getElementById('schType').value = s.type || '';
-            document.getElementById('schDeadline').value = s.deadline || '';
-            document.getElementById('schReq').value = s.requirements || '';
-            document.getElementById('schLink').value = s.apply_link || '';
-            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent(s.description || '');
-            else document.getElementById('schDesc').value = s.description || '';
-            loadPanel('sch-add');
-            document.getElementById('panelTitle').textContent = 'تعديل المنحة';
-        }
+        
 
-        async function saveJob() {
-            const title = document.getElementById('jobTitle').value.trim();
-            const company = document.getElementById('jobCompany').value.trim();
-            if (!title || !company) return alert("يرجى ملء المسمى والجهة.");
-            const btn = document.getElementById('jobSaveBtn');
-            btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) ? tinymce.get('jobDesc').getContent() : document.getElementById('jobDesc').value;
-            const data = {
-                title, company,
-                location: document.getElementById('jobLocation').value.trim(),
-                type: document.getElementById('jobType').value.trim(),
-                description: descContent,
-                deadline: document.getElementById('jobDeadline').value || null,
-                requirements: document.getElementById('jobReq').value.trim(),
-                apply_link: document.getElementById('jobLink').value.trim()
-            };
-            const id = document.getElementById('jobEditId').value;
-            const { error } = id ? await supabaseClient.from('jobs').update(data).eq('id', id) : await supabaseClient.from('jobs').insert([data]);
-            btn.disabled = false; btn.textContent = "حفظ الوظيفة";
-            if (error) return alert("خطأ: " + error.message);
-            document.getElementById('jobEditId').value = '';
-            ['jobTitle','jobCompany','jobLocation','jobType','jobDeadline','jobReq','jobLink'].forEach(f => document.getElementById(f).value = '');
-            if (typeof tinymce !== 'undefined' && tinymce.get('jobDesc')) tinymce.get('jobDesc').setContent('');
-            await loadAdminData();
-            loadPanel('job-list');
-        }
-
-        async function saveScholarship() {
-            const title = document.getElementById('schTitle').value.trim();
-            const company = document.getElementById('schCompany').value.trim();
-            if (!title || !company) return alert("يرجى ملء اسم المنحة والجهة.");
-            const btn = document.getElementById('schSaveBtn');
-            btn.disabled = true; btn.textContent = "جاري الحفظ...";
-            const descContent = (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) ? tinymce.get('schDesc').getContent() : document.getElementById('schDesc').value;
-            const data = {
-                title, company,
-                location: document.getElementById('schLocation').value.trim(),
-                type: document.getElementById('schType').value.trim(),
-                description: descContent,
-                deadline: document.getElementById('schDeadline').value || null,
-                requirements: document.getElementById('schReq').value.trim(),
-                apply_link: document.getElementById('schLink').value.trim()
-            };
-            const id = document.getElementById('schEditId').value;
-            const { error } = id ? await supabaseClient.from('scholarships').update(data).eq('id', id) : await supabaseClient.from('scholarships').insert([data]);
-            btn.disabled = false; btn.textContent = "حفظ المنحة";
-            if (error) return alert("خطأ: " + error.message);
-            document.getElementById('schEditId').value = '';
-            ['schTitle','schCompany','schLocation','schType','schDeadline','schReq','schLink'].forEach(f => document.getElementById(f).value = '');
-            if (typeof tinymce !== 'undefined' && tinymce.get('schDesc')) tinymce.get('schDesc').setContent('');
-            await loadAdminData();
-            loadPanel('sch-list');
-        }
-
-        async function deleteJob(id) {
-            if (!confirm("هل أنت متأكد من حذف هذه الوظيفة؟")) return;
-            const { error } = await supabaseClient.from('jobs').delete().eq('id', id);
-            if (error) { alert("خطأ في الحذف: " + error.message); return; }
-            await loadAdminData();
-        }
-
-        async function deleteSch(id) {
-            if (!confirm("هل أنت متأكد من حذف هذه المنحة؟")) return;
-            const { error } = await supabaseClient.from('scholarships').delete().eq('id', id);
-            if (error) { alert("خطأ في الحذف: " + error.message); return; }
-            await loadAdminData();
-        }
-
-        async function saveSocials() {
-            const fb = document.getElementById('socFb').value.trim() || "#";
-            const li = document.getElementById('socLi').value.trim() || "#";
-            const wa = document.getElementById('socWa').value.trim() || "#";
-            const tg = document.getElementById('socTg').value.trim() || "#";
-            const bot = document.getElementById('socBot').value.trim() || "#";
-            const ig = document.getElementById('socIg').value.trim() || "#";
-            const { error } = await supabaseClient.from('settings').upsert([
-                {key:'fb',value:fb},
-                {key:'li',value:li},
-                {key:'wa',value:wa},
-                {key:'tg',value:tg},
-                {key:'bot',value:bot},
-                {key:'ig',value:ig}
-            ], { onConflict: 'key' });
-            if (error) { alert("خطأ: " + error.message); return; }
-            socialsData = { fb, li, wa, tg, bot, ig };
-            alert("تم حفظ روابط التواصل بنجاح!");
-        }
-
-        function checkSecretUrlAccess() {
-            const url = window.location.href.toLowerCase();
-            const hash = window.location.hash.toLowerCase();
-            if (url.includes('admin=1') || url.includes('admin=true') || hash === '#admin') showLogin();
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && (e.code === 'KeyA' || e.key === 'A' || e.key === 'a')) {
-                e.preventDefault(); showLogin();
+        document.addEventListener('click', function(event) {
+            const button = event.target.closest('button[data-admin-action]');
+            if (!button) return;
+            const id = button.dataset.id;
+            switch (button.dataset.adminAction) {
+                case 'edit-job': editJob(id); break;
+                case 'delete-job': deleteJob(id); break;
+                case 'edit-sch': editSch(id); break;
+                case 'delete-sch': deleteSch(id); break;
             }
         });
 
         let logoClicks = 0;
         let logoTimer = null;
-        document.addEventListener('DOMContentLoaded', function() {
-            const logo = document.getElementById('siteLogo');
-            if (logo) {
-                logo.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    logoClicks++;
-                    clearTimeout(logoTimer);
-                    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
-                    if (logoClicks >= 5) { logoClicks = 0; showLogin(); }
-                });
-            }
-        });
 
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1172,54 +1150,105 @@
                     console.warn('تم تجاهل تهيئة تيليجرام لأننا لسنا داخل التطبيق أو النسخة قديمة.');
                 }
             }
-            updateTgAdButton();
-            setTimeout(updateTgAdButton, 800);
         });
 
-        supabaseClient.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                isLoggedIn = true;
-                sessionStorage.setItem('tb_admin_mode', '1');
-                hideAdsForAdmin();
-                showDashboard();
-            } else {
-                showPublicSite();
-                checkSecretUrlAccess();
-            }
-        });
-
-        window.addEventListener('hashchange', checkSecretUrlAccess);
+        renderPublicData();
+    
     </script>
 
-    <!-- ✅ كود الإعلان المنبثق (Monetag Zone: 12167732) — مُحسّن -->
+
+
     <script>
-        (function() {
-            if (sessionStorage.getItem('tb_admin_mode') === '1') {
-                console.log('🚫 وضع المشرف — لن يتم تحميل الإعلان');
+    (function(){
+var w=document.getElementById('tg-visitor-ad'),t=document.getElementById('tg-visitor-ad-toggle'),x=document.getElementById('tg-visitor-ad-close'),p=document.getElementById('tg-visitor-ad-panel'),c=document.getElementById('tg-visitor-ad-content');
+      if(!w||!t||!x||!p||!c)return;
+      try{if(sessionStorage.getItem('tg_visitor_ad_closed')==='1'){w.style.display='none';return;}}catch(e){}
+      var loaded=false;
+      function openAd(){w.classList.add('is-open');t.setAttribute('aria-expanded','true');p.setAttribute('aria-hidden','false');if(loaded)return;loaded=true;window.atOptions={key:'78266c4832fe41249a5bd02e3f9ee8cd',format:'iframe',height:250,width:300,params:{}};var a=document.createElement('script');a.setAttribute('data-cfasync','false');a.src='https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';c.appendChild(a);}
+      t.addEventListener('click',function(){if(w.classList.contains('is-open')){w.classList.remove('is-open');t.setAttribute('aria-expanded','false');p.setAttribute('aria-hidden','true');}else{openAd();}});
+      x.addEventListener('click',function(){w.style.display='none';try{sessionStorage.setItem('tg_visitor_ad_closed','1');}catch(e){}});
+    })();
+    </script>
+
+    <script>
+    (function () {
+// Adsterra Social Bar (Ad Unit 32436476)
+        var socialBarScript = document.createElement('script');
+        socialBarScript.async = true;
+        socialBarScript.src = 'https://abscloud.org/1/a593aae175c04c80dda17e94bc56f745';
+        document.head.appendChild(socialBarScript);
+
+        // Load the three desktop banner units one at a time so each script
+        // reads its own atOptions before the next unit replaces the global.
+        var desktopAds = [
+            { id: 'tg-ad-top', key: '84072b8f7fcb8babdc4eafc32d11ee83', width: 728, height: 90, src: 'https://bauval.org/22/84072b8f7fcb8babdc4eafc32d11ee83' },
+            { id: 'tg-ad-middle', key: '76d1317c7ba136f5c70dd4fa335e2beb', width: 468, height: 60, src: 'https://bauval.org/22/76d1317c7ba136f5c70dd4fa335e2beb' },
+            { id: 'tg-ad-bottom', key: '46faab192c449aa12daeec954acec581', width: 320, height: 50, src: 'https://bauval.org/22/46faab192c449aa12daeec954acec581' },
+            { id: 'tg-ad-side-tall', key: 'b132299f94ef9a508c7201e514ae00c6', width: 160, height: 600, src: 'https://bauval.org/22/b132299f94ef9a508c7201e514ae00c6' },
+            { id: 'tg-ad-side-short', key: 'dddd64204e927f142f0f71ce24880aa2', width: 160, height: 300, src: 'https://bauval.org/22/dddd64204e927f142f0f71ce24880aa2' }
+        ];
+        var desktopIndex = 0;
+        function loadNextDesktopAd() {
+            if (desktopIndex >= desktopAds.length) return;
+            var ad = desktopAds[desktopIndex++];
+            var slot = document.getElementById(ad.id);
+            var isMobile = window.innerWidth <= 767;
+            var isWideDesktop = window.innerWidth >= 1440;
+            var isSideAd = ad.id.indexOf('tg-ad-side-') === 0;
+            // Phones get only the compact 320x50 unit; side units load only
+            // when their fixed-position containers are actually visible.
+            var shouldLoad = isMobile
+                ? ad.id === 'tg-ad-bottom'
+                : (!isSideAd || isWideDesktop);
+            if (!slot || !shouldLoad) {
+                loadNextDesktopAd();
                 return;
             }
-            
-            function loadAl5smAd() {
-                try {
-                    const script = document.createElement('script');
-                    script.src = 'https://al5sm.com/tag.min.js';
-                    script.setAttribute('data-zone', '12167732');
-                    script.async = true;
-                    script.onerror = () => console.warn('⚠️ فشل تحميل سكربت الإعلان — تحقق من الاتصال أو أداة حظر الإعلانات');
-                    script.onload = () => console.log('✅ تم تحميل سكربت الإعلان بنجاح (Zone: 12167732)');
-                    (document.body || document.documentElement).appendChild(script);
-                } catch (e) {
-                    console.error('❌ خطأ في تحميل سكربت الإعلان:', e);
-                }
-            }
-            
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadAl5smAd);
-            } else {
-                loadAl5smAd();
-            }
-        })();
+            window.atOptions = {
+                key: ad.key,
+                format: 'iframe',
+                height: ad.height,
+                width: ad.width,
+                params: {}
+            };
+            var script = document.createElement('script');
+            script.setAttribute('data-cfasync', 'false');
+            script.src = ad.src;
+            script.onload = loadNextDesktopAd;
+            script.onerror = loadNextDesktopAd;
+            slot.appendChild(script);
+        }
+        loadNextDesktopAd();
+
+        // Adsterra Native Banner (Ad Unit 32436478)
+        var nativeSlot = document.getElementById('tg-native-ad-slot');
+        if (nativeSlot) {
+            var nativeScript = document.createElement('script');
+            nativeScript.async = true;
+            nativeScript.setAttribute('data-cfasync', 'false');
+            nativeScript.src = 'https://bauval.org/21/080728f5ddcd0f54c7a204aebfbfd7b3';
+            nativeSlot.appendChild(nativeScript);
+        }
+
+        // Adsterra 300x250 Banner (Ad Unit 32436480)
+        var bannerSlot = document.getElementById('tg-300x250-slot');
+        if (bannerSlot) {
+            window.atOptions = {
+                key: '78266c4832fe41249a5bd02e3f9ee8cd',
+                format: 'iframe',
+                height: 250,
+                width: 300,
+                params: {}
+            };
+            var bannerScript = document.createElement('script');
+            bannerScript.setAttribute('data-cfasync', 'false');
+            bannerScript.src = 'https://bauval.org/22/78266c4832fe41249a5bd02e3f9ee8cd';
+            bannerSlot.appendChild(bannerScript);
+        }
+    })();
     </script>
+
+
 
 </body>
 </html>
