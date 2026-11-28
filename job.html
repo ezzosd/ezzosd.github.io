@@ -49,8 +49,12 @@
 (function(){
  const SUPABASE_URL='https://dutpuwqybdzhjbiwrvcc.supabase.co';
  const SUPABASE_ANON_KEY='sb_publishable_oB9EVKpBUfRJMKMtF60D4Q_cDFKwtFk';
- const client=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
  const root=document.getElementById('content');
+ if(!window.supabase||typeof window.supabase.createClient!=='function'){
+   root.innerHTML='<div class="muted"><strong>تعذر تشغيل خدمة تحميل التفاصيل.</strong><br>تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة. <button type="button" onclick="location.reload()">إعادة المحاولة</button><br><a href="/">العودة للرئيسية</a></div>';
+   return;
+ }
+ const client=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
  function addJsonLd(value){const node=document.createElement('script');node.type='application/ld+json';node.textContent=JSON.stringify(value);document.head.appendChild(node)}
@@ -86,7 +90,7 @@
  if(!rawId||!Number.isFinite(id)||id<=0){
    root.innerHTML='<div class="muted"><strong>تعذر قراءة رقم الوظيفة من الرابط.</strong><br>الرابط: <code>'+esc(window.location.href)+'</code><br><a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return;
  }
- client.from('jobs').select('*').eq('id',id).maybeSingle().then(({data,error})=>{
+ Promise.race([client.from('jobs').select('*').eq('id',id).maybeSingle(),new Promise(resolve=>setTimeout(()=>resolve({data:null,error:{code:'TIMEOUT',message:'انتهت مهلة الاتصال بقاعدة البيانات. أعد المحاولة.'}}),15000))]).then(({data,error})=>{
    if(error){console.error('TeachGrant job query failed:',error);root.innerHTML='<div class="muted"><strong>تعذر تحميل بيانات الوظيفة.</strong><br>رمز الخطأ: '+esc(error.code||'غير معروف')+'<br>التفاصيل: '+esc(error.message||'لم تصل تفاصيل الخطأ')+'<br><a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return}
    if(!data){root.innerHTML='<div class="muted">لم يتم العثور على وظيفة بهذا الرقم ('+esc(id)+'). <a href="/#jobs">العودة إلى قائمة الوظائف</a></div>';return}
    const j=data,title=j.title||'وظيفة تعليمية';
@@ -152,7 +156,7 @@
    if(j.created_at)schema.datePosted=String(j.created_at).slice(0,10);
    if(apply)schema.directApply=true;
    const ld=document.createElement('script');ld.type='application/ld+json';ld.textContent=JSON.stringify(schema);document.head.appendChild(ld);
- });
+ }).catch(error=>{console.error('TeachGrant details rendering failed:',error);root.innerHTML='<div class="muted"><strong>حدث خطأ أثناء عرض التفاصيل.</strong><br>'+esc(error&&error.message||'خطأ غير متوقع')+'<br><button type="button" onclick="location.reload()">إعادة المحاولة</button><br><a href="/">العودة للرئيسية</a></div>';});
 })();
 </script>
 
