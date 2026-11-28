@@ -50,8 +50,12 @@
 (function(){
  const SUPABASE_URL='https://dutpuwqybdzhjbiwrvcc.supabase.co';
  const SUPABASE_ANON_KEY='sb_publishable_oB9EVKpBUfRJMKMtF60D4Q_cDFKwtFk';
- const client=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
  const root=document.getElementById('content');
+ if(!window.supabase||typeof window.supabase.createClient!=='function'){
+   root.innerHTML='<div class="muted"><strong>تعذر تشغيل خدمة تحميل التفاصيل.</strong><br>تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة. <button type="button" onclick="location.reload()">إعادة المحاولة</button><br><a href="/">العودة للرئيسية</a></div>';
+   return;
+ }
+ const client=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safeUrl=v=>{try{const u=new URL(String(v||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}};
  function addJsonLd(value){const node=document.createElement('script');node.type='application/ld+json';node.textContent=JSON.stringify(value);document.head.appendChild(node)}
@@ -74,7 +78,7 @@
     root.innerHTML='<div class="muted"><strong>تعذر قراءة رقم المنحة من الرابط.</strong><br>الرابط الذي وصل للصفحة: <code>'+esc(window.location.href)+'</code><br>بيانات الاستعلام: <code>'+esc(window.location.search||'(فارغ)')+'</code><br>القيمة المستخرجة للرقم: <code>'+esc(rawId??'(غير موجود)')+'</code><br><a href="/#scholarships">العودة إلى قائمة المنح</a></div>';
     return;
   }
- client.from('scholarships').select('*').eq('id',id).maybeSingle().then(({data,error})=>{
+ Promise.race([client.from('scholarships').select('*').eq('id',id).maybeSingle(),new Promise(resolve=>setTimeout(()=>resolve({data:null,error:{code:'TIMEOUT',message:'انتهت مهلة الاتصال بقاعدة البيانات. أعد المحاولة.'}}),15000))]).then(({data,error})=>{
    if(error){
      console.error('TeachGrant scholarship query failed:',error);
      root.innerHTML='<div class="muted"><strong>تعذر تحميل بيانات المنحة.</strong><br>رمز الخطأ: '+esc(error.code||'غير معروف')+'<br>التفاصيل: '+esc(error.message||'لم تصل تفاصيل الخطأ')+'<br><a href="/#scholarships">العودة إلى قائمة المنح</a></div>';
@@ -122,7 +126,7 @@
      slot.appendChild(adScript);
    })();
    addJsonLd({'@context':'https://schema.org','@type':'WebPage','name':title,'description':desc,'url':canonical,'inLanguage':'ar','isPartOf':{'@type':'WebSite','name':'TeachGrant','url':'https://teachgrant.tech/'}});
- });
+ }).catch(error=>{console.error('TeachGrant details rendering failed:',error);root.innerHTML='<div class="muted"><strong>حدث خطأ أثناء عرض التفاصيل.</strong><br>'+esc(error&&error.message||'خطأ غير متوقع')+'<br><button type="button" onclick="location.reload()">إعادة المحاولة</button><br><a href="/">العودة للرئيسية</a></div>';});
 })();
 </script>
 
